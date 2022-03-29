@@ -9,6 +9,7 @@ def test():
 
 
 if __name__ == "__main__":
+	print("test github/atom")
     try:
         os.system('flask run')
     except KeyboardInterrupt:
