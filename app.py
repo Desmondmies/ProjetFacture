@@ -21,8 +21,6 @@ def home():
 def autre():
     return render_template("dynamique_page.html", posts = [dico_client]) #posts = variable à passer en paramètre à notre page HTML
 
-
-
 if __name__ == "__main__":
     print("test github/atom")
     try:
