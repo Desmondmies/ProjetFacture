@@ -1,12 +1,21 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 
-app = Flask(__name__)
+TEMPLATE_DIR = os.path.abspath('./WEB/HTML')
+ 
+app = Flask(__name__, template_folder=TEMPLATE_DIR) 
 
 @app.route("/")
 def test():
-	return "<h1>TEST HELLO</h1>"
+	return """
+	<form action="/test_btn" method="post">
+	<button type="submit">Page 2 !</button>
+	</form>
+	"""
 
+@app.route("/test_btn", methods=['POST'])
+def test_btn_click():
+	return render_template("./page2.html")
 
 if __name__ == "__main__":
 	print("test github/atom")
