@@ -1,7 +1,11 @@
+import os
 from flask import Flask, render_template
 #render_template permet d'utiliser directement du code HTML
 #et de lui passer en paramètre des variables
-app = Flask(__name__)
+TEMPLATE_DIR = os.path.abspath('./WEB/HTML')
+STATIC_DIR = os.path.abspath('./WEB/CSS')
+
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
 dico_client = {"Nom" : "noooom...",
                 "Prenom" : "...bril",
