@@ -1,0 +1,33 @@
+@import "ColorsRef.css";
+
+nav{
+    width: 100%;
+    height: 15%;
+    background-color: var(--bg-color);
+    padding-left: 30px;
+    padding-right: 10px;
+    font-size: 150%;
+}
+
+.nav-links{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    list-style: none;
+}
+
+.nav-item a{
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--fg-color);
+}
+
+.nav-item:hover{
+    background-color: var(--fg-color);
+}
+
+.nav-item a:hover{
+    color: var(--bg-color);
+}

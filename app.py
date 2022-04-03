@@ -10,6 +10,13 @@ app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 def test():
     return render_template('./test_link_css.html')
 
+@app.route("/Formulaire")
+def page_formulaire():
+    return render_template('./PageFormulaire.html')
+
+@app.errorhandler(404)
+def not_found(arg):
+    return "Développement de la page en cours."
 
 if __name__ == "__main__":
 	try:
