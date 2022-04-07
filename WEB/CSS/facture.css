@@ -1,0 +1,41 @@
+ul#menu_horizontal li {
+padding : 0 0.5em;
+line-height : 30px;
+list-style-type: none ;       /* Suppression des puces */
+
+}
+
+ul#menu_horizontal li.bouton_gauche {
+float : left;
+border-right : 1px dashed black;
+}
+
+ul#menu_horizontal li.bouton_facture {
+float : left;
+  background-color: white;
+border-left : 1px dashed black;
+}
+
+ul#menu_horizontal a {
+color : black;
+text-decoration : none;
+padding : 0 0.5em;
+font :  0.8em "Trebuchet MS";
+	list-style-type: none ;       /* Suppression des puces */
+
+}
+
+ul#menu_horizontal a:hover { text-decoration : underline; }
+
+ul#menu_horizontal a img {
+border : none;
+padding :  0 0.3em;
+	list-style-type: none ;       /* Suppression des puces */
+
+}
+
+td /* Toutes les cellules des tableaux... */
+{
+	  font-size: 15px;
+    border: 1px solid black; /* auront une bordure de 1px */
+}

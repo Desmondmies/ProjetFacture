@@ -1,48 +1,62 @@
-.header {
+@import "color_ref.css";
+
+header {
+    position: fixed;
+    top: 0px;
     display: flex;
     width: 100%;
     height: 40px;
-    background-color: rgb(44, 44, 44);
     box-shadow: 0px 0px 10px black;
 }
 
-.header a {
+header a {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    font-size: 10px;
+    font-size: 20px;
     font-family: arial, sans-serif;
     font-weight: 700;
     position: relative;
-    color: white;
+    color: var(--navBar_text);
     z-index: 0;
-    background: black;
+    background: var(--navBar);
     overflow: hidden;
     text-decoration: none;
 }
 
-.header a:hover::before {
+header a:hover::before {
     top: 0px;
     border-radius: 90px;
 }
 
-.header a::before {
+header a::before {
     content: '';
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(202, 155, 0);
+    background-color: var(--selection);
     border-radius: 70% 70% 0% 0%;
     z-index: -1;
-    transition: all 0.3s;
+    transition: all 0.4s;
+}
+
+.select{
+  background-color: var(--selection);
 }
 
 body{
-    background-color: rgb(255, 253, 231);
+    background-color: var(--bg);
     padding: 0;
     margin: 0;
+    font-size: 15px;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+.content {
+  margin-top: 40px; /*Pour se placer sous le header de taille 40px */
 }

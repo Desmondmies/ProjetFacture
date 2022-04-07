@@ -4,35 +4,32 @@
     <!-- Commentaire -->
     <head>
         <title> Système de facturation </title>
-
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='template.css')}}">
-        
-        <div id = "hd" class = "header">
-            <a id="Facture" href="facture"> Facture </a>
-            <a id="Devis" href="devis"> Devis </a>
-            <a id="Client" href="client"> Client </a>
-            <a id="Artisan" href="artisan"> Artisan </a>
-        </div>
-        <script class="hd">
-            if (window.location.href == "http://127.0.0.1:5000/facture"){
-                document.getElementById("Facture").style.backgroundColor = "rgb(202, 155, 0)";
-            }
-            else if (window.location.href == "http://127.0.0.1:5000/devis"){
-                document.getElementById("Devis").style.backgroundColor = "green";
-            }
-            else if (window.location.href == "http://127.0.0.1:5000/client"){
-                document.getElementById("Client").style.backgroundColor = "blue";
-            }
-            else if (window.location.href == "http://127.0.0.1:5000/artisan"){
-                document.getElementById("Artisan").style.backgroundColor = "pink";
-            }
-        </script>
-
     </head>
     <body>
-        <!-- Il faudrait vérifier qu'il est possible d'importer un autre fichier CSS pour chaque autre fichier html
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='header.css')}}"> -->
-        {% block content %}
-        {% endblock %}
+      <header>
+          <a id="Facture" href="facture"> Facture </a>
+          <a id="Devis" href="devis"> Devis </a>
+          <a id="Client" href="client"> Client </a>
+          <a id="Artisan" href="artisan"> Artisan </a>
+      </header>
+      <script>
+          if (window.location.href == "http://127.0.0.1:5000/facture"){
+              document.getElementById("Facture").className = "select";
+          }
+          else if (window.location.href == "http://127.0.0.1:5000/devis"){
+              document.getElementById("Devis").className = "select";
+          }
+          else if (window.location.href == "http://127.0.0.1:5000/client"){
+              document.getElementById("Client").className = "select";
+          }
+          else if (window.location.href == "http://127.0.0.1:5000/artisan"){
+              document.getElementById("Artisan").className = "select";
+          }
+      </script>
+        <div class="content">
+          {% block content %}
+          {% endblock %}
+        </div>
     </body>
 </html>
