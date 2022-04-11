@@ -2,13 +2,17 @@
 # -*- coding: Utf-8 -*-
 
 from flask import Flask, render_template
+import os
 
-app = Flask(__name__,template_folder='/home/etudiants/rbenamir142/Bureau/projet_UML/facture-main/Template', static_folder='/home/etudiants/rbenamir142/Bureau/projet_UML/facture-main/Template')
+TEMPLATE_DIR = os.path.abspath('./Template')
+STATIC_DIR = os.path.abspath('./Template')
+
+app = Flask(__name__,template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
 @app.route("/")
 
 def home():
-    return render_template("./form.html")
+    return render_template("./facture.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
