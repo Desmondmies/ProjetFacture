@@ -1,6 +1,13 @@
 :root {
+		/*
     --bg-color: #B8C3CB;
     --fg-color: #F8F8F9;
     --light-grey: #DFE3E7;
     --dark-grey: #757678;
+		*/
+
+		--bg-color: #242526;
+		--fg-color: #3A3B3C;
+		--light-grey: #B0B3B8;
+		--dark-grey: #18191A;
 }
