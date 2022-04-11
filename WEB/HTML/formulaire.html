@@ -1,0 +1,61 @@
+{% extends "template.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='formulaire.css')}}">
+
+<div class="formulaire">
+	<div class="info-artisan">
+	    <img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
+	    <div class="inputs-artisan">
+	        <input type="text" placeholder="Nom Entreprise...">
+	        <div class="row">
+	            <input type="text" placeholder="Nom...">
+	            <input type="text" placeholder="Prénom...">
+	        </div>
+	        <input type="text" placeholder="Adresse Entreprise...">
+	        <div class="row">
+	            <input type="email" placeholder="Mail...">
+	            <input type="tel" placeholder="Téléphone...">
+	        </div>
+	    </div>
+	</div>
+	<div class="info-client">
+	    <button class="import-client">Importer Client</button>
+	    <div class="inputs-client">
+	        <div class="row-3">
+	            <input type="text" placeholder="Nom Client...">
+	            <input type="text" placeholder="Prénom...">
+	            <input type="text" placeholder="Adresse Client...">
+	        </div>
+	        <div class="row">
+	            <input type="tel" placeholder="Téléphone Client...">
+	            <input type="email" placeholder="Mail Client...">
+	        </div>
+	        <input class="description" type="text" placeholder="Description Client...">
+	    </div>
+	</div>
+
+	<div class="info-produit">
+	    <h3>Produits</h3>
+	    <hr>
+	    <input type="text" placeholder="Nom du Produit...">
+	    <input type="number" placeholder="Quantité...">
+	    <input type="number" placeholder="Prix...">
+	    <button class="add-produit">+</button>
+	</div>
+
+	<div class="info-acompte">
+	    <h3>Acomptes</h3>
+	    <hr>
+	    <input type="date" placeholder="Date Versement...">
+	    <input type="number" placeholder="Montant...">
+	    <button class="add-acompte">+</button>
+	</div>
+
+	<div class="footer-formulaire">
+	    <h4 class="date-echeance">Date Échéance</h4>
+	    <h4 class="montant-total">Montant Total</h4>
+	</div>
+
+	<button class="enregistrer-formulaire">Enregistrer</button>
+</div>
+{% endblock %}
