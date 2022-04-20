@@ -18,6 +18,10 @@ dico_client = {"Nom" : "noooom...",
 def home():
     return render_template("home_page.html")
 
+@app.route("/formulaire")
+def formulaire():
+    return render_template("formulaire.html")
+
 @app.route("/facture")
 def facture():
     return render_template("facture.html")
