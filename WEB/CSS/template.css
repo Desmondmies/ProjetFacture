@@ -57,6 +57,13 @@ body{
     color: var(--text);
 }
 
+*{
+  box-sizing: border-box;
+}
+
 .content {
+  width: 100%;
+  height: 100%;
   margin-top: 40px; /*Pour se placer sous le header de taille 40px */
+  padding: 10px;
 }

@@ -1,41 +1,84 @@
-ul#menu_horizontal li {
-padding : 0 0.5em;
-line-height : 30px;
-list-style-type: none ;       /* Suppression des puces */
+.button {
+  border: none;
+  display:inline-block;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  color: #B8CBD0;
+  font-weight: 600;
+  font-size: 15px;
+  background-color: #606C5A;
+  padding: 15px 50px;
+  margin: 0 auto;
+}
+.button span {
+  position: relative;
+  z-index: 1;
+}
+.button:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 470%;
+  width: 140%;
+  background: #C9E3CC;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transform: translateX(-100%) translateY(-25%) rotate(45deg);
+  transform: translateX(-100%) translateY(-25%) rotate(45deg);
+}
+.button:hover:after {
+  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  transform: translateX(-9%) translateY(-25%) rotate(45deg);
+}
+.name-filed {
+	display : flex;
+	width: 100%;
+	justify-content: space-between;
+}
+.name-filed div {
+	display: flex;
+	flex-direction: column;
+}
+input {
+	margin-bottom: 5px;
+	padding: 5px;
+	outline: 0;
+	border: 1px solid ;
+	background-color:#606C5A;
+  color : #B8CBD0;
+  font-size: 15px;
+	line-height: 100%;
+}
+
+input[type="submit"]{
+	margin-top: 21px;
+	background-color: #606C5A;
+	color: #B8CBD0;
+	border: 1px solid ;
+	cursor: pointer;
+	line-height: 80%;
 
 }
 
-ul#menu_horizontal li.bouton_gauche {
-float : left;
-border-right : 1px dashed black;
+label{
+    font-size: 20px;
+    font-weight: 900;
+    color: #B8CBD0;
 }
 
-ul#menu_horizontal li.bouton_facture {
-float : left;
-  background-color: white;
-border-left : 1px dashed black;
-}
-
-ul#menu_horizontal a {
-color : black;
-text-decoration : none;
-padding : 0 0.5em;
-font :  0.8em "Trebuchet MS";
-	list-style-type: none ;       /* Suppression des puces */
-
-}
-
-ul#menu_horizontal a:hover { text-decoration : underline; }
-
-ul#menu_horizontal a img {
-border : none;
-padding :  0 0.3em;
-	list-style-type: none ;       /* Suppression des puces */
-
-}
-
-td /* Toutes les cellules des tableaux... */
-{
-	  font-size: 15px;
-    border: 1px solid black; /* auront une bordure de 1px */
+form {
+	display: flex;
+	flex-direction: column;
+	background-color: #132226;
+  /*margin-left: 10px;*/
+  /*margin-right: 10px;*/
+	border-radius: 7px;
+	box-shadow: 0 0 10 px rgba(0, 0, 0, 0.2);
+	height: 130px;
+  justify-content: center;
 }

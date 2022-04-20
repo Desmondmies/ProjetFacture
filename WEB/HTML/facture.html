@@ -2,28 +2,31 @@
 {% block content %}
 <!-- onkeyup="Rechercher une facture()" : erreur -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='facture.css')}}">
-<input id="searchbar"
-       type="text"
-       name="search"
-       placeholder="Rechercher une facture &ensp; &ensp;	&#x1F50D;"
-       style="width: 210px; height: 20px;"
-       font size="+3">
-<input type="button" value="+">
+<input id="searchbar" type="text"
+name="search" placeholder="Rechercher un devis &ensp; &ensp; &ensp; &ensp; &ensp;&ensp; &ensp; &ensp; &ensp; &ensp;&ensp; &ensp; &ensp; &ensp; &ensp; &#x1F50D;"
+style="width: 400px; height:40px ;">
 
-<HR>
-<table border="1" cellpadding="5" cellspacing="10">
- <tr>
-     <td><input placeholder="Prénom Client">
-   <td><input placeholder="Date Du Service">
-   <td rowspan="2"><input type="button" value="editer"style="height:10px width:150px">
-   <td rowspan="2"><input type="button" value="ajouter">
-   <td rowspan="2"><input type="button" value="modifier">
- </tr>
- <tr>
-     <td><input placeholder="Nom Client">
-   <td><input placeholder="Date De Création">
- </tr>
-</table>
+<form action="">
 
-<HR>
+  <div class="name-filed">
+  	<div>
+  		<label>Prénom Client</label>
+  		<input type="text">
+  		<label> Nom Client </label>
+  		<input type="text">
+  	</div>
+
+  	<div>
+  		<label> Date de Création </label>
+  		<input type="text">
+  		<label> Date du Service </label>
+  		<input type="text">
+  	</div>
+  	<input type="submit" value="Enregistrer">
+  	<input type="submit" value="Supprimer">
+  	<input type="submit" value="Modifier">
+
+  </div>
+
+</form>
 {% endblock %}

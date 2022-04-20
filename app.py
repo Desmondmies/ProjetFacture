@@ -3,6 +3,8 @@ from flask import Flask, render_template
 #render_template permet d'utiliser directement du code HTML
 #et de lui passer en paramètre des variables
 
+from Python.Client import Client
+
 HTML_DIR = os.path.abspath('./WEB/HTML')
 STATIC_DIR = os.path.abspath('./WEB/CSS')
 
@@ -36,8 +38,13 @@ def artisan():
 
 
 if __name__ == "__main__":
-    print("test github/atom")
     try:
         app.run(debug = True)
     except KeyboardInterrupt:
         print("Application terminé.")
+
+
+    cl1 = Client("proc", "thom", "00 00 00 00 00", "sdfvsdfv@ldlkf.com", "chemin des petits poids")
+    print(cl1.data["name"])
+    cl1.data["name"] = "new name !"
+    print(cl1.data["name"])
