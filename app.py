@@ -14,6 +14,10 @@ def test():
 def page_formulaire():
     return render_template('./PageFormulaire.html')
 
+@app.route("/Artisan")
+def page_artisan():
+    return render_template('./PageArtisan.html')
+
 @app.errorhandler(404)
 def not_found(arg):
     return "Développement de la page en cours."

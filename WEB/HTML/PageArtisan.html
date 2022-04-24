@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+    <head>
+        <title>Projet Facture - Artisan</title>
+        <link href="{{ url_for('static', filename='./PageArtisan.css') }}" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        {% include 'Header.html' %}
+
+        <div class="artisan">
+            <div class="info-artisan">
+                <img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
+                <div class="inputs-artisan">
+                    <input type="text" placeholder="Nom Entreprise...">
+                    <div class="row">
+                        <input type="text" placeholder="Nom...">
+                        <input type="text" placeholder="Prénom...">
+                    </div>                    
+                    <input type="text" placeholder="Adresse Entreprise...">
+                    <div class="row">
+                        <input type="email" placeholder="Mail...">
+                        <input type="tel" placeholder="Téléphone...">
+                    </div>                    
+                </div>
+            </div>
+
+
+        <h2>Style de formulaire</h2>
+            <div class ="carousel">
+              <ul>
+                <li>
+                  <div class="template">
+                    <span class="textlogo">STYLE 1</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="template">
+                    <span class="textlogo">STYLE 2</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="template">
+                    <span class="textlogo">STYLE 3</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="template">
+                    <span class="textlogo">STYLE 4</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="bouton">
+              <button class="button" role="button">Sauvegarder</button>
+            </div>
+        </div>
+
+    </body>
+</html>
+        </div>
+
+    </body>
+</html>
