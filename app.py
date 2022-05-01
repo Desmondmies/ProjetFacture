@@ -36,12 +36,20 @@ def artisan():
 def initialisation():
     artisan = Artisan() #On charge les données de l'artisan
     client_mng = Client_mng()
+    
+    client_mng.create_client({"firstname" : "proc", "surname" : "thom", "phone" : "00 00 00 00 00", "mail" : "sdfvsdfv@ldlkf.com", "adress" : "chemin des petits poids", "postcode" : 83300, "description" : "cooooommmmm"})
+    print(client_mng.read_client(0))
+    client_mng.update_client(0, "surname", "Thomas")
+    print(client_mng.read_client(0))
+    client_mng.delete_client(0)
     #On charge les données des factures
     #On charge les données des devis
     
 if __name__ == "__main__":
     initialisation()
+    """
     try:
         app.run(debug = True)
     except KeyboardInterrupt:
         print("Application terminé.")
+    """

@@ -1,6 +1,8 @@
 import os
 import json
 
+artisan_path = os.path.abspath("./JSON/Artisan.json")
+
 class Artisan:
     def __init__(self) -> None:
         self.data = {}
@@ -11,8 +13,7 @@ class Artisan:
         return
 
     def load_artisan(self) -> None:
-        path = os.path.abspath("./JSON/Artisan.json")
-        fd = open(path, "r")
+        fd = open(artisan_path, "r")
         self.data = json.load(fd)
         fd.close()
         #self.num_SIREN ?
@@ -36,3 +37,5 @@ class Artisan:
         self.data[key] = value
         self.test_datas_set() #A chaque fois qu'une donnée est modifiée, on contrôle si toutes les données sont renseignées
         return True
+
+#METTRE A JOUR ARTISAN.JSON QUAND ON MODIFIE LES DONNEES DE L'ARTISAN
