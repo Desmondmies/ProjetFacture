@@ -1,0 +1,61 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='search_bar.css')}}">
+
+{% if path == "/facture" %}
+    {% set name = "une facture" %}
+{% elif path == "/devis" %}
+    {% set name = "un devis" %}
+{% elif path == "/client" %}
+    {% set name = "un client" %}
+{% else %}
+    {% set name = "NON DEFINI" %}
+{% endif %}
+
+<form action="{{path}}" method="post" id="form_page"></form>
+<form action="{{path}}" method="post" id="form_searchfilter"></form>
+
+<div class="search_bandeau">
+    <div class="searchbar">
+        <input type="text" placeholder="Rechercher {{name}}">
+        <button form="form_page" type="submit" name="searchbar_btn" value="Rechercher">&#x1F50D;</button>
+    </div>
+
+    <button form="form_page" class="bandeau_add_btn" type="submit" name="add_btn" value="ADD">+</button>
+</div>
+
+
+<div class="filter">
+	<button form="form_searchfilter" type="submit" class="filter_btn" name="filter_btn" value="FILTER">Filtre</button>
+
+	{% if FILTER_ENABLE == True %}
+	<div class="search_bandeau_more">
+		<p>Filtre de Recherche</p>
+		<div class="search_filter_radio">
+			<div>
+				{% if FILTER_IDX == 0 %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_name" name="search_filter" value="Filter_Name" checked>
+				{% else %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_name" name="search_filter" value="Filter_Name">
+				{% endif %}
+				<label for="filter_name">Recherche par Nom et Prénom</label>
+			</div>
+			<div>
+				{% if FILTER_IDX == 1 %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_address" name="search_filter" value="Filter_Address" checked>
+				{% else %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_address" name="search_filter" value="Filter_Address">
+				{% endif %}
+				<label for="filter_address">Recherche par Adresse</label>
+			</div>
+			<div>
+				{% if FILTER_IDX == 2 %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_tel" name="search_filter" value="Filter_Tel" checked>
+				{% else %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_tel" name="search_filter" value="Filter_Tel">
+				{% endif %}
+				<label for="filter_tel">Recherche par Téléphone</label>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+</div>

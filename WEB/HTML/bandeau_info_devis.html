@@ -1,0 +1,27 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bandeau_info_devis.css')}}">
+
+<form action="/devis" method="post">
+    <div class="bandeau">
+        <div class="left_infos">
+            <div>
+                <label>Prénom Client</label>
+                <input type="text">
+                <label>Nom Client</label>
+                <input type="text">
+            </div>
+        
+            <div>
+                <label>Date de Création</label>
+                <input type="text">
+                <label>Date du Service</label>
+                <input type="text">
+            </div>
+        </div>
+    
+        <div class="right_buttons">
+            <button type="submit" name="bandeau_btn" value="Voir Client">Voir Page Client</button>
+            <button type="submit" name="bandeau_btn" value="Modifier">Modifier</button>
+            <button type="submit" name="bandeau_btn" value="Supprimer">Supprimer</button>
+        </div>
+    </div>
+</form>

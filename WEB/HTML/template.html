@@ -7,29 +7,20 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='template.css')}}">
     </head>
     <body>
-      <header>
-          <a id="Facture" href="facture"> Facture </a>
-          <a id="Devis" href="devis"> Devis </a>
-          <a id="Client" href="client"> Client </a>
-          <a id="Artisan" href="artisan"> Artisan </a>
-      </header>
-      <script>
-          if (window.location.href == "http://127.0.0.1:5000/facture"){
-              document.getElementById("Facture").className = "select";
-          }
-          else if (window.location.href == "http://127.0.0.1:5000/devis"){
-              document.getElementById("Devis").className = "select";
-          }
-          else if (window.location.href == "http://127.0.0.1:5000/client"){
-              document.getElementById("Client").className = "select";
-          }
-          else if (window.location.href == "http://127.0.0.1:5000/artisan"){
-              document.getElementById("Artisan").className = "select";
-          }
-      </script>
+        <!-- ID => nom de variable utilisé ensuite dans le include header navbar, on lui attribue la valeur reçu de Template ID-->
+        {% with ID=TEMPLATE_ID %}
+            {% include "header-navbar.html" %}
+        {% endwith %}
+
+        {% if SEARCH_BAR == True %}
+            {% with (path, FILTER_ENABLE, FILTER_IDX) = (PATH, FILTER_TOGGLE, SEARCH_IDX)  %}
+                {% include "search_bar.html" %}
+            {% endwith %}
+        {% endif %}
+
         <div class="content">
-          {% block content %}
-          {% endblock %}
+            {% block content %}
+            {% endblock %}
         </div>
     </body>
 </html>

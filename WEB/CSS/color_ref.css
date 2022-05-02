@@ -1,11 +1,26 @@
 /*PALETTE : 18191A 242526 3A3B3C F0F2EF 616263*/
 
 :root {
-    --navBar: #18191A ;
-    --navBar_text: #F0F2EF;
-    --selection: #616263;
-    --bg: #F0F2EF;
+    --navBar: #18191A;
     --text: #18191A;
+    --logo_bg: #18191A;
+    --button_bg: #18191A;
+    --area_border: #18191A;
+    --area_text: #18191A;
+
+    --body_bg: #F0F2EF;
+    --navBar_text: #F0F2EF;
+    --input_text: #F0F2EF;
+    --button_text: #F0F2EF;
+    --logo_text: #F0F2EF;
+    --area_input_bg: #F0F2EF;
+		--searchbar_text: #F0F2EF;
+
+    --selection: #616263;
+    --input_bg: #616263;
+    --button_selection: #616263;
+    --area_bg: #616263;
+    --searchbar_bg: #616263;
 }
 
 

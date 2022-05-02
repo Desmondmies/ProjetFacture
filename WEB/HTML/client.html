@@ -1,15 +1,15 @@
 {% extends "template.html" %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client.css')}}">
-<h1 title="tooltip quand on laisse souris dessus">
+<!-- <h1 title="tooltip quand on laisse souris dessus">
     Affichage des infos d'un client
-</h1>
+</h1> -->
 <!-- Ecriture d'une boucle for en qui parcoure la  liste des variables passée en paramètre (contenue dans la variable 'posts') -->
-{% for post in posts %}
+<!-- {% for post in posts %}
     <section>
-        Nom : {{ post.Nom }} <!-- double {{ var }} pour afficher le contenu de var -->
-        <br> <!-- Retour à la ligne -->
-        Prenom : {{ post.Prenom }}
+        Nom : {{ post.Nom }} double {{ var }} pour afficher le contenu de var -->
+        <!-- <br>  Retour à la ligne -->
+        <!-- Prenom : {{ post.Prenom }}
         <br>
         Tel : {{ post.Tel }}
         <br>
@@ -18,9 +18,15 @@
         Description : {{ post.Description }}
     </section>
 {% endfor %}
-
 <p id="url"></p>
 <script>
     document.getElementById("url").innerHTML = "Voici l'url : " + window.location.href;
-</script>
+</script> -->
+
+{% for client_data in CLIENTS_DATA %}
+    {% with data = client_data %}
+        {% include "bandeau_info_client.html" %}
+    {% endwith %}
+{% endfor %}
+
 {% endblock %}

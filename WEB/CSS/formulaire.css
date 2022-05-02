@@ -1,29 +1,24 @@
 @import "color_ref.css";
 
-body{
-    margin: 0;
-    background-color: var(--bg);
-}
-
-*{
-    box-sizing: border-box;
-}
-
 .formulaire{
-    margin: 10px 15px;
-    padding: 100px;
+    /*margin: 10px 15px;*/
+    padding: 70px;
     border-radius: 10px;
-    background-color: var(--navBar_text);
     color: var(--text);
 }
 
 input{
     height: 35px;
-    background-color: var(--selection);
-    color: var(--navBar_text);
+    background-color: var(--input_bg);
+    color: var(--input_text); /* change text color of calendar input*/
+    color-scheme: dark; /* change calendar image to white */
     border: none;
     padding-left: 1.5%;
     border-radius: 5px;
+}
+
+::placeholder{
+    color: var(--input_text);
 }
 
 /*
@@ -41,8 +36,8 @@ input{
     width: 200px;
     height: 200px;
     border-radius: 5px;
-    background-color: var(--navBar);
-    color: var(--bg);
+    background-color: var(--logo_bg);
+    color: var(--logo_text);
     outline: solid var(--selection);
 }
 

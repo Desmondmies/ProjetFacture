@@ -1,0 +1,45 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bandeau_info_client.css')}}">
+
+<form action="/client" method="post">
+    <div class="bandeau">
+        <div class="left_infos">
+            <div class="row_infos">
+                <div>
+                    <label>Prénom Client</label>
+                    <input type="text" value="{{data.Prenom}}">
+                </div>
+                <div>
+                    <label>Nom Client</label>
+                    <input type="text" value="{{data.Nom}}">
+                </div>
+                <div>
+                    <label>Téléphone</label>
+                    <input type="text" value="{{data.Tel}}">
+                </div>
+            </div>
+
+            <div class="row_infos">
+                <div>
+                    <label>Adresse</label>
+                    <input type="text" value="{{data.Adresse}}">
+                </div>
+                <div>
+                    <label>Mail</label>
+                    <input type="text" value="{{data.Mail}}">
+                </div>
+            </div>
+        
+            <div>
+                <label>Description</label>
+                <input type="text" value="{{data.Description}}">
+            </div>
+        </div>
+    
+        <div class="right_buttons">
+            <button type="submit" name="bandeau_btn" value="Gen_Facture">Générer une Facture</button>
+            <button type="submit" name="bandeau_btn" value="Gen_Devis">Générer un Devis</button>
+            <button type="submit" name="bandeau_btn" value="Modifier">Modifier</button>
+            <button type="submit" name="bandeau_btn" value="Supprimer">Supprimer</button>
+        </div>
+    </div>
+</form>

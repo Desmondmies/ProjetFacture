@@ -1,5 +1,9 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+
+from Python.FormRequestHandlers.FactureFormRequest import getfactureForm
+from Python.FormRequestHandlers.DevisFormRequest import getdevisForm
+from Python.FormRequestHandlers.ClientFormRequest import getclientForm
 #render_template permet d'utiliser directement du code HTML
 #et de lui passer en paramètre des variables
 
@@ -8,39 +12,107 @@ STATIC_DIR = os.path.abspath('./WEB/CSS')
 
 app = Flask(__name__, template_folder=HTML_DIR, static_folder=STATIC_DIR)
 
-dico_client = {"Nom" : "noooom...",
-                "Prenom" : "...bril",
-                "Tel" : "06 06 06 06 06",
-                "Mail" : "machin@qqchmail.fr",
-                "Description" : "Riche client qui vient souvent etc..........."}
+client1 = {"Nom" : "noooom...",
+            "Prenom" : "...bril",
+            "Tel" : "06 06 06 06 06",
+            "Mail" : "machin@qqchmail.fr",
+            "Adresse": "82, rue des sapins",
+            "Description" : "Riche client qui vient souvent etc..........."}
+client2 = {"Nom" : "Loru",
+            "Prenom" : "Jean",
+            "Tel" : "06 21 54 12 36",
+            "Mail" : "machin@qqchmail.fr",
+            "Adresse": "82, sapins"} #si le champs description n'existe pas, apparement tout se passe bien, aucune erreur
+Clients = [client1, client2]
+
+filter_btn_toggle = False
+search_filter_index = 0
+
+def get_new_search_filter_index(r):
+    global search_filter_index
+
+    if r == "Filter_Name":
+        search_filter_index = 0
+    elif r == "Filter_Address":
+        search_filter_index = 1
+    elif r == "Filter_Tel":
+        search_filter_index = 2
+
 
 @app.route("/")
 def home():
-    return render_template("home_page.html")
+    return artisan()
 
 @app.route("/formulaire")
 def formulaire():
     return render_template("formulaire.html")
 
-@app.route("/facture")
+@app.route("/facture", methods=[ 'POST', 'GET' ])
 def facture():
-    return render_template("facture.html")
+    global filter_btn_toggle
 
-@app.route("/devis")
+    if request.method == 'POST':
+        r = getfactureForm(request.form)
+        print(r)
+        if r == "FILTER":
+            filter_btn_toggle = not filter_btn_toggle
+        elif "Filter_" in r:
+            get_new_search_filter_index(r)
+
+    #return à la bonne page en fonction du btn bandeau == "Voir Client" ou autre
+    return render_template("facture.html", 
+                            TEMPLATE_ID="Facture", 
+                            PATH="/facture", 
+                            SEARCH_BAR=True, 
+                            FILTER_TOGGLE= filter_btn_toggle, 
+                            SEARCH_IDX=search_filter_index)
+
+@app.route("/devis", methods=['POST', 'GET'])
 def devis():
-    return render_template("devis.html")
+    global filter_btn_toggle
 
-@app.route("/client")
+    if request.method == 'POST':
+        r = getdevisForm(request.form)
+        print(r)
+        if r == "FILTER":
+            filter_btn_toggle = not filter_btn_toggle
+        elif "Filter_" in r:
+            get_new_search_filter_index(r)
+
+    return render_template("devis.html", 
+                            TEMPLATE_ID="Devis", 
+                            PATH="/devis", 
+                            SEARCH_BAR=True,
+                            FILTER_TOGGLE = filter_btn_toggle,
+                            SEARCH_IDX = search_filter_index)
+
+@app.route("/client", methods=['POST', 'GET'])
 def client():
-    return render_template("client.html", posts = [dico_client]) #posts = variable à passer en paramètre à notre page HTML
+    global filter_btn_toggle
+
+    if request.method == 'POST':
+        r = getclientForm(request.form)
+        print(r)
+        if r == "FILTER":
+            filter_btn_toggle = not filter_btn_toggle
+        elif "Filter_" in r:
+            get_new_search_filter_index(r)
+
+    #posts = variable à passer en paramètre à notre page HTML
+    return render_template("client.html", 
+                            CLIENTS_DATA = Clients, 
+                            TEMPLATE_ID="Client", 
+                            PATH="/client", 
+                            SEARCH_BAR=True,
+                            FILTER_TOGGLE = filter_btn_toggle,
+                            SEARCH_IDX = search_filter_index)
 
 @app.route("/artisan")
 def artisan():
-    return render_template("artisan.html")
+    return render_template("artisan.html", TEMPLATE_ID="Artisan")
 
 
 if __name__ == "__main__":
-    print("test github/atom")
     try:
         app.run(debug = True)
     except KeyboardInterrupt:

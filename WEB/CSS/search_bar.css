@@ -1,0 +1,70 @@
+@import "color_ref.css";
+
+.search_bandeau {
+    display: flex;
+    margin-top: 40px;
+		padding-top: 20px;
+		padding-left: 25px;
+		padding-right: 25px;
+    justify-content: space-between;
+    background-color: var(--searchbar_bg);
+}
+
+.searchbar {
+    display: flex;
+    width: 16%;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchbar input {
+	outline: 0;
+	border: 1px solid;
+	background-color: var(--area_input_bg);
+	color : var(--area_text);
+	font-size: 15px;
+  height: 30px;
+  width: 250px;
+}
+
+.searchbar button{
+    height: 30px;
+}
+
+.bandeau_add_btn {
+    width: 50px;
+    height: 50px;
+    font-size: 35px;
+}
+
+.search_bandeau_more{
+	display: flex;
+	flex-direction: column;
+	background-color: var(--searchbar_bg);
+	color: var(--searchbar_text);
+	font-size: 20px;
+	align-content: center;
+	align-items: center;
+	overflow: hidden;
+	height: 100px;
+	width: 100%;
+}
+
+.filter{
+	background-color: var(--searchbar_bg);
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-content: flex-start;
+	align-items: flex-start;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 5px;
+}
+
+.search_filter_radio{
+	display: flex;
+	width: 100%;
+	justify-content: space-evenly;
+}

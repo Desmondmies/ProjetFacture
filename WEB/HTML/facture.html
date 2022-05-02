@@ -1,29 +1,8 @@
 {% extends "template.html" %}
 {% block content %}
-<!-- onkeyup="Rechercher une facture()" : erreur -->
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='facture.css')}}">
-<input id="searchbar"
-       type="text"
-       name="search"
-       placeholder="Rechercher une facture &ensp; &ensp;	&#x1F50D;"
-       style="width: 210px; height: 20px;"
-       font size="+3">
-<input type="button" value="+">
 
-<HR>
-<table border="1" cellpadding="5" cellspacing="10">
- <tr>
-     <td><input placeholder="Prénom Client">
-   <td><input placeholder="Date Du Service">
-   <td rowspan="2"><input type="button" value="editer"style="height:10px width:150px">
-   <td rowspan="2"><input type="button" value="ajouter">
-   <td rowspan="2"><input type="button" value="modifier">
- </tr>
- <tr>
-     <td><input placeholder="Nom Client">
-   <td><input placeholder="Date De Création">
- </tr>
-</table>
+{% for i in range(10) %}
+  {% include "bandeau_info_facture.html" %}
+{% endfor %}
 
-<HR>
 {% endblock %}

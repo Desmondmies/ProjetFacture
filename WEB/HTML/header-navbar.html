@@ -1,0 +1,12 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='header-navbar.css')}}">
+
+<header>
+
+    {% for _id, _path in [("Facture", "facture"), ("Devis", "devis"), ("Client", "client"), ("Artisan", "artisan")] %}
+        {% if _id == ID %}
+            <a id="{{_id}}" class="select" href="{{_path}}"> {{_id}} </a>
+        {% else %}
+            <a id="{{_id}}" href="{{_path}}"> {{_id}} </a>
+        {% endif %}
+    {% endfor %}
+</header>
