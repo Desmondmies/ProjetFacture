@@ -1,19 +1,27 @@
 import os
-from flask import Flask, render_template, request
-
-from Python.Manager.Artisan import Artisan
-from Python.Manager.Client_mng import Client_mng
-from Python.FormRequestHandlers.FactureFormRequest import getfactureForm
-from Python.FormRequestHandlers.DevisFormRequest import getdevisForm
-from Python.FormRequestHandlers.ClientFormRequest import getclientForm
+from flask import Flask, render_template, request 
 #render_template permet d'utiliser directement du code HTML
 #et de lui passer en paramètre des variables
 
 from Python.Client import Client
 from Python.Invoice import Invoice
+
+from Python.Manager.Artisan import Artisan
+from Python.Manager.Client_mng import Client_mng
+
+from Python.FormRequestHandlers.FactureFormRequest import getfactureForm
+from Python.FormRequestHandlers.DevisFormRequest import getdevisForm
+from Python.FormRequestHandlers.ClientFormRequest import getclientForm
+
+# ---------------------------------------------------------------------------------------------
+
 HTML_DIR = os.path.abspath('./WEB/HTML')
 STATIC_DIR = os.path.abspath('./WEB/CSS')
+
 app = Flask(__name__, template_folder=HTML_DIR, static_folder=STATIC_DIR)
+
+# ---------------------------------------------------------------------------------------------
+
 client1 = {"Nom" : "noooom...",
             "Prenom" : "...bril",
             "Tel" : "06 06 06 06 06",
@@ -27,18 +35,11 @@ client2 = {"Nom" : "Loru",
             "Adresse": "82, sapins"} #si le champs description n'existe pas, apparement tout se passe bien, aucune erreur
 Clients = [client1, client2]
 
+
 filter_btn_toggle = False
 search_filter_index = 0
 
-def get_new_search_filter_index(r):
-    global search_filter_index
-
-    if r == "Filter_Name":
-        search_filter_index = 0
-    elif r == "Filter_Address":
-        search_filter_index = 1
-    elif r == "Filter_Tel":
-        search_filter_index = 2
+# ---------------------------------------------------------------------------------------------
 
 @app.route("/")
 def home():
@@ -112,7 +113,17 @@ def client():
 def artisan():
     return render_template("artisan.html", TEMPLATE_ID="Artisan")
 
+# ---------------------------------------------------------------------------------------------
 
+def get_new_search_filter_index(r):
+    global search_filter_index
+
+    if r == "Filter_Name":
+        search_filter_index = 0
+    elif r == "Filter_Address":
+        search_filter_index = 1
+    elif r == "Filter_Tel":
+        search_filter_index = 2
 
 def initialisation():
     artisan = Artisan() #On charge les données de l'artisan
@@ -125,10 +136,12 @@ def initialisation():
     client_mng.delete_client(0)
     #On charge les données des factures
     #On charge les données des devis
+
+# ---------------------------------------------------------------------------------------------
+
 if __name__ == "__main__":
     initialisation()
     try:
         app.run(debug = True)
     except KeyboardInterrupt:
         print("Application terminé.")
-    """
