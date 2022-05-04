@@ -51,7 +51,7 @@ class Estimate_mng:
         fd.close()
 
         #On rajoute les données du devis dans le fichier Estimate.json puis on sauvegarde
-        estimate_json[str(self.newEstimate_id)] = dict_estimate
+        estimate_json[str(self.newEstimate_id)] = dict_data_estimate
         fd = open(estimate_path, "w")
         json.dump(estimate_json, fd)
         fd.close()
