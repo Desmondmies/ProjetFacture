@@ -1,0 +1,58 @@
+{% extends "template.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='artisan.css')}}">
+<div class="artisan">
+    <div class="info-artisan">
+        <img class="logo-artisan" src="" alt="LOGO ENTREPRISE" >
+        <div class="inputs-artisan">
+            <input type="text" placeholder="Nom Entreprise..." value = "{{ARTISAN.compagny_name}}">
+            <div class="row">
+                <input type="text" placeholder="Nom..." value = "{{ARTISAN.surname}}">
+                <input type="text" placeholder="Prénom..." value = "{{ARTISAN.firstname}}">
+            </div>
+            <input type="text" placeholder="Adresse Entreprise..." value = "{{ARTISAN.adress}}">
+            <div class="row">
+                <input type="email" placeholder="Mail..." value = "{{ARTISAN.mail_compagny}}">
+                <input type="tel" placeholder="Téléphone..." value = "{{ARTISAN.phone}}">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<h2>Style de formulaire</h2>
+    <div class ="carousel">
+      <ul>
+        {% for _style in ["STYLE1","STYLE2","STYLE3"] %}
+        {% if _style == ARTISAN.template_selected %}
+        <li>
+          <form action="{{path}}" method="post">
+          <button class="template select" type="submit" name="choice_style" value="{{_style}}">
+            <span class="textlogo">{{_style}}</span>
+          </button>
+        </li>
+        {% else %}
+        <li>
+          <form action="{{path}}" method="post">
+          <button class="template" type="submit" name="choice_style" value="{{_style}}">
+            <span class="textlogo">{{_style}}</span>
+          </button>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+      </ul>
+    </div>
+
+
+    <form action="{{path}}" method="post">
+    <div class="bouton">
+      <button class="button" type="submit" name="save_artisan" value="SAVE" role="button" href="#popup">Sauvegarder</button>
+    </div>
+
+</div>
+
+
+{% endblock %}
