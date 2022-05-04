@@ -7,19 +7,19 @@
     <div class="info-client">
         <div class="inputs-client">
             <div class="row">
-                <input type="text" id="i_nom" placeholder="Nom..." onchange="save_btn.value = 'SAVE¤' + i_nom.value">
-                <input type="text" id="i_prenom" placeholder="Prénom..." onchange="save_btn.value +='¤' + i_prenom.value">
+                <input type="text" id="i_nom" placeholder="Nom..." >
+                <input type="text" id="i_prenom" placeholder="Prénom..." >
             </div>
-            <input type="text" id="i_ad" placeholder="Adresse Entreprise..." onchange="save_btn.value +='¤' + i_ad.value">
+            <input type="text" id="i_ad" placeholder="Adresse..." >
             <div class="row">
-                <input type="email" id="i_mail" placeholder="Mail..." onchange="save_btn.value +='¤' + i_mail.value">
-                <input type="tel" id="i_tel" placeholder="Téléphone..." onchange="save_btn.value +='¤' + i_tel.value">
+                <input type="email" id="i_mail" placeholder="Mail..." >
+                <input type="tel" id="i_tel" placeholder="Téléphone..." >
             </div>
-            <input type="text" id="i_desc" placeholder="Description..." onchange="save_btn.value +='¤' + i_desc.value">
+            <input type="text" id="i_desc" placeholder="Description..." >
         </div>
     </div>
     <form action="{{path}}" method="post">
     <div class="bouton">
-      <button class="button" id="save_btn" type="submit" name="save_card" value="SAVE" role="button" >Sauvegarder</button>
+      <button class="button" id="save_btn" type="submit" name="save_card" onclick="save_btn.value = 'SAVE¤'+i_nom.value+'¤'+i_prenom.value+'¤'+i_ad.value+'¤'+i_mail.value+'¤'+i_tel.value+'¤'+i_desc.value" value="SAVE" role="button" >Sauvegarder</button>
     </div>
 </div>

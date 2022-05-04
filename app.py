@@ -153,7 +153,13 @@ def artisan():
 def add_client():
     if request.method == 'POST':
         r = getcardForm(request.form)
-        print(r)
+        info = r.split('¤')
+        tmp = ("surname","firstname","adress","mail","phone","description")
+        dico = {}
+        for i in range(1,len(info)):
+            dico[tmp[i-1]]=info[i]
+
+        print(dico)
     return render_template("add_client.html",
                             PATH = "/add_client")
 
