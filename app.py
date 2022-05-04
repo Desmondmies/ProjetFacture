@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 #render_template permet d'utiliser directement du code HTML
 #et de lui passer en paramètre des variables
 
@@ -13,6 +13,7 @@ from Python.FormRequestHandlers.FactureFormRequest import getfactureForm
 from Python.FormRequestHandlers.DevisFormRequest import getdevisForm
 from Python.FormRequestHandlers.ClientFormRequest import getclientForm
 from Python.FormRequestHandlers.ArtisanFormRequest import getartisanForm
+from Python.FormRequestHandlers.Add_CardFormRequest import getcardForm
 
 # ---------------------------------------------------------------------------------------------
 
@@ -100,47 +101,54 @@ def devis():
 
 @app.route("/client", methods=['POST', 'GET'])
 def client():
-	global filter_btn_toggle
+    global filter_btn_toggle
 
-	if request.method == 'POST':
-		r = getclientForm(request.form)
-		print(r)
-		if r == "FILTER":
-			filter_btn_toggle = not filter_btn_toggle
-		elif "Filter_" in r:
-			filter_idx = get_new_search_filter_index(r)
-			Client_mng.change_search_filter(filter_idx)
+    if request.method == 'POST':
+        r = getclientForm(request.form)
+        print(r)
+        if r == "FILTER":
+            # clic sur le bouton filtre de la barre de recherche
+            filter_btn_toggle = not filter_btn_toggle
+        elif "Filter_" in r:
+            # changement du filtre de la barre de recherche
+            filter_idx = get_new_search_filter_index(r)
+            Client_mng.change_search_filter(filter_idx)
+        elif r == "ADD":
+            #clic sur le bouton add
+            return redirect(url_for("add_client"))
 
-	#posts = variable à passer en paramètre à notre page HTML
-	return render_template("client.html",
-	                        CLIENTS_DATA = Clients,
-	                        TEMPLATE_ID="Client",
-	                        PATH="/client",
-	                        SEARCH_BAR=True,
-	                        FILTER_TOGGLE = filter_btn_toggle,
-	                        SEARCH_IDX = search_filter_index)
+    #posts = variable à passer en paramètre à notre page HTML
+    return render_template("client.html",
+                            CLIENTS_DATA = Clients,
+                            TEMPLATE_ID="Client",
+                            PATH="/client",
+                            SEARCH_BAR=True,
+                            FILTER_TOGGLE = filter_btn_toggle,
+                            SEARCH_IDX = search_filter_index)
+
+@app.route("/add_client", methods=["POST", "GET"])
+def add_client():
+    if request.method == 'POST':
+        r = getcardForm(request.form)
+        print(r)
+    return render_template("add_client.html",
+                            PATH = "/add_client")
 
 @app.route("/artisan", methods=['POST', 'GET'])
 def artisan():
-	#global ARTISAN
-	if request.method == 'POST':
-		r = getartisanForm(request.form)
-		print(r)
-		if "STYLE" in r :
-			print("style changed")
-			#ARTISAN.style_prefere = r
-	return render_template("artisan.html",
-							TEMPLATE_ID="Artisan",
-							#STYLE_ID = ARTISAN.style_prefere,
-							PATH="/artisan",
-							SEARCH_BAR=False
-							#NOM_ENTREPRISE=ARTISAN.nom_ent,
-							#NOM = ARTISAN.nom,
-							#PRENOM = ARTISAN.prenom,
-							#TEL=ARTISAN.tel,
-							#MAIL=ARTISAN.mail_comp,
-							#ADRESSE=ARTISAN.adresse_ent
-							)
+    global InfoArtisan
+
+    if request.method == 'POST':
+        r = getartisanForm(request.form)
+        print(r)
+        if "STYLE" in r :
+            print("style changed")
+            InfoArtisan["template_selected"] = r
+    return render_template("artisan.html",
+                            TEMPLATE_ID="Artisan",
+                            ARTISAN= InfoArtisan,
+                            PATH="/artisan",
+                            SEARCH_BAR=False )
 
 # ---------------------------------------------------------------------------------------------
 
@@ -175,5 +183,3 @@ if __name__ == "__main__":
         app.run(debug = True)
     except KeyboardInterrupt:
         print("Application terminé.")
-
-    print(dico_client["surname"])

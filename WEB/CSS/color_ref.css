@@ -6,7 +6,7 @@
     --logo_bg: #18191A;
     --button_bg: #18191A;
     --area_border: #18191A;
-    --area_text: #18191A;
+    --add_bg: #18191A;
 
     --body_bg: #F0F2EF;
     --navBar_text: #F0F2EF;
@@ -15,12 +15,15 @@
     --logo_text: #F0F2EF;
     --area_input_bg: #F0F2EF;
 		--searchbar_text: #F0F2EF;
+    --add_text: #F0F2EF;
 
     --selection: #616263;
     --input_bg: #616263;
     --button_selection: #616263;
     --area_bg: #616263;
     --searchbar_bg: #616263;
+    --area_text: #616263;
+    --add_savebtn_bg: #616263;
 }
 
 

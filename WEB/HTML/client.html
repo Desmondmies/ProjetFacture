@@ -1,6 +1,5 @@
 {% extends "template.html" %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='client.css')}}">
 
 {% for client_data in CLIENTS_DATA %}
     {% with data = client_data %}

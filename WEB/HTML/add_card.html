@@ -1,0 +1,25 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='add_card.css')}}">
+
+<!-- tests à faire pour changer le contenu d'une carte en fonction du path -->
+
+<div class="client">
+  <h2>Ajouter {{CARD_TITLE}}</h2>
+    <div class="info-client">
+        <div class="inputs-client">
+            <div class="row">
+                <input type="text" placeholder="Nom...">
+                <input type="text" placeholder="Prénom...">
+            </div>
+            <input type="text" placeholder="Adresse Entreprise...">
+            <div class="row">
+                <input type="email" placeholder="Mail...">
+                <input type="tel" placeholder="Téléphone...">
+            </div>
+            <input type="text" placeholder="Description...">
+        </div>
+    </div>
+    <form action="{{path}}" method="post">
+    <div class="bouton">
+      <button class="button" type="submit" name="save_card" value="save" role="button" >Sauvegarder</button>
+    </div>
+</div>
