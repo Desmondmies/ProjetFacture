@@ -4,6 +4,7 @@ from flask import Flask, render_template #render_template permet d'utiliser dire
 from Python.Manager.Artisan import Artisan
 from Python.Manager.Client_mng import Client_mng
 from Python.Manager.Invoice_mng import Invoice_mng
+from Python.Manager.Estimate_mng import Estimate_mng
 
 from Python.Client import Client
 from Python.Invoice import Invoice
@@ -35,26 +36,25 @@ def artisan():
     return render_template("artisan.html")
 
 def initialisation() -> None:
-    artisan = Artisan() #On charge les données de l'artisan
+    #Initialisation des managers
+    artisan = Artisan()
     client_mng = Client_mng()
     invoice_mng = Invoice_mng()
-    scenario(artisan, client_mng, invoice_mng)
-    
-    #On charge les données des factures
-    #On charge les données des devis
+    estimate_mng = Estimate_mng()
+
+    scenario(artisan, client_mng, invoice_mng, estimate_mng)
     return
 
-def scenario(artisan, client_mng, invoice_mng):
-    """
-    TEST ARTISAN
+def scenario(artisan, client_mng, invoice_mng, estimate_mng):
+    #TEST ARTISAN
     """
     print("\n\n#### ARTISAN #####")
     print(artisan.read_artisan())
     artisan["surname"] = "NOUVEAU NOM"
     print(artisan.read_artisan())
-
     """
-    TEST CLIENT
+
+    #TEST CLIENT
     """
     print("\n\n#### CLIENT #####")
     print("id new client :", client_mng.newClient_id)
@@ -65,20 +65,31 @@ def scenario(artisan, client_mng, invoice_mng):
     print(client_mng.read_client(0))
     client_mng.delete_client(0)
     print("id new client :", client_mng.newClient_id)
-
     """
-    TEST FACTURE
-    """
+    #TEST FACTURE
     print("\n\n#### FACTURE #####")
     print("i_ new fact :", invoice_mng.newInvoice_id)
-    invoice_mng.create_invoice({"client_id" : 0, "creation_date" : "03/05/2022", "due_date" : "30/05/2022", "comment" : "sdfvsdfvldlkfcrm", "acquitted" : False, "list_items" : ["item1", "item2"]})
+    invoice_mng.create_invoice({"client_id" : 0, "creation_date" : "2022-06-03", "due_date" : "2022-05-30", "comment" : "sdfvsdfvldlkfcrm", "acquitted" : False, "list_items" : ["item1", "item2"]})
+    invoice_mng.create_invoice({"client_id" : 0, "creation_date" : "2022-05-03", "due_date" : "2022-05-30", "comment" : "sdfvsdfvldlkfcrm", "acquitted" : False, "list_items" : ["item1", "item2"]})
     print(invoice_mng.read_invoice(0))
     print("id new fact :", invoice_mng.newInvoice_id)
     invoice_mng.update_invoice(0, "surname", "Thomas")
     print(invoice_mng.read_invoice(0))
     invoice_mng.delete_invoice(0)
     print("id new fact :", invoice_mng.newInvoice_id)
-    
+
+    #TEST DEVIS
+    """
+    print("\n\n#### DEVIS #####")
+    print("i_ new estimate :", estimate_mng.newEstimate_id)
+    estimate_mng.create_estimate({"client_id" : 0, "creation_date" : "03/05/2022", "due_date" : "30/05/2022", "comment" : "sdfvsdfvldlkfcrm", "acquitted" : False, "list_items" : ["item1", "item2"]})
+    print(estimate_mng.read_estimate(0))
+    print("id new estimate :", estimate_mng.newEstimate_id)
+    estimate_mng.update_estimate(0, "surname", "Thomas")
+    print(estimate_mng.read_estimate(0))
+    estimate_mng.delete_estimate(0)
+    print("id new estimate :", estimate_mng.newEstimate_id)
+    """
 
 if __name__ == "__main__":
     initialisation()

@@ -10,7 +10,7 @@ class Client_mng:
         self.dict_clients = {} #Les numéros client sont les clés et les valeurs sont un dictionnaire contenant les données du client choisi
         self.init_dict_clients()
 
-        self.update_newClient_id(1)
+        self.update_newClient_id()
         return
 
     """
@@ -25,21 +25,23 @@ class Client_mng:
             for client_id, dict_data_client in dict_data_clients.items():
                 self.dict_clients[int(client_id)] = Client(dict_data_client)
             return
-    
-    def update_newClient_id(self, delta) -> None:
+
+    def update_newClient_id(self) -> None:
         if len(self.dict_clients) == 0:
             self.newClient_id = 0
         else:
-            self.newClient_id = max(self.dict_clients) + delta #Numéro du prochain client à créer : pas en fonction du nombre de clients car un dictionnaire de mille clients ne signifie pas que le dernier client a le numéro 1000
-    
+            self.newClient_id = max(self.dict_clients) + 1 #Numéro du prochain client à créer : pas en fonction du nombre de clients car un dictionnaire de mille clients ne signifie pas que le dernier client a le numéro 1000
+
     """
     On créé une instance de client puis on met à jour le dictionnaire des cients existants, le fichier json et le numéro du prochain client
     """
     def create_client(self, dict_data_client) -> None:
+
+
         """
-        A FAIRE : VERIFIER SI LE CLIENT EXISTE DEJA ??
+
         """
-        dict_data_client["id"] = self.newClient_id #On rajoute le numéro du nouveau client 
+        dict_data_client["id"] = self.newClient_id #On rajoute le numéro du nouveau client
         self.dict_clients[self.newClient_id] = Client(dict_data_client)
 
         #On charge les données des clients stockées dans le fichier Clients.json
@@ -55,16 +57,15 @@ class Client_mng:
 
         self.newClient_id += 1
         return
-    
+
     """
     Renvoie toutes les données concernant un client
     """
     def read_client(self, client_id) -> Client:
-        #print(self.dict_clients[client_id]["all"]) ON AFFICHE OU ON RENVOIE LES DONNEES DU CLIENT ?
         return self.dict_clients[client_id]["all"] #"all" est un mot clé créer pour récupérer les données d'un client
 
     """
-    Permet de modifier les informations d'un client stockée grâce à son numéro client, du nom de l'attribut et de la nouvelle valeur 
+    Permet de modifier les informations d'un client stockée grâce à son numéro client, du nom de l'attribut et de la nouvelle valeur
     """
     def update_client(self, client_id:int, attribute:str, new_val) -> None:
         self.dict_clients[client_id][attribute] = new_val
@@ -82,7 +83,7 @@ class Client_mng:
         return
 
     """
-    Permet de supprimer un client de la base 
+    Permet de supprimer un client de la base
     """
     def delete_client(self, client_id:int) -> None:
         self.dict_clients.pop(client_id)
@@ -98,5 +99,5 @@ class Client_mng:
         json.dump(clients_json, fd)
         fd.close()
 
-        self.update_newClient_id(-1)
+        self.update_newClient_id()
         return

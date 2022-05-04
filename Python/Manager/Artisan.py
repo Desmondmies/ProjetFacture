@@ -16,7 +16,6 @@ class Artisan:
         fd = open(artisan_path, "r")
         self.data = json.load(fd)
         fd.close()
-        #self.num_SIREN ?
         return
 
     """
@@ -24,7 +23,7 @@ class Artisan:
     """
     def test_datas_set(self) -> None:
         self.artisan_is_set = not "" in self.data.values()
-        return 
+        return
 
     def __getitem__(self, key):
         if key == "all":
