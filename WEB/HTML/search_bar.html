@@ -15,8 +15,8 @@
 
 <div class="search_bandeau">
     <div class="searchbar">
-        <input type="text" placeholder="Rechercher {{name}}">
-        <button form="form_page" type="submit" name="searchbar_btn" value="Rechercher">&#x1F50D;</button>
+        <input type="text" id="search_input" oninput="btn_search.value = 'Rechercher,' + search_input.value" placeholder="Rechercher {{name}}">
+        <button form="form_page" id="btn_search" type="submit" name="searchbar_btn" value="Rechercher">&#x1F50D;</button>
     </div>
 
     <button form="form_page" class="bandeau_add_btn" type="submit" name="add_btn" value="ADD">+</button>
