@@ -3,11 +3,10 @@ from flask import Flask, redirect, render_template, request, url_for
 #render_template permet d'utiliser directement du code HTML
 #et de lui passer en paramètre des variables
 
-from Python.Client import Client
-from Python.Invoice import Invoice
-
 from Python.Manager.Artisan import Artisan
 from Python.Manager.Client_mng import Client_mng
+from Python.Manager.Invoice_mng import Invoice_mng
+from Python.Manager.Estimate_mng import Estimate_mng
 
 from Python.FormRequestHandlers.FactureFormRequest import getfactureForm
 from Python.FormRequestHandlers.DevisFormRequest import getdevisForm
@@ -71,6 +70,9 @@ def facture():
             filter_btn_toggle = not filter_btn_toggle
         elif "Filter_" in r:
             get_new_search_filter_index(r)
+        elif r == "ADD":
+            #clic sur le bouton add
+            return redirect(url_for("add_facture"))
 
     #return à la bonne page en fonction du btn bandeau == "Voir Client" ou autre
     return render_template("facture.html",
@@ -91,6 +93,9 @@ def devis():
             filter_btn_toggle = not filter_btn_toggle
         elif "Filter_" in r:
             get_new_search_filter_index(r)
+        elif r == "ADD":
+            #clic sur le bouton add
+            return redirect(url_for("add_devis"))
 
     return render_template("devis.html",
                             TEMPLATE_ID="Devis",
@@ -126,14 +131,6 @@ def client():
                             FILTER_TOGGLE = filter_btn_toggle,
                             SEARCH_IDX = search_filter_index)
 
-@app.route("/add_client", methods=["POST", "GET"])
-def add_client():
-    if request.method == 'POST':
-        r = getcardForm(request.form)
-        print(r)
-    return render_template("add_client.html",
-                            PATH = "/add_client")
-
 @app.route("/artisan", methods=['POST', 'GET'])
 def artisan():
     global InfoArtisan
@@ -152,6 +149,32 @@ def artisan():
 
 # ---------------------------------------------------------------------------------------------
 
+@app.route("/add_client", methods=["POST", "GET"])
+def add_client():
+    if request.method == 'POST':
+        r = getcardForm(request.form)
+        print(r)
+    return render_template("add_client.html",
+                            PATH = "/add_client")
+
+@app.route("/add_facture", methods=["POST", "GET"])
+def add_facture():
+    if request.method == 'POST':
+        r = getcardForm(request.form)
+        print(r)
+    return render_template("add_facture.html",
+                            PATH = "/add_facture")
+
+@app.route("/add_devis", methods=["POST", "GET"])
+def add_devis():
+    if request.method == 'POST':
+        r = getcardForm(request.form)
+        print(r)
+    return render_template("add_devis.html",
+                            PATH = "/add_devis")
+
+# ---------------------------------------------------------------------------------------------
+
 def get_new_search_filter_index(r):
 	global search_filter_index
 
@@ -164,16 +187,59 @@ def get_new_search_filter_index(r):
 	return search_filter_index
 
 def initialisation():
+    #initialisation des managers
     artisan = Artisan() #On charge les données de l'artisan
     client_mng = Client_mng()
+    invoice_mng = Invoice_mng()
+    estimate_mng = Estimate_mng()
 
+    scenario(artisan, client_mng, invoice_mng, estimate_mng)
+
+def scenario(artisan, client_mng, invoice_mng, estimate_mng):
+    #TEST ARTISAN
+    """
+    print("\n\n#### ARTISAN #####")
+    print(artisan.read_artisan())
+    artisan["surname"] = "NOUVEAU NOM"
+    print(artisan.read_artisan())
+    """
+
+    #TEST CLIENT
+    """
+    print("\n\n#### CLIENT #####")
+    print("id new client :", client_mng.newClient_id)
     client_mng.create_client({"firstname" : "proc", "surname" : "thom", "phone" : "00 00 00 00 00", "mail" : "sdfvsdfv@ldlkf.com", "adress" : "chemin des petits poids", "postcode" : 83300, "description" : "cooooommmmm"})
     print(client_mng.read_client(0))
+    print("id new client :", client_mng.newClient_id)
     client_mng.update_client(0, "surname", "Thomas")
     print(client_mng.read_client(0))
     client_mng.delete_client(0)
-    #On charge les données des factures
-    #On charge les données des devis
+    print("id new client :", client_mng.newClient_id)
+    """
+    #TEST FACTURE
+    print("\n\n#### FACTURE #####")
+    print("i_ new fact :", invoice_mng.newInvoice_id)
+    invoice_mng.create_invoice({"client_id" : 0, "creation_date" : "2022-06-03", "due_date" : "2022-05-30", "comment" : "sdfvsdfvldlkfcrm", "acquitted" : False, "list_items" : ["item1", "item2"]})
+    invoice_mng.create_invoice({"client_id" : 0, "creation_date" : "2022-05-03", "due_date" : "2022-05-30", "comment" : "sdfvsdfvldlkfcrm", "acquitted" : False, "list_items" : ["item1", "item2"]})
+    print(invoice_mng.read_invoice(0))
+    print("id new fact :", invoice_mng.newInvoice_id)
+    invoice_mng.update_invoice(0, "surname", "Thomas")
+    print(invoice_mng.read_invoice(0))
+    invoice_mng.delete_invoice(0)
+    print("id new fact :", invoice_mng.newInvoice_id)
+
+    #TEST DEVIS
+    """
+    print("\n\n#### DEVIS #####")
+    print("i_ new estimate :", estimate_mng.newEstimate_id)
+    estimate_mng.create_estimate({"client_id" : 0, "creation_date" : "03/05/2022", "due_date" : "30/05/2022", "comment" : "sdfvsdfvldlkfcrm", "acquitted" : False, "list_items" : ["item1", "item2"]})
+    print(estimate_mng.read_estimate(0))
+    print("id new estimate :", estimate_mng.newEstimate_id)
+    estimate_mng.update_estimate(0, "surname", "Thomas")
+    print(estimate_mng.read_estimate(0))
+    estimate_mng.delete_estimate(0)
+    print("id new estimate :", estimate_mng.newEstimate_id)
+    """
 
 # ---------------------------------------------------------------------------------------------
 

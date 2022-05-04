@@ -16,7 +16,6 @@ class Artisan:
         fd = open(artisan_path, "r")
         self.data = json.load(fd)
         fd.close()
-        #self.num_SIREN ?
         return
 
     """
@@ -24,9 +23,11 @@ class Artisan:
     """
     def test_datas_set(self) -> None:
         self.artisan_is_set = not "" in self.data.values()
-        return 
+        return
 
     def __getitem__(self, key):
+        if key == "all":
+            return self.data
         if key not in self.data.keys():
             return None
         return self.data[key]
@@ -36,6 +37,13 @@ class Artisan:
             return False
         self.data[key] = value
         self.test_datas_set() #A chaque fois qu'une donnée est modifiée, on contrôle si toutes les données sont renseignées
+
+        #On modifie les données de l'artisan dans le fichier Artisan.json puis on sauvegarde
+        fd = open(artisan_path, "w+")
+        #json.dump(artisan_json, fd)
+        json.dump(self.data, fd)
+        fd.close()
         return True
 
-#METTRE A JOUR ARTISAN.JSON QUAND ON MODIFIE LES DONNEES DE L'ARTISAN
+    def read_artisan(self) -> dict:
+        return self.data["all"]

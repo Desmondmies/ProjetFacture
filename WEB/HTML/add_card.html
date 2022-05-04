@@ -7,19 +7,19 @@
     <div class="info-client">
         <div class="inputs-client">
             <div class="row">
-                <input type="text" placeholder="Nom...">
-                <input type="text" placeholder="Prénom...">
+                <input type="text" id="i_nom" placeholder="Nom..." onchange="save_btn.value = 'SAVE¤' + i_nom.value">
+                <input type="text" id="i_prenom" placeholder="Prénom..." onchange="save_btn.value +='¤' + i_prenom.value">
             </div>
-            <input type="text" placeholder="Adresse Entreprise...">
+            <input type="text" id="i_ad" placeholder="Adresse Entreprise..." onchange="save_btn.value +='¤' + i_ad.value">
             <div class="row">
-                <input type="email" placeholder="Mail...">
-                <input type="tel" placeholder="Téléphone...">
+                <input type="email" id="i_mail" placeholder="Mail..." onchange="save_btn.value +='¤' + i_mail.value">
+                <input type="tel" id="i_tel" placeholder="Téléphone..." onchange="save_btn.value +='¤' + i_tel.value">
             </div>
-            <input type="text" placeholder="Description...">
+            <input type="text" id="i_desc" placeholder="Description..." onchange="save_btn.value +='¤' + i_desc.value">
         </div>
     </div>
     <form action="{{path}}" method="post">
     <div class="bouton">
-      <button class="button" type="submit" name="save_card" value="save" role="button" >Sauvegarder</button>
+      <button class="button" id="save_btn" type="submit" name="save_card" value="SAVE" role="button" >Sauvegarder</button>
     </div>
 </div>

@@ -1,6 +1,5 @@
-from Python.Client import Client
-
 class Estimate:
+    """
     def __init__(self, num:int, creation_date:str, client:Client, list_items:list = None) -> None:
         self.data = {}
         self.data["num"] = num
@@ -10,6 +9,11 @@ class Estimate:
         self.data["list_items"] = list_items
 
         #self.data["solde_total"] = 0 #A calculer
+        return
+    """
+
+    def __init__(self, dict_data_estimate:dict) -> None:
+        self.data = dict_data_estimate
         return
 
     def __getitem__(self, key):
