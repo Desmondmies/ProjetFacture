@@ -36,7 +36,15 @@ client2 = {"Nom" : "Loru",
             "Adresse": "82, sapins"} #si le champs description n'existe pas, apparement tout se passe bien, aucune erreur
 Clients = [client1, client2]
 
-#ARTISAN = Artisan("ENTREPRISE","Saidi", "Fouad", "06 06 06 06 06", "entreprise@mail.com","23 adresse Toulon")
+InfoArtisan =   {"surname" : "Matignofle",
+  "firstname" : "Robertine",
+  "compagny_name" : "salut la compagny",
+  "phone" : "00 00 00 00 00",
+  "mail_compagny" : "slt_la_comp@gmail.com",
+  "adress" : "45 Rue ici",
+  "logo" : "path",
+  "template_selected" : "STYLE2"
+}
 
 filter_btn_toggle = False
 search_filter_index = 0
@@ -167,3 +175,5 @@ if __name__ == "__main__":
         app.run(debug = True)
     except KeyboardInterrupt:
         print("Application terminé.")
+
+    print(dico_client["surname"])

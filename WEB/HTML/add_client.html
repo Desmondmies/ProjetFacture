@@ -1,0 +1,31 @@
+{% extends "template.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='add_client.css')}}">
+
+<div class="client">
+  <h2>Ajouter un client</h2>
+    <div class="info-client">
+        <div class="logo-client" src="" alt="LOGO ENTREPRISE"  ></div>
+        <div class="inputs-client">
+            <div class="row">
+                {% set _surname = CLIENT.surname %}
+                <input type="text" placeholder="Nom..." value = {{_surname}} >
+                <input type="text" placeholder="Prénom..." value = "{{CLIENT.firstname}}">
+            </div>
+            <input type="text" placeholder="Adresse Entreprise..." value = "{{CLIENT.adress}}">
+            <div class="row">
+                <input type="email" placeholder="Mail..." value = "{{CLIENT.mail}}">
+                <input type="tel" placeholder="Téléphone..." value = "{{CLIENT.phone}}">
+            </div>
+            <input type="text" placeholder="Description..." value = "{{CLIENT.description}}">
+        </div>
+    </div>
+    <form action="{{path}}" method="post">
+    <div class="bouton">
+      <button class="button" type="submit" name="save_artisan" value="save_client" role="button" >Sauvegarder</button>
+    </div>
+
+</div>
+
+
+{% endblock %}

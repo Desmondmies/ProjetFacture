@@ -6,19 +6,19 @@
 	<div class="artisan">
 	    <div class="info-artisan">
 	        <img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
-	        <div class="inputs-artisan">
-	            <input type="text" placeholder="Nom Entreprise..." value="{{NOM_ENTREPRISE}}">
-	            <div class="row">
-	                <input type="text" placeholder="Nom..." value="{{NOM}}">
-	                <input type="text" placeholder="Prénom..." value="{{PRENOM}}">
-	            </div>
-	            <input type="text" placeholder="Adresse Entreprise..." value="{{ADRESSE}}">
-	            <div class="row">
-	                <input type="email" pattern="[A-Za-z0-9]+@[A-Za-z]+[.]{1}[a-z]+" placeholder="Mail..." value="{{MAIL}}">
-	                <input type="tel" pattern="([0-9]{2} ){4}[0-9]{2}" placeholder="Téléphone..." value="{{TEL}}">
-	            </div>
-	        </div>
-	    </div>
+        <div class="inputs-artisan">
+            <input type="text" placeholder="Nom Entreprise..." value = "{{ARTISAN.compagny_name}}">
+            <div class="row">
+                <input type="text" placeholder="Nom..." value = "{{ARTISAN.surname}}">
+                <input type="text" placeholder="Prénom..." value = "{{ARTISAN.firstname}}">
+            </div>
+            <input type="text" placeholder="Adresse Entreprise..." value = "{{ARTISAN.adress}}">
+            <div class="row">
+                <input type="email" pattern="[A-Za-z0-9]+@[A-Za-z]+[.]{1}[a-z]+" placeholder="Mail..." value = "{{ARTISAN.mail_compagny}}">
+                <input type="tel" pattern="([0-9]{2} ){4}[0-9]{2}" placeholder="Téléphone..." value = "{{ARTISAN.phone}}">
+            </div>
+        </div>
+    </div>
 
 	    <h2>Style de formulaire</h2>
 	    <div class ="carousel">

@@ -5,4 +5,4 @@ class Facture:
         #self.date_creation = date_actuelle #CHECKER : date_echeance > date_creation
         self.deadline = deadline
 
-        self.liste_produits = liste_produits
+        self.list_products = liste_produits
