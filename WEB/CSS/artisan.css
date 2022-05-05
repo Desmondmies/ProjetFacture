@@ -136,6 +136,7 @@ h2{
     border:0;
     text-align: center;
     transition: all .3s;
+    border-radius: 5px;
 
 }
 

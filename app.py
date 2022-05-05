@@ -35,17 +35,17 @@ client2 = {"Nom" : "Loru",
             "Mail" : "machin@qqchmail.fr",
             "Adresse": "82, sapins"} #si le champs description n'existe pas, apparement tout se passe bien, aucune erreur
 Clients = [client1, client2]
-
+"""
 InfoArtisan =   {"surname" : "Matignofle",
   "firstname" : "Robertine",
   "compagny_name" : "salut la compagny",
   "phone" : "00 00 00 00 00",
-  "mail_compagny" : "slt_la_comp@gmail.com",
+  "mail_compagny" : "comp@gmail.com",
   "adress" : "45 Rue ici",
   "logo" : "path",
   "template_selected" : "STYLE2"
 }
-
+"""
 filter_btn_toggle = False
 search_filter_index = 0
 
@@ -124,26 +124,30 @@ def client():
 
     #posts = variable à passer en paramètre à notre page HTML
     return render_template("client.html",
-                            CLIENTS_DATA = Clients,
+                            CLIENTS_DATA = client_mng.dict_clients,
                             TEMPLATE_ID="Client",
                             PATH="/client",
                             SEARCH_BAR=True,
                             FILTER_TOGGLE = filter_btn_toggle,
                             SEARCH_IDX = search_filter_index)
-
 @app.route("/artisan", methods=['POST', 'GET'])
 def artisan():
-    global InfoArtisan
+    global ARTISAN
 
     if request.method == 'POST':
         r = getartisanForm(request.form)
         print(r)
-        if "STYLE" in r :
-            print("style changed")
-            InfoArtisan["template_selected"] = r
+
+        if "¤" in r :
+            info = r.split('¤')
+            tmp = ("compagny_name","surname","firstname","adress","mail","phone")
+            for i in range(1,len(info)):
+                #clé du dico dans tmp et valeur vient d'artisan
+                ARTISAN[tmp[i-1]]=info[i]
+
     return render_template("artisan.html",
                             TEMPLATE_ID="Artisan",
-                            ARTISAN= InfoArtisan,
+                            ARTISAN= ARTISAN,
                             PATH="/artisan",
                             SEARCH_BAR=False )
 
@@ -151,9 +155,15 @@ def artisan():
 
 @app.route("/add_client", methods=["POST", "GET"])
 def add_client():
+    global client_mng
     if request.method == 'POST':
         r = getcardForm(request.form)
-        print(r)
+        info = r.split('¤')
+        tmp = ("surname","firstname","adress","mail","phone","description")
+        dico = {}
+        for i in range(1,len(info)):
+            dico[tmp[i-1]]=info[i]
+        client_mng.create_client(dico)
     return render_template("add_client.html",
                             PATH = "/add_client")
 
@@ -187,8 +197,9 @@ def get_new_search_filter_index(r):
 	return search_filter_index
 
 def initialisation():
+    global ARTISAN, client_mng
     #initialisation des managers
-    artisan = Artisan() #On charge les données de l'artisan
+    ARTISAN = Artisan() #On charge les données de l'artisan
     client_mng = Client_mng()
     invoice_mng = Invoice_mng()
     estimate_mng = Estimate_mng()
