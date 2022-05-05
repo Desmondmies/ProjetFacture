@@ -24,7 +24,7 @@
 	    <div class ="carousel">
 	        <ul>
 				{% for _style in ["STYLE1","STYLE2","STYLE3"] %}
-			        {% if _style == ARTISAN.style %}
+			        {% if _style == ARTISAN.template_selected %}
 				        <li>
 				          <button class="template select" id="i_template_selected" onclick="i_template_selected.value = {_style} " type="submit" name="choice_style" value="{{_style}}">
 				            <span class="textlogo">{{_style}}</span>

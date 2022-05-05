@@ -124,7 +124,7 @@ def client():
 
     #posts = variable à passer en paramètre à notre page HTML
     return render_template("client.html",
-                            CLIENTS_DATA = Clients,
+                            CLIENTS_DATA = client_mng.dict_clients,
                             TEMPLATE_ID="Client",
                             PATH="/client",
                             SEARCH_BAR=True,
@@ -155,6 +155,7 @@ def artisan():
 
 @app.route("/add_client", methods=["POST", "GET"])
 def add_client():
+    global client_mng
     if request.method == 'POST':
         r = getcardForm(request.form)
         info = r.split('¤')
@@ -162,8 +163,7 @@ def add_client():
         dico = {}
         for i in range(1,len(info)):
             dico[tmp[i-1]]=info[i]
-
-        print(dico)
+        client_mng.create_client(dico)
     return render_template("add_client.html",
                             PATH = "/add_client")
 
@@ -197,7 +197,7 @@ def get_new_search_filter_index(r):
 	return search_filter_index
 
 def initialisation():
-    global ARTISAN
+    global ARTISAN, client_mng
     #initialisation des managers
     ARTISAN = Artisan() #On charge les données de l'artisan
     client_mng = Client_mng()
