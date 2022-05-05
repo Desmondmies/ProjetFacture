@@ -2,6 +2,8 @@ import os
 import json
 from datetime import datetime
 
+from Python.Manager.Artisan import artisan
+
 from Python.Invoice import Invoice
 from Python.Utils.SearchData import search_by_name, search_by_address, search_by_tel
 
@@ -9,7 +11,7 @@ invoices_path = os.path.abspath("./JSON/Invoices.json")
 
 class Invoice_mng:
     def __init__(self) -> None:
-        self.dict_invoices = {} #Les numéros facture sont les clés et les valeurs sont un dictionnaire contenant les données de la facture choisi
+        self.dict_invoices = {} #Les numéros facture sont les clés et les valeurs sont une instance de Invoice 
         self.init_dict_invoices()
 
         self.update_newInvoice_id()
@@ -40,6 +42,7 @@ class Invoice_mng:
     On créé une instance de Invoice puis on met à jour le dictionnaire des factures existantes, le fichier json et le numéro de la prochaine facture
     """
     def create_invoice(self, dict_data_invoice:dict) -> None:
+        print("artisan facture :", artisan)
         """
         On contrôle les données de la facture : date creation < due date ET au moins 1 item dans list_items
         """
@@ -55,7 +58,7 @@ class Invoice_mng:
         On créé la facture
         """
         dict_data_invoice["id"] = self.newInvoice_id #On rajoute le numéro de la nouvelle facture
-        #dict_data_invoice["artisan"] = Artisan.read_artisan() #IL FAUT QUE CE FICHIER AIT ACCES AUX DONNEES DE L'ARTISAN
+        dict_data_invoice["artisan"] = artisan.read_artisan()
         self.dict_invoices[self.newInvoice_id] = Invoice(dict_data_invoice)
 
         #On charge les données des factures stockées dans le fichier Invoices.json
@@ -77,8 +80,7 @@ class Invoice_mng:
     Renvoie toutes les données concernant une facture
     """
     def read_invoice(self, invoice_id:int) -> Invoice:
-        #print(self.dict_invoices[invoice_id]["all"]) ON AFFICHE OU ON RENVOIE LES DONNEES DU CLIENT ?
-        return self.dict_invoices[invoice_id]["all"] #"all" est un mot clé créer pour récupérer les données d'une facture
+        return self.dict_invoices[invoice_id]["all"] #"all" est un mot clé créé pour récupérer les données d'une facture
 
     """
     Permet de modifier les informations d'une facture stockée grâce à son numéro de facture, le nom de l'attribut et de la nouvelle valeur
@@ -132,3 +134,6 @@ class Invoice_mng:
 
     def change_search_filter(self, new_search_filter_index:int) -> None:
         self.search_filter_index = new_search_filter_index
+        return
+
+invoice_mng = Invoice_mng()

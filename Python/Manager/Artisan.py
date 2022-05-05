@@ -46,4 +46,6 @@ class Artisan:
         return True
 
     def read_artisan(self) -> dict:
-        return self.data["all"]
+        return self["all"]
+
+artisan = Artisan()

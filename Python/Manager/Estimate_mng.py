@@ -1,6 +1,8 @@
 import os
 import json
 
+from Python.Manager.Artisan import artisan
+
 from Python.Estimate import Estimate
 from Python.Utils.SearchData import search_by_name, search_by_address, search_by_tel
 
@@ -9,7 +11,7 @@ estimate_path = os.path.abspath("./JSON/Estimates.json")
 
 class Estimate_mng:
     def __init__(self) -> None:
-        self.dict_estimates = {} #Les numéros facture sont les clés et les valeurs sont un dictionnaire contenant les données de la facture choisi
+        self.dict_estimates = {} #Les numéros des devis sont les clés et les valeurs sont une instance de Estimate 
         self.init_dict_estimate()
 
         self.update_newEstimate_id()
@@ -35,7 +37,7 @@ class Estimate_mng:
         if len(self.dict_estimates) == 0:
             self.newEstimate_id = 0
         else:
-            self.newEstimate_id = max(self.dict_estimates) + 1 #Numéro du prochain devis à créer : pas en fonction du nombre de factures car un dictionnaire de mille factures ne signifie pas que la dernière facture a le numéro 1000
+            self.newEstimate_id = max(self.dict_estimates) + 1 #Numéro du prochain devis à créer : pas en fonction du nombre de devis car un dictionnaire de mille devis ne signifie pas que le dernier devis a le numéro 1000
 
     """
     On créé une instance de devis puis on met à jour le dictionnaire des devis existantes, le fichier json et le numéro de la prochaine devis
@@ -45,10 +47,10 @@ class Estimate_mng:
         CONTROLER LES DONNEES DE LA FACTURE : DATE CREATION < DATE LIMITE, AU MOINS 1 ITEM DANS LA LISTE DES ITEMS
         """
         dict_data_estimate["id"] = self.newEstimate_id #On rajoute le numéro du nouveau devis
-        #dict_data_invoice["artisan"] = Artisan.read_artisan() #IL FAUT QUE CE FICHIER AIT ACCES AUX DONNEES DE L'ARTISAN
+        dict_data_estimate["artisan"] = artisan.read_artisan() #IL FAUT QUE CE FICHIER AIT ACCES AUX DONNEES DE L'ARTISAN
         self.dict_estimates[self.newEstimate_id] = Estimate(dict_data_estimate)
 
-        #On charge les données des factures stockées dans le fichier Invoices.json
+        #On charge les données des devis stockées dans le fichier Estimates.json
         fd = open(estimate_path, "r")
         estimate_json = json.load(fd)
         fd.close()
@@ -66,7 +68,7 @@ class Estimate_mng:
     Renvoie toutes les données concernant un devis
     """
     def read_estimate(self, estimate_id:int) -> Estimate:
-        return self.dict_estimates[estimate_id]["all"] #"all" est un mot clé créer pour récupérer les données d'une facture
+        return self.dict_estimates[estimate_id]["all"] #"all" est un mot clé créé pour récupérer les données d'un devis
 
     """
     Permet de modifier les informations d'un devis stocké grâce à son numéro, le nom de l'attribut et de la nouvelle valeur
@@ -74,12 +76,12 @@ class Estimate_mng:
     def update_estimate(self, estimate_id:int, attribute:str, new_val) -> None:
         self.dict_estimates[estimate_id][attribute] = new_val
 
-        #On charge les données des facture stockées dans le fichier Invoices.json
+        #On charge les données des devis stockées dans le fichier Estimates.json
         fd = open(estimate_path, "r")
         estimate_json = json.load(fd)
         fd.close()
 
-        #On modifie les données de la facture dans le fichier Invoices.json puis on sauvegarde
+        #On modifie les données du devis dans le fichier Estimates.json puis on sauvegarde
         estimate_json[str(estimate_id)][attribute] = new_val
         fd = open(estimate_path, "w")
         json.dump(estimate_json, fd)
@@ -97,7 +99,7 @@ class Estimate_mng:
         estimate_json = json.load(fd)
         fd.close()
 
-        #On supprime la facture dans le fichier Invoices.json puis on sauvegarde
+        #On supprime le devis dans le fichier Estimates.json puis on sauvegarde
         estimate_json.pop(str(estimate_id))
         fd = open(estimate_path, "w")
         json.dump(estimate_json, fd)
@@ -120,3 +122,6 @@ class Estimate_mng:
 
     def change_search_filter(self, new_search_filter_index:int) -> None:
         self.search_filter_index = new_search_filter_index
+        return
+
+estimate_mng = Estimate_mng()
