@@ -2,20 +2,20 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='artisan.css')}}">
 
-<form action="{{path}}" method="post">
+
 	<div class="artisan">
 	    <div class="info-artisan">
 	        <img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
         <div class="inputs-artisan">
-            <input type="text" placeholder="Nom Entreprise..." value = "{{ARTISAN.compagny_name}}">
+            <input type="text" id="i_compagny_name" placeholder="Nom Entreprise..." value = "{{ARTISAN.compagny_name}}">
             <div class="row">
-                <input type="text" placeholder="Nom..." value = "{{ARTISAN.surname}}">
-                <input type="text" placeholder="Prénom..." value = "{{ARTISAN.firstname}}">
+                <input type="text" id="i_surname" placeholder="Nom..." value = "{{ARTISAN.surname}}">
+                <input type="text" id="i_firstname" placeholder="Prénom..." value = "{{ARTISAN.firstname}}">
             </div>
-            <input type="text" placeholder="Adresse Entreprise..." value = "{{ARTISAN.adress}}">
+            <input type="text" id="i_adress" placeholder="Adresse Entreprise..." value = "{{ARTISAN.adress}}">
             <div class="row">
-                <input type="email" pattern="[A-Za-z0-9]+@[A-Za-z]+[.]{1}[a-z]+" placeholder="Mail..." value = "{{ARTISAN.mail_compagny}}">
-                <input type="tel" pattern="([0-9]{2} ){4}[0-9]{2}" placeholder="Téléphone..." value = "{{ARTISAN.phone}}">
+                <input type="email" id="i_mail" pattern="[A-Za-z0-9]+@[A-Za-z]+[.]{1}[a-z]+" placeholder="Mail..." value = "{{ARTISAN.mail_compagny}}">
+                <input type="tel" id="i_phone" pattern="([0-9]{2} ){4}[0-9]{2}" placeholder="Téléphone..." value = "{{ARTISAN.phone}}">
             </div>
         </div>
     </div>
@@ -24,15 +24,15 @@
 	    <div class ="carousel">
 	        <ul>
 				{% for _style in ["STYLE1","STYLE2","STYLE3"] %}
-			        {% if _style == STYLE_ID %}
+			        {% if _style == ARTISAN.style %}
 				        <li>
-				          <button class="template select" type="submit" name="choice_style" value="{{_style}}">
+				          <button class="template select" id="i_template_selected" onclick="i_template_selected.value = {_style} " type="submit" name="choice_style" value="{{_style}}">
 				            <span class="textlogo">{{_style}}</span>
 				          </button>
 				        </li>
 			        {% else %}
 				        <li>
-				          <button class="template" type="submit" name="choice_style" value="{{_style}}">
+				          <button class="template" type="submit" name="choice_style" onclick="i_template_selected.value = {_style}" value="{{_style}}">
 				            <span class="textlogo">{{_style}}</span>
 				          </button>
 				        </li>
@@ -40,9 +40,9 @@
 		        {% endfor %}
 	        </ul>
 	    </div>
+	    <form action="{{PATH}}" method="post">
 	    <div class="bouton">
-	        <button class="button" type="submit" name="save_artisan" value="SAVE" role="button">Sauvegarder</button>
+	        <button class="button" id="save_btn" type="submit" name="save_artisan" onclick="save_btn.value = 'SAVE¤'+i_compagny_name.value+'¤'+i_surname.value+'¤'+i_firstname.value+'¤'+i_adress.value+'¤'+i_mail.value+'¤'+i_phone.value" value="VOID" role="button" >Sauvegarder</button>
 	    </div>
 	</div>
-</form>
 {% endblock %}
