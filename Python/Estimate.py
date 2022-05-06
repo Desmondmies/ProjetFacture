@@ -2,13 +2,14 @@ class Estimate:
     """
     def __init__(self, num:int, creation_date:str, client:Client, list_items:list = None) -> None:
         self.data = {}
-        self.data["num"] = num
+        self.data["id"] = num
         self.data["creation_date"] = creation_date
-        self.data["client"] = client
+        self.data["client_id"] = client
+
+        self.data["artisan"] = dict_data_artisan
 
         self.data["list_items"] = list_items
 
-        #self.data["solde_total"] = 0 #A calculer
         return
     """
 
@@ -17,13 +18,14 @@ class Estimate:
         return
 
     def __getitem__(self, key):
-        print("getter method called")
+        if key == "all":
+            return self.data
         if key not in self.data.keys():
             return None
         return self.data[key]
 
     def __setitem__(self, key, value) -> bool:
-        print("mutateur !")
+        # print("mutateur !")
         if key not in self.data.keys():
             return False
         self.data[key] = value

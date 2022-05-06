@@ -10,14 +10,14 @@ class Invoice:
         self.data["comment"] = comment
         self.data["acquitted"] = acquitted
 
+        self.data["artisan"] = dico_data_artisan
+
         self.data["list_items"] = list_items
         self.data["list_deposits"] = list_deposits
-        ###############MANQUE DONNEES DE L'ARTISAN
         return
     """
     def __init__(self, dict_data_invoice:dict) -> None:
         self.data = dict_data_invoice
-        ###############MANQUE DONNEES DE L'ARTISAN
         return
 
     def __getitem__(self, key):

@@ -23,11 +23,41 @@
 
 .bandeau .left_infos {
 	display: flex;
-	width: 50%;
+	width: 100%;
 	justify-content: space-between;
+    flex-direction: column;
 	padding-left: 15px;
 	padding-right: 15px;
 }
+
+.bandeau .left_infos .row_infos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.bandeau .left_infos .row_infos div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    padding-right: 5px;
+}
+
+.bandeau .left_infos .row_infos_wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+	flex-wrap: wrap;
+}
+.bandeau .left_infos .row_infos_wrap div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    padding-right: 5px;
+}
+
+
 .bandeau .left_infos div{
 	display: flex;
 	flex-direction: column;
@@ -40,7 +70,7 @@
 	justify-content: flex-end;
 	padding-left: 15px;
 	padding-right: 15px;
-	align-items: center;
+    align-items: center;
 }
 
 .bandeau .right_buttons button{

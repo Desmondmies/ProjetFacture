@@ -2,18 +2,19 @@ import os
 import json
 
 from Python.Client import Client
-from Python.Utils.SearchData import search_by_name, search_by_address, search_by_tel
+from Python.Utils.SearchData import search_by_name, search_by_address, search_by_tel, set_client_manager
 
 clients_path = os.path.abspath("./JSON/Clients.json")
 
 class Client_mng:
 	def __init__(self) -> None:
-		self.dict_clients = {} #Les numéros client sont les clés et les valeurs sont un dictionnaire contenant les données du client choisi
+		self.dict_clients = {} #Les numéros client sont les clés et les valeurs sont une instance de Client
 		self.init_dict_clients()
 
 		self.update_newClient_id()
 
 		self.search_filter_index = 0
+		set_client_manager(self)
 		return
 
 	"""
@@ -63,7 +64,7 @@ class Client_mng:
 	Renvoie toutes les données concernant un client
 	"""
 	def read_client(self, client_id) -> Client:
-		return self.dict_clients[client_id]["all"] #"all" est un mot clé créer pour récupérer les données d'un client
+		return self.dict_clients[client_id]["all"] #"all" est un mot clé créé pour récupérer les données d'un client
 
 	"""
 	Permet de modifier les informations d'un client stockée grâce à son numéro client, du nom de l'attribut et de la nouvelle valeur
@@ -103,8 +104,8 @@ class Client_mng:
 		self.update_newClient_id()
 		return
 
-	def search_client(self, search_value:str) -> list:
-		res = []
+	def search_client(self, search_value:str) -> dict:
+		res = {}
 
 		if self.search_filter_index == 0:
 			res = search_by_name(self.dict_clients, search_value)
@@ -117,3 +118,6 @@ class Client_mng:
 
 	def change_search_filter(self, new_search_filter_index:int) -> None:
 		self.search_filter_index = new_search_filter_index
+		return
+
+client_mng = Client_mng()

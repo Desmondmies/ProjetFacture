@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 {% block content %}
 
-{% for i in range(10) %}
+{% for (facture, client) in DATA %}
   {% include "bandeau_info_facture.html" %}
 {% endfor %}
 

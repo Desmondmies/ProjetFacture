@@ -10,20 +10,17 @@ class Artisan:
 
         self.load_artisan()
         self.test_datas_set()
-        return
 
     def load_artisan(self) -> None:
         fd = open(artisan_path, "r")
         self.data = json.load(fd)
         fd.close()
-        return
 
     """
     Cette fonction vérifie que toutes les données de l'artisan sont initialisées et modifie la  variable "artisan_is_set" en fonction
     """
     def test_datas_set(self) -> None:
         self.artisan_is_set = not "" in self.data.values()
-        return
 
     def __getitem__(self, key):
         if key == "all":
@@ -46,4 +43,9 @@ class Artisan:
         return True
 
     def read_artisan(self) -> dict:
-        return self.data["all"]
+        return self["all"]
+
+    def isArtisanComplete(self) -> bool:
+        return self.artisan_is_set
+
+artisan = Artisan()

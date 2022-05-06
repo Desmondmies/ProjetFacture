@@ -48,3 +48,7 @@ header a::before {
 .select{
   background-color: var(--selection);
 }
+
+#Projet-Facture{
+    font-size: 27px;
+}
