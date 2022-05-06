@@ -1,6 +1,5 @@
 import os
 import json
-from datetime import datetime
 
 from Python.Manager.Artisan import artisan
 
@@ -44,20 +43,11 @@ class Invoice_mng:
     """
     def create_invoice(self, dict_data_invoice:dict) -> None:
         """
-        On contrôle les données de la facture : date creation < due date ET au moins 1 item dans list_items 
-        A FAIRE DANS LE HTML/CSS PLUTOT ? OU on change les cardinalités dans l'UML ?
-        
-        creation_date = datetime.strptime(dict_data_invoice["creation_date"], '%Y-%m-%d').date()
-        due_date = datetime.strptime(dict_data_invoice["due_date"], '%Y-%m-%d').date()
-
-        if creation_date > due_date:
-            return
-        if len(dict_data_invoice["list_items"]) < 1:
-            return
-        """
-        """
         On créé la facture
         """
+        if "list_deposits" not in dict_data_invoice.keys():
+            dict_data_invoice["list_deposits"] = []
+            
         dict_data_invoice["id"] = self.newInvoice_id #On rajoute le numéro de la nouvelle facture
         dict_data_invoice["artisan"] = artisan.read_artisan()
         self.dict_invoices[self.newInvoice_id] = Invoice(dict_data_invoice)
@@ -197,5 +187,67 @@ class Invoice_mng:
         json.dump(invoices_json, fd)
         fd.close()
         return
+
+    """
+    Partie Acompte
+    """
+    """
+    Permet de créer un nouvel acompte pour une facture existante
+    """
+    def create_deposit(self, invoice_id:int, dict_data_deposit:dict) -> None:
+        self.dict_invoices[invoice_id]["list_deposits"].append(dict_data_deposit)
+
+        #On charge les données des factures stockées dans le fichier Invoices.json
+        fd = open(invoices_path, "r")
+        invoices_json = json.load(fd)
+        fd.close()
+
+        #On ajoute un nouvel acompte dans une facture présente dans le fichier Invoices.json puis on sauvegarde
+        invoices_json[str(invoice_id)]["list_deposits"].append(dict_data_deposit)
+        fd = open(invoices_path, "w")
+        json.dump(invoices_json, fd)
+        fd.close()
+        return
+
+    def read_deposit(self, invoice_id:int, deposit_id:int) -> dict:
+        return self.dict_invoices[invoice_id]["list_deposits"][deposit_id]
+
+
+    """
+    Permet de mettre à jour l'attribut d'un acompte
+    """
+    def update_deposit(self, invoice_id:int, deposit_id:int, attribute:str, new_val) -> None:
+        self.dict_invoices[invoice_id]["list_deposits"][deposit_id][attribute] = new_val
+        
+        #On charge les données des factures stockées dans le fichier Invoices.json
+        fd = open(invoices_path, "r")
+        invoices_json = json.load(fd)
+        fd.close()
+
+        #On modifie les données de l'acompte dans la facture stockée dans le fichier Invoices.json puis on sauvegarde
+        invoices_json[str(invoice_id)]["list_deposits"][deposit_id][attribute] = new_val
+        fd = open(invoices_path, "w")
+        json.dump(invoices_json, fd)
+        fd.close()
+        return
+
+    """
+    Permet de supprimer un acompte sur une facture existante avec son indice dans la liste
+    """
+    def delete_deposit(self, invoice_id:int, deposit_id:int) -> None:
+        self.dict_invoices[invoice_id]["list_deposits"].pop(deposit_id)
+
+        #On charge les données des factures stockées dans le fichier Invoices.json
+        fd = open(invoices_path, "r")
+        invoices_json = json.load(fd)
+        fd.close()
+
+        #On supprime un acompte d'une facture présente dans le fichier Invoices.json puis on sauvegarde
+        invoices_json[str(invoice_id)]["list_deposits"].pop(deposit_id)
+        fd = open(invoices_path, "w")
+        json.dump(invoices_json, fd)
+        fd.close()
+        return
+    
 
 invoice_mng = Invoice_mng()
