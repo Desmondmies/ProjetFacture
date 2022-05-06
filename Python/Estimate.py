@@ -6,9 +6,10 @@ class Estimate:
         self.data["creation_date"] = creation_date
         self.data["client_id"] = client
 
+        self.data["artisan"] = dict_data_artisan
+
         self.data["list_items"] = list_items
 
-        #self.data["solde_total"] = 0 #A calculer
         return
     """
 
@@ -17,7 +18,6 @@ class Estimate:
         return
 
     def __getitem__(self, key):
-        # print("getter method called")
         if key == "all":
             return self.data
         if key not in self.data.keys():
