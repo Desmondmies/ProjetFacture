@@ -9,6 +9,7 @@ from Python.Utils.SearchData import search_by_name, search_by_address, search_by
 
 invoices_path = os.path.abspath("./JSON/Invoices.json")
 
+#UNE FACTURE EST ACQUITEE QUAND LE SOLDE RESTANT EST NULLE !!
 class Invoice_mng:
     def __init__(self) -> None:
         self.dict_invoices = {} #Les numéros facture sont les clés et les valeurs sont une instance de Invoice 
@@ -42,10 +43,10 @@ class Invoice_mng:
     On créé une instance de Invoice puis on met à jour le dictionnaire des factures existantes, le fichier json et le numéro de la prochaine facture
     """
     def create_invoice(self, dict_data_invoice:dict) -> None:
-        print("artisan facture :", artisan)
         """
-        On contrôle les données de la facture : date creation < due date ET au moins 1 item dans list_items
-        """
+        On contrôle les données de la facture : date creation < due date ET au moins 1 item dans list_items 
+        A FAIRE DANS LE HTML/CSS PLUTOT ? OU on change les cardinalités dans l'UML ?
+        
         creation_date = datetime.strptime(dict_data_invoice["creation_date"], '%Y-%m-%d').date()
         due_date = datetime.strptime(dict_data_invoice["due_date"], '%Y-%m-%d').date()
 
@@ -53,7 +54,7 @@ class Invoice_mng:
             return
         if len(dict_data_invoice["list_items"]) < 1:
             return
-
+        """
         """
         On créé la facture
         """
@@ -88,7 +89,7 @@ class Invoice_mng:
     def update_invoice(self, invoice_id:int, attribute:str, new_val) -> None:
         self.dict_invoices[invoice_id][attribute] = new_val
 
-        #On charge les données des facture stockées dans le fichier Invoices.json
+        #On charge les données des factures stockées dans le fichier Invoices.json
         fd = open(invoices_path, "r")
         invoices_json = json.load(fd)
         fd.close()
@@ -134,6 +135,67 @@ class Invoice_mng:
 
     def change_search_filter(self, new_search_filter_index:int) -> None:
         self.search_filter_index = new_search_filter_index
+        return
+
+    """
+    Partie Item
+    """
+    """
+    Permet de créer un nouveau produit pour une facture existante
+    """
+    def create_item(self, invoice_id:int, dict_data_item:dict) -> None:
+        self.dict_invoices[invoice_id]["list_items"].append(dict_data_item)
+
+        #On charge les données des factures stockées dans le fichier Invoices.json
+        fd = open(invoices_path, "r")
+        invoices_json = json.load(fd)
+        fd.close()
+
+        #On ajoute un nouveau produit dans une facture présente dans le fichier Invoices.json puis on sauvegarde
+        invoices_json[str(invoice_id)]["list_items"].append(dict_data_item)
+        fd = open(invoices_path, "w")
+        json.dump(invoices_json, fd)
+        fd.close()
+        return
+
+    def read_item(self, invoice_id:int, item_id:int) -> dict:
+        return self.dict_invoices[invoice_id]["list_items"][item_id]
+
+
+    """
+    Permet de mettre à jour l'attribut d'un item
+    """
+    def update_item(self, invoice_id:int, item_id:int, attribute:str, new_val) -> None:
+        self.dict_invoices[invoice_id]["list_items"][item_id][attribute] = new_val
+        
+        #On charge les données des factures stockées dans le fichier Invoices.json
+        fd = open(invoices_path, "r")
+        invoices_json = json.load(fd)
+        fd.close()
+
+        #On modifie les données de l'item dans la facture stockée dans le fichier Invoices.json puis on sauvegarde
+        invoices_json[str(invoice_id)]["list_items"][item_id][attribute] = new_val
+        fd = open(invoices_path, "w")
+        json.dump(invoices_json, fd)
+        fd.close()
+        return
+
+    """
+    Permet de supprimer un produit sur une facture existante avec son indice dans la liste
+    """
+    def delete_item(self, invoice_id:int, item_id:int) -> None:
+        self.dict_invoices[invoice_id]["list_items"].pop(item_id)
+
+        #On charge les données des factures stockées dans le fichier Invoices.json
+        fd = open(invoices_path, "r")
+        invoices_json = json.load(fd)
+        fd.close()
+
+        #On supprime un produit d'une facture présente dans le fichier Invoices.json puis on sauvegarde
+        invoices_json[str(invoice_id)]["list_items"].pop(item_id)
+        fd = open(invoices_path, "w")
+        json.dump(invoices_json, fd)
+        fd.close()
         return
 
 invoice_mng = Invoice_mng()

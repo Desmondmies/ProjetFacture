@@ -1,10 +1,1 @@
-{
-  "surname" : "Matignofle",
-  "firstname" : "Robertine",
-  "compagny_name" : "salut la compagny",
-  "phone" : "00 00 00 00 00",
-  "mail_compagny" : "slt_la_comp@gmail.com",
-  "adress" : "",
-  "logo" : "path",
-  "template_selected" : 0
-}
+{"surname": "test nom", "firstname": "Robertine", "compagny_name": "salut la compagny", "phone": "00 00 00 00 00", "mail_compagny": "slt_la_comp@gmail.com", "adress": "", "logo": "path", "template_selected": 0}

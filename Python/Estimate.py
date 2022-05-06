@@ -6,9 +6,10 @@ class Estimate:
         self.data["creation_date"] = creation_date
         self.data["client"] = client
 
+        self.data["artisan"] = dict_data_artisan
+
         self.data["list_items"] = list_items
 
-        #self.data["solde_total"] = 0 #A calculer
         return
     """
 

@@ -44,7 +44,13 @@ class Estimate_mng:
     """
     def create_estimate(self, dict_data_estimate:dict) -> None:
         """
-        CONTROLER LES DONNEES DE LA FACTURE : DATE CREATION < DATE LIMITE, AU MOINS 1 ITEM DANS LA LISTE DES ITEMS
+        On contrôle les données du devis : au moins 1 item dans list_items
+        
+        if len(dict_data_invoice["list_items"]) < 1:
+            return
+        """
+        """
+        On créé la facture
         """
         dict_data_estimate["id"] = self.newEstimate_id #On rajoute le numéro du nouveau devis
         dict_data_estimate["artisan"] = artisan.read_artisan() #IL FAUT QUE CE FICHIER AIT ACCES AUX DONNEES DE L'ARTISAN
