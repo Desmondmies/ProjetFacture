@@ -1,10 +1,8 @@
 {% extends "template.html" %}
 {% block content %}
 
-{% for id,data in CLIENTS_DATA.items() %}
-	    
+{% for id,data in CLIENTS_DATA.items() %} 
         {% include "bandeau_info_client.html" %}
-
 {% endfor %}
 
 {% endblock %}

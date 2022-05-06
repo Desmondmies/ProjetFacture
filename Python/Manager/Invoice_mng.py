@@ -118,8 +118,8 @@ class Invoice_mng:
         self.update_newInvoice_id()
         return
 
-    def search_client(self, search_value:str) -> list:
-        res = []
+    def search_client(self, search_value:str) -> dict:
+        res = {}
 
         if self.search_filter_index == 0:
             res = search_by_name(self.dict_invoices, search_value)
@@ -132,3 +132,5 @@ class Invoice_mng:
 
     def change_search_filter(self, new_search_filter_index:int) -> None:
         self.search_filter_index = new_search_filter_index
+
+invoice_mng = Invoice_mng()

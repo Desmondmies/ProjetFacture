@@ -39,6 +39,12 @@ input{
     outline: solid var(--selection);
 }
 
+.info-artisan #hasPath{
+    background-color: transparent;
+    border-radius: 0px;
+    outline: none;
+}
+
 .info-artisan .inputs-artisan{
     display: flex;
     flex-direction: column;
@@ -111,8 +117,8 @@ h2{
     box-shadow: 4px 4px 24px rgba(0,0,0,0.5);
     outline: solid var(--selection);
 }
-.template:focus {
-    outline: solid var(--selection);
+#i_template_selected {
+    transform: scale(1.1);
 }
 
 .bouton{
@@ -120,24 +126,20 @@ h2{
     height: 10%;
     margin-top: 2%;
     margin-bottom: 2%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .button {
-    margin-left: 80%;
-    align-items: center;
     background-color: var(--button_bg);
     color: var(--button_text);
     cursor: pointer;
-    display: inline-flex;
-    font-size: 16px;
-    height: 60%;
-    justify-content: center;
-    min-width: 140px;
+    font-size: 20px;
+    min-width: 165px;
     border:0;
-    text-align: center;
     transition: all .3s;
     border-radius: 5px;
-
+    height: 50px;
 }
 
 .button:hover {

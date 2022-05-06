@@ -19,7 +19,7 @@ class Client:
         return
 
     def __getitem__(self, key):
-        print("getter method called CLIENT")
+        # print("getter method called CLIENT")
         if key == "all":
             return self.data
         if key not in self.data.keys():
@@ -27,7 +27,7 @@ class Client:
         return self.data[key]
 
     def __setitem__(self, key, value) -> bool:
-        print("mutateur !")
+        # print("mutateur !")
         if key not in self.data.keys():
             return False
         self.data[key] = value

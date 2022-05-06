@@ -24,6 +24,10 @@
                     <input type="text" value="{{data.adress}}" disabled>
                 </div>
                 <div>
+                    <label>Code Postale</label>
+                    <input type="text" value="{{data.postcode}}" disabled>
+                </div>
+                <div>
                     <label>Mail</label>
                     <input type="text" value="{{data.mail}}" disabled>
                 </div>
@@ -36,10 +40,10 @@
         </div>
 
         <div class="right_buttons">
-            <button type="submit" name="bandeau_btn" value="Gen_Facture">Générer une Facture</button>
-            <button type="submit" name="bandeau_btn" value="Gen_Devis">Générer un Devis</button>
-            <button type="submit" name="bandeau_btn" value="Modifier">Modifier</button>
-            <button type="submit" name="bandeau_btn" value="Supprimer">Supprimer</button>
+            <button type="submit" name="bandeau_btn" value="Gen_Facture¤{{id}}">Générer une Facture</button>
+            <button type="submit" name="bandeau_btn" value="Gen_Devis¤{{id}}">Générer un Devis</button>
+            <button type="submit" name="bandeau_btn" value="Modifier¤{{id}}">Modifier</button>
+            <button type="submit" name="bandeau_btn" value="Supprimer¤{{id}}">Supprimer</button>
         </div>
     </div>
 </form>

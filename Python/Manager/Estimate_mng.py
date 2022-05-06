@@ -106,8 +106,8 @@ class Estimate_mng:
         self.update_newEstimate_id()
         return
 
-    def search_client(self, search_value:str) -> list:
-        res = []
+    def search_client(self, search_value:str) -> dict:
+        res = {}
 
         if self.search_filter_index == 0:
             res = search_by_name(self.dict_estimates, search_value)
@@ -120,3 +120,5 @@ class Estimate_mng:
 
     def change_search_filter(self, new_search_filter_index:int) -> None:
         self.search_filter_index = new_search_filter_index
+
+estimate_mng = Estimate_mng()

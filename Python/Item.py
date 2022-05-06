@@ -7,13 +7,13 @@ class Item:
         self.data["price"] = price
 
     def __getitem__(self, key):
-        print("getter method called")
+        # print("getter method called")
         if key not in self.data.keys():
             return None
         return self.data[key]
 
     def __setitem__(self, key, value) -> bool:
-        print("mutateur !")
+        # print("mutateur !")
         if key not in self.data.keys():
             return False
         self.data[key] = value

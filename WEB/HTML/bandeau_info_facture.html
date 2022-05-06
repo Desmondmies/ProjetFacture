@@ -3,26 +3,59 @@
 <form action="/facture" method="post">
     <div class="bandeau">
         <div class="left_infos">
-            <div>
-                <label>Prénom Client</label>
-                <input type="text" disabled>
-                <label>Nom Client</label>
-                <input type="text" disabled>
+            <div class="row_infos">
+                <div>
+                    <label>Prénom Client</label>
+                    <input type="text" value="{{client.firstname}}" disabled>
+                </div>
+                <div>
+                    <label>Nom Client</label>
+                    <input type="text" value="{{client.surname}}" disabled>
+                </div>
+                <div>
+                    <label>Mail</label>
+                    <input type="text" value="{{client.mail}}" disabled>
+                </div>
+            </div>
+
+            <div class="row_infos">
+                <div>
+                    <label>Date de Création</label>
+                    <input type="date" value="{{facture.creation_date}}" disabled>
+                </div>
+                <div>
+                    <label>Date d'Échéance</label>
+                    <input type="date" value="{{facture.due_date}}" disabled>
+                </div>
             </div>
 
             <div>
-                <label>Date de Création</label>
-                <input type="text" disabled>
-                <label>Date du Service</label>
-                <input type="text" disabled>
+                <label>Description</label>
+                <input type="text" value="{{facture.comment}}" disabled>
+            </div>
+            <div>
+                <label>Acquitté</label>
+                <input type="text" value="{{facture.acquitted}}" disabled>
+            </div>
+            <div>
+                <label>Produits</label>
+            </div>
+            <div class="row_infos_wrap">
+                {% for item in facture.list_items %}
+                    {% if item != '' %}
+                        <div>
+                            <input type="text" value="{{item}}" disabled>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
 
         <div class="right_buttons">
-            <button type="submit" name="bandeau_btn" value="ConvertToFormulaire">Convertir en Formulaire</button>
-            <button type="submit" name="bandeau_btn" value="Voir Client">Voir Page Client</button>
-            <button type="submit" name="bandeau_btn" value="Modifier">Modifier</button>
-            <button type="submit" name="bandeau_btn" value="Supprimer">Supprimer</button>
+            <button type="submit" name="bandeau_btn" value="ConvertToFormulaire¤{{facture.id}}">Convertir en Formulaire</button>
+            <button type="submit" name="bandeau_btn" value="Voir Client¤{{facture.id}}">Voir Page Client</button>
+            <button type="submit" name="bandeau_btn" value="Modifier¤{{facture.id}}">Modifier</button>
+            <button type="submit" name="bandeau_btn" value="Supprimer¤{{facture.id}}">Supprimer</button>
         </div>
     </div>
 </form>
