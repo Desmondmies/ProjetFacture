@@ -1,8 +1,13 @@
 @import "color_ref.css";
 
 .formulaire{
+<<<<<<< Updated upstream
     /*margin: 10px 15px;*/
     padding: 70px;
+=======
+    padding-left: 70px;
+    padding-right: 70px;
+>>>>>>> Stashed changes
     border-radius: 10px;
     color: var(--text);
 }
@@ -107,3 +112,76 @@ input{
 .inputs-client .description{
 	height: 60px;
 }
+<<<<<<< Updated upstream
+=======
+
+
+
+.info-produit{
+    /* height: 500px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.info-produit hr{
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.info-produit .row{
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.info-produit .row *{
+    width: 20%;
+    margin-right: 5px;
+
+}
+
+.info-acompte{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.info-acompte hr{
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.info-acompte .row{
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.info-acompte .row *{
+    width: 10%;
+    margin-right: 10px;
+}
+
+.montants{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn{
+    display: flex;
+    height: 45px;
+    justify-content: flex-end;
+}
+
+.btn button{
+    background-color: var(--button_bg);
+    width: 125px;
+    color: var(--button_text);
+    border: 0;
+    border-radius: 7px;
+    margin: 5px;
+}
+
+.btn button:hover{
+    background-color: var(--button_selection);
+}
+>>>>>>> Stashed changes
