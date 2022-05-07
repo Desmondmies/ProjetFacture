@@ -1,7 +1,6 @@
 @import "color_ref.css";
 
 .formulaire{
-    /*margin: 10px 15px;*/
     padding: 70px;
     border-radius: 10px;
     color: var(--text);
@@ -17,6 +16,10 @@ input{
     border-radius: 5px;
 }
 
+label{
+    font-size: 15px;
+}
+
 ::placeholder{
     color: var(--input_text);
 }
@@ -24,11 +27,29 @@ input{
 /*
     INFO ARTISAN
 */
-.info-artisan{
+.info{
     display: flex;
-    flex-direction: row-reverse;
     font-size: 30px;
     justify-content: space-between;
+}
+
+.info-artisan{
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+}
+
+.info .info-artisan{
+    justify-content: space-between;
+}
+.formulaire .info-artisan{
+    justify-content: center;
+}
+
+.info-artisan #hasPath{
+    background-color: transparent;
+    border-radius: 0px;
+    outline: none;
 }
 
 .info-artisan .logo-artisan{
@@ -41,21 +62,21 @@ input{
     outline: solid var(--selection);
 }
 
-.info-artisan .inputs-artisan{
+.info .inputs-artisan{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 40%;
     justify-content: space-between;
     align-items: stretch;
 }
 
-.info-artisan .inputs-artisan .row{
+.info .inputs-artisan .row{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.info-artisan .inputs-artisan .row input{
+.info .inputs-artisan .row input{
     width: 45%;
 }
 
@@ -63,39 +84,85 @@ input{
 /*
     INFO CLIENT
 */
-.info-client{
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-content: stretch;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-end;
-}
-
-.info-client .inputs-client{
+.info .inputs-client{
     margin: 20px 0px;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 45%;
     height: 200px;
     justify-content: space-evenly;
 }
 
-.info-client .inputs-client .row, .info-client .inputs-client .row-3{
+.info .inputs-client .row, .info .inputs-client .row-3{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.info-client .inputs-client .row input{
+.info .inputs-client .row input{
     width: 45%;
 }
 
-.info-client .inputs-client .row-3 input{
-    width: 30%;
+.info.inputs-client .row-3 input{
+    width: 32%;
 }
 
 .inputs-client .description{
-	height: 100px;
+	height: 60px;
+}
+
+
+
+.info-produit{
+    /* height: 500px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.info-produit hr{
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.info-produit .row{
+    margin-bottom: 10px;
+}
+
+.info-acompte{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.info-acompte hr{
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.info-acompte .row{
+    margin-bottom: 10px;
+}
+
+.montants{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn_pdf{
+    display: flex;
+    height: 35px;
+    justify-content: flex-end;
+}
+
+.btn_pdf button{
+    background-color: var(--button_bg);
+    width: 125px;
+    color: var(--button_text);
+    border: 0;
+    border-radius: 7px;
+}
+
+.btn_pdf button:hover{
+    background-color: var(--button_selection);
 }

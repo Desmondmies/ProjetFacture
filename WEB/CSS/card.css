@@ -45,16 +45,18 @@ select{
     height: 200px;
 }
 
-.info-client .logo-client{
-    width: 0px;
-    height: 200px;
+#devis{
+    height: 350px;
+}
+
+#facture{
+    height: 635px;
 }
 
 .info-client .inputs-client{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 225px;
     justify-content: space-between;
     align-items: stretch;
 }
@@ -64,15 +66,41 @@ select{
     flex-direction: row;
     justify-content: space-between;
 }
+.info-client .inputs-client .row-deposit{
+    display: flex;
+    flex-direction: row;
+}
 
-.info-client .inputs-client .row input{
+.info-client .inputs-client .col{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    height: 160px;
+}
+.info-client .inputs-client .col-deposit{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: space-between;
+    height: 205px;
+}
+
+.info-client .inputs-client .row input, .info-client .inputs-client .row-deposit input{
     width: 45%;
 }
 
 .info-client .inputs-client .row .prod{
-    margin-left: 10px;
-    margin-right: 10px;
     padding-left: 10px;
+    width: 90%;
+}
+
+.info-client .inputs-client .row-deposit .prod{
+    padding-left: 10px;
+    margin-left: 5px;
+    width: 100%;
 }
 
 
@@ -103,3 +131,9 @@ select{
   background-color: var(--add_text);
   fill: #06f;
 }
+
+.error, #error{
+    background-color: #a6656a;
+    color: white;
+}
+

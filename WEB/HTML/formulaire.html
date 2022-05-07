@@ -2,60 +2,176 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='formulaire.css')}}">
 
-<div class="formulaire">
-	<div class="info-artisan">
-	    <img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
-	    <div class="inputs-artisan">
-	        <input type="text" placeholder="Nom Entreprise...">
-	        <div class="row">
-	            <input type="text" placeholder="Nom...">
-	            <input type="text" placeholder="Prénom...">
-	        </div>
-	        <input type="text" placeholder="Adresse Entreprise...">
-	        <div class="row">
-	            <input type="email" placeholder="Mail...">
-	            <input type="tel" placeholder="Téléphone...">
-	        </div>
-	    </div>
-	</div>
-	<div class="info-client">
-	    <button class="import-client">Importer Client</button>
-	    <div class="inputs-client">
-	        <div class="row-3">
-	            <input type="text" placeholder="Nom Client...">
-	            <input type="text" placeholder="Prénom...">
-	            <input type="text" placeholder="Adresse Client...">
-	        </div>
-	        <div class="row">
-	            <input type="tel" placeholder="Téléphone Client...">
-	            <input type="email" placeholder="Mail Client...">
-	        </div>
-	        <input class="description" type="text" placeholder="Description Client...">
-	    </div>
-	</div>
+<form action="{{PATH}}" method="post">
+	<div class="formulaire">
+		<div class="info-artisan">
+			{% if ARTISAN.logo == "" %}
+				<img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
+			{% else %}
+				<img class="logo-artisan" id="hasPath" src="{{ARTISAN.logo}}" alt="LOGO ENTREPRISE">
+			{% endif %}
+		</div>
+		<div class="info">
+			<div class="inputs-client">
+				<input type="text" placeholder="Nom Entreprise..." value="{{ARTISAN.compagny_name}}">
+				<div class="row">
+					<input type="text" placeholder="Nom..." value="{{ARTISAN.surname}}">
+					<input type="text" placeholder="Prénom..." value="{{ARTISAN.firstname}}">
+				</div>
+				<input type="text" placeholder="Adresse Entreprise..." value="{{ARTISAN.adress}}">
+				<div class="row">
+					<input type="email" placeholder="Mail..." value="{{ARTISAN.mail_compagny}}">
+					<input type="tel" placeholder="Téléphone..." value="{{ARTISAN.phone}}">
+				</div>
+			</div>
+				
+			<div class="inputs-client">
+				{% if NO_HEADER == None %}
+					<label>Choisir un Client</label>
+					<select name="s_client" id="s_client" onchange="submit();">
+						<option value="None">AUCUN</option>
+						{% for c in CLIENTS.values() %}
+							{% if CLIENT != None and c.id == CLIENT.id %}
+								<option value="{{c.id}}" selected>{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+							{% else %}
+								<option value="{{c.id}}">{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				{% endif %}
 
-	<div class="info-produit">
-	    <h3>Produits</h3>
-	    <hr>
-	    <input type="text" placeholder="Nom du Produit...">
-	    <input type="number" placeholder="Quantité...">
-	    <input type="number" placeholder="Prix...">
-	    <button class="add-produit">+</button>
-	</div>
+				{% if CLIENT != None %}
+					<div class="row-3">
+						<input type="text" placeholder="Nom Client..." value="{{CLIENT.surname}}">
+						<input type="text" placeholder="Prénom..." value="{{CLIENT.firstname}}">
+						<input type="tel" placeholder="Téléphone Client..." value="{{CLIENT.phone}}">
+					</div>
+					<div class="row">
+						<input type="text" placeholder="Adresse Client..." value="{{CLIENT.adress}}">
+						<input type="email" placeholder="Mail Client..." value="{{CLIENT.mail}}">
+					</div>
+				{% else %}
+					<div class="row-3">
+						<input type="text" placeholder="Nom Client...">
+						<input type="text" placeholder="Prénom...">
+						<input type="tel" placeholder="Téléphone Client...">
+					</div>
+					<div class="row">
+						<input type="text" placeholder="Adresse Client...">
+						<input type="email" placeholder="Mail Client...">
+					</div>
+				{% endif %}
+			</div>
+		</div>
 
-	<div class="info-acompte">
-	    <h3>Acomptes</h3>
-	    <hr>
-	    <input type="date" placeholder="Date Versement...">
-	    <input type="number" placeholder="Montant...">
-	    <button class="add-acompte">+</button>
-	</div>
+		{% if DEVIS != None %}
+			<div class="info-produit">
+				<h3>Produits</h3>
+				<hr>
+				{% for item in DEVIS.list_items %}
+					{% if item and item.name != '' %}
+						<div class="row">
+							<input type="text" placeholder="Nom du Produit..." value="{{item.name}}">
+							<input type="number" placeholder="Quantité..." value="{{item.quantity}}">
+							<input type="number" placeholder="Prix..." value="{{item.price}}">
+						</div>
+					{% endif %}
+				{% endfor %}		
+			</div>
+		{% elif FACTURE != None %}
+			<div class="info-produit">
+				<h3>Produits</h3>
+				<hr>
+				{% for item in FACTURE.list_items %}
+					{% if item and item.name != '' %}
+						<div class="row">
+							<input type="text" placeholder="Nom du Produit..." value="{{item.name}}">
+							<input type="number" placeholder="Quantité..." value="{{item.quantity}}">
+							<input type="number" placeholder="Prix..." value="{{item.price}}">
+						</div>
+					{% endif %}
+				{% endfor %}		
+			</div>
+		{% else %}
+			<div class="info-produit">
+				<h3>Produits</h3>
+				<hr>
+				{% if NO_HEADER == None %}
+					{% for i in range(10) %}
+						<div class="row">
+							<input type="text" placeholder="Nom du Produit...">
+							<input type="number" placeholder="Quantité...">
+							<input type="number" placeholder="Prix...">
+						</div>	
+					{% endfor %}	
+				{% endif %}	
+			</div>
+		{% endif %}
 
-	<div class="footer-formulaire">
-	    <h4 class="date-echeance">Date Échéance</h4>
-	    <h4 class="montant-total">Montant Total</h4>
-	</div>
+		{% if DEVIS == None %}
+			{% if FACTURE != None %}
+				<div class="info-acompte">
+					<h3>Acomptes</h3>
+					<hr>
+					{% for depo in FACTURE.list_deposits %}
+						{% if depo.payment_date != '' %}
+							<div class="row">
+								<input type="date" placeholder="Date Versement..." value="{{depo.payment_date}}">
+								<input type="number" placeholder="Montant..." value="{{depo.amount}}">
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% else %}
+				<div class="info-acompte">
+					<h3>Acomptes</h3>
+					<hr>
+					{% if NO_HEADER == None %}
+						{% for i in range(5) %}
+							<div class="row">
+								<input type="date" placeholder="Date Versement...">
+								<input type="number" placeholder="Montant...">
+							</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+			{% endif %}
+		{% endif %}
 
-	<button class="enregistrer-formulaire">Enregistrer</button>
-</div>
+		<div class="footer-formulaire">
+			{% if DEVIS == None and FACTURE != None %}
+				<h4 class="date-echeance">Date Échéance</h4>
+				<input type="date" placeholder="Date d'Échéance" value="{{FACTURE.due_date}}">
+			{% endif %}
+
+			<div class="montants">
+				<div>
+					<h4 class="montant-total">Montant Total</h4>
+					{% if TOTAL == None %}
+						<h2>---</h2>
+					{% else %}
+						<h2>{{TOTAL}},00 €</h2>
+					{% endif %}
+				</div>			
+		
+				<div>
+					{% if DEVIS == None and FACTURE != None %}
+						<h4 class="montant-total">Montant Restant à payer</h4>
+						{% if RESTANT == None %}
+							<h2>---</h2>
+						{% else %}
+							<h2>{{RESTANT}},00 €</h2>
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>	    
+		</div>
+
+		{% if NO_HEADER == None %}
+			<div class="btn_pdf">
+				<button class="enregistrer-formulaire" type="submit" name="btn_rendupdf" value="pdf">Rendu PDF</button>
+			</div>
+		{% endif %}
+	</div>
+</form>
 {% endblock %}

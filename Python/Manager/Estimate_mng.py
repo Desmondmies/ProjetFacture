@@ -44,13 +44,7 @@ class Estimate_mng:
     """
     def create_estimate(self, dict_data_estimate:dict) -> None:
         """
-        On contrôle les données du devis : au moins 1 item dans list_items
-        
-        if len(dict_data_invoice["list_items"]) < 1:
-            return
-        """
-        """
-        On créé la facture
+        On créé le devis
         """
         dict_data_estimate["id"] = self.newEstimate_id #On rajoute le numéro du nouveau devis
         dict_data_estimate["artisan"] = artisan.read_artisan() #IL FAUT QUE CE FICHIER AIT ACCES AUX DONNEES DE L'ARTISAN
@@ -128,6 +122,66 @@ class Estimate_mng:
 
     def change_search_filter(self, new_search_filter_index:int) -> None:
         self.search_filter_index = new_search_filter_index
+        return
+
+    """
+    Partie Item
+    """
+    """
+    Permet de créer un nouveau produit pour un devis existant
+    """
+    def create_item(self, estimate_id:int, dict_data_item:dict) -> None:
+        self.dict_estimates[estimate_id]["list_items"].append(dict_data_item)
+
+        #On charge les données des devis stockés dans le fichier Estimates.json
+        fd = open(estimate_path, "r")
+        estimates_json = json.load(fd)
+        fd.close()
+
+        #On ajoute un nouveau produit dans un devis présent dans le fichier Estimates.json puis on sauvegarde
+        estimates_json[str(estimate_id)]["list_items"].append(dict_data_item)
+        fd = open(estimate_path, "w")
+        json.dump(estimates_json, fd)
+        fd.close()
+        return
+
+    def read_item(self, estimate_id:int, item_id:int) -> dict:
+        return self.dict_estimates[estimate_id]["list_items"][item_id]
+
+    """
+    Permet de mettre à jour l'attribut d'un item
+    """
+    def update_item(self, estimate_id:int, item_id:int, attribute:str, new_val) -> None:
+        self.dict_estimates[estimate_id]["list_items"][item_id][attribute] = new_val
+
+        #On charge les données des devis stockés dans le fichier Estimates.json
+        fd = open(estimate_path, "r")
+        estimates_json = json.load(fd)
+        fd.close()
+
+        #On modifie les données de l'item dans le devis stocké dans le fichier Estimates.json puis on sauvegarde
+        estimates_json[str(estimate_id)]["list_items"][item_id][attribute] = new_val
+        fd = open(estimate_path, "w")
+        json.dump(estimates_json, fd)
+        fd.close()
+        return
+
+    """
+    Permet de supprimer un produit sur un devis existant avec son indice dans la liste
+    """
+    def delete_item(self, estimate_id:int, item_id:int) -> None:
+        self.dict_estimates[estimate_id]["list_items"].pop(item_id)
+
+        #On charge les données des devis stockés dans le fichier Estimates.json
+        fd = open(estimate_path, "r")
+        estimates_json = json.load(fd)
+        fd.close()
+
+        #On supprime un produit d'un devis présent dans le fichier Estimates.json puis on sauvegarde
+        estimates_json[str(estimate_id)]["list_items"].pop(item_id)
+        fd = open(estimate_path, "w")
+        json.dump(estimates_json, fd)
+        fd.close()
         return
 
 estimate_mng = Estimate_mng()

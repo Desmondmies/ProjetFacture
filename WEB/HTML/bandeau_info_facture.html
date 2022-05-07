@@ -29,22 +29,28 @@
                 </div>
             </div>
 
-            <div>
-                <label>Description</label>
-                <input type="text" value="{{facture.comment}}" disabled>
-            </div>
-            <div>
-                <label>Acquitté</label>
-                <input type="text" value="{{facture.acquitted}}" disabled>
+            <div class="row_infos">
+                <div>
+                    <label>Description</label>
+                    <input type="text" value="{{facture.comment}}" disabled>
+                </div>
+                <div>
+                    <label>Acquitté</label>
+                    {% if facture.acquitted == 0 %}
+                        <input type="checkbox" onclick="return false;">
+                    {% elif facture.acquitted == 1 %}
+                        <input type="checkbox" checked onclick="return false;">
+                    {% endif %}
+                </div>
             </div>
             <div>
                 <label>Produits</label>
             </div>
             <div class="row_infos_wrap">
                 {% for item in facture.list_items %}
-                    {% if item != '' %}
+                    {% if item|length > 0 and item.name != '' %}
                         <div>
-                            <input type="text" value="{{item}}" disabled>
+                            <input type="text" value="{{item.name}}" disabled>
                         </div>
                     {% endif %}
                 {% endfor %}

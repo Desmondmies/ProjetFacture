@@ -30,12 +30,11 @@ def facture_page_ctrl():
                 facture_all = invoice_mng.search_client(search_value[1])
         elif "ConvertToFormulaire" in r:
             id = r.split('¤')[1]
-            #redirect to formulaire avec id devis en parametre
-            pass
+            return redirect(url_for("formulaire_fromFacture_route", factId = id))
         elif "Voir Client" in r:
             id = r.split('¤')[1]
-            #redirect à page client avec recherche sur id si possible?
-            pass
+            fact = invoice_mng.read_invoice(int(id))
+            return redirect(url_for("client_searched_route", id=fact["client_id"]))
         elif "Modifier" in r:
             id = r.split('¤')[1]
             #modifier client avec les infos du client à cette id

@@ -109,6 +109,10 @@ h2{
     float: left;
     cursor: pointer;
 }
+.template img{
+    width: 100%;
+    margin-top: 15px;
+}
 
 .template:hover{
     transform-style: preserve-3d;

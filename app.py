@@ -32,9 +32,18 @@ app = Flask(__name__, template_folder=HTML_DIR, static_folder=STATIC_DIR)
 def home_route():
     return home_page_ctrl()
 
-@app.route("/formulaire")
+
+@app.route("/formulaire", methods=['POST', 'GET'])
 def formulaire_route():
     return formulaire_page_ctrl()
+
+@app.route("/formulaire/gff/<factId>", methods=['POST', 'GET'])
+def formulaire_fromFacture_route(factId):
+    return formulaire_page_ctrl(factureId=int(factId))
+
+@app.route("/formulaire/gfd/<devId>", methods=['POST', 'GET'])
+def formulaire_fromDevis_route(devId):
+    return formulaire_page_ctrl(devisId=int(devId))
 
 @app.route("/facture", methods=[ 'POST', 'GET' ])
 def facture_route():
@@ -44,9 +53,15 @@ def facture_route():
 def devis_route():
     return devis_page_ctrl()
 
+
 @app.route("/client", methods=['POST', 'GET'])
 def client_route():
     return client_page_ctrl()
+
+@app.route("/client/<id>", methods=['POST', 'GET'])
+def client_searched_route(id):
+    return client_page_ctrl(int(id))
+
 
 @app.route("/artisan", methods=['POST', 'GET'])
 def artisan_route():
@@ -58,13 +73,23 @@ def artisan_route():
 def add_client_route():
     return add_client_page_ctrl()
 
+
 @app.route("/add_facture", methods=["POST", "GET"])
 def add_facture_route():
     return add_facture_page_ctrl()
 
+@app.route("/add_facture/<id>", methods=["POST", "GET"])
+def add_facture_fromClient_route(id):
+    return add_facture_page_ctrl(int(id))
+
+
 @app.route("/add_devis", methods=["POST", "GET"])
 def add_devis_route():
     return add_devis_page_ctrl()
+
+@app.route("/add_devis/<id>", methods=["POST", "GET"])
+def add_devis_fromClient_route(id):
+    return add_devis_page_ctrl(int(id))
 
 # ---------------------------------------------------------------------------------------------
 
@@ -143,7 +168,7 @@ def scenario():
 # ---------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    scenario()
+    #scenario()
     try:
         app.run(debug = True)
     except KeyboardInterrupt:

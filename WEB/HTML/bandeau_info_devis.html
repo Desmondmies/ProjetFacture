@@ -38,9 +38,9 @@
             </div>
             <div class="row_infos_wrap">
                 {% for item in devis.list_items %}
-                    {% if item != '' %}
+                    {% if item|length > 0 and item.name != '' %}
                         <div>
-                            <input type="text" value="{{item}}" disabled>
+                            <input type="text" value="{{item.name}}" disabled>
                         </div>
                     {% endif %}
                 {% endfor %}

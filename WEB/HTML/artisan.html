@@ -31,12 +31,14 @@
 					<li>
 						<button class="template" id="i_template_selected" onclick="document.getElementById('i_template_selected').id = ''; this.id = 'i_template_selected'; i_template_selected.value = '{{_style}}' " type="submit" name="choice_style" value="{{_style}}">
 						<span class="textlogo">{{_style}}</span>
+						<img src="/Images/{{_style}}.png">
 						</button>
 					</li>
 				{% else %}
 					<li>
 						<button class="template" type="submit" name="choice_style" onclick="document.getElementById('i_template_selected').id = ''; this.id = 'i_template_selected'; i_template_selected.value = '{{_style}}';" value="{{_style}}">
 						<span class="textlogo">{{_style}}</span>
+						<img src="/Images/{{_style}}.png">
 						</button>
 					</li>
 				{% endif %}

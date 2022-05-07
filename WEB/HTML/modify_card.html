@@ -4,7 +4,13 @@
 <form action="{{PATH}}" method="post">
     <div class="client">
         <h2>Modifier {{CARD_TITLE}}</h2>
+        {% if "/modify_client" in PATH %}
         <div class="info-client">
+        {% elif "/modify_devis" in PATH %}
+        <div class="info-client" id="devis">
+        {% elif "/modify_facture" in PATH%}
+        <div class="info-client" id="facture">
+        {% endif %}
             <div class="inputs-client">
                 {% if "/modify_client" in PATH %}
                     <div class="row">
@@ -33,20 +39,69 @@
                         {% endfor %}
                     </select>
 
+                    <label>Date de Création et d'Échéance</label>
                     <div class="row">
-                        <input type="date" id="i_creation" placeholder="Date de Création..." value="{{DATA.creation_date}}">
-                        <input type="date" id="i_due" placeholder="Date d'Échéance..." value="{{DATA.due_date}}">
+                        {% if "creation_date" in ERROR_FLAGS or "due_date" in ERROR_FLAGS %}
+                            <input type="date" class="error" id="i_creation" placeholder="Date de Création..." value="{{DATA.creation_date}}">
+                            <input type="date" class="error" id="i_due" placeholder="Date d'Échéance..." value="{{DATA.due_date}}">
+                        {% else %}
+                            <input type="date" id="i_creation" placeholder="Date de Création..." value="{{DATA.creation_date}}">
+                            <input type="date" id="i_due" placeholder="Date d'Échéance..." value="{{DATA.due_date}}">
+                        {% endif %}
                     </div>
 
                     <input type="text" id="i_desc" placeholder="Description..." value="{{DATA.comment}}">
-                    <input type="text" id="i_acqu" placeholder="Acquitté ou non..." value="{{DATA.acquitted}}">
 
+                    <label>Produits</label>
                     <div class="row">
                         {% for i in range(10) %}
                             {% if i < DATA.list_items|length %}
-                                <input type="text" class="prod" id="i_prod{{i+1}}" placeholder="Produits-{{i+1}}..." value="{{DATA.list_items[i]}}">
+                                {% if "list_items" in ERROR_FLAGS %}
+                                <div class="col" id="error">
+                                {% else %}
+                                <div class="col">
+                                {% endif %}
+                                    <input type="text" class="prod" id="ip_n{{i+1}}" placeholder="Nom-{{i+1}}..." value="{{DATA.list_items[i].name}}">
+                                    <input type="text" class="prod" id="ip_d{{i+1}}" placeholder="Description-{{i+1}}..." value="{{DATA.list_items[i].description}}">
+                                    <input type="number" min="1" class="prod" id="ip_q{{i+1}}" placeholder="Quantité-{{i+1}}..." value="{{DATA.list_items[i].quantity}}">
+                                    <input type="number" min="0" class="prod" id="ip_p{{i+1}}" placeholder="Prix-{{i+1}}..." value="{{DATA.list_items[i].price}}">
+                                </div>
                             {% else %}
-                                <input type="text" class="prod" id="i_prod{{i+1}}" placeholder="Produits-{{i+1}}..." value="">
+                                {% if "list_items" in ERROR_FLAGS %}
+                                <div class="col" id="error">
+                                {% else %}
+                                <div class="col">
+                                {% endif %}
+                                    <input type="text" class="prod" id="ip_n{{i+1}}" placeholder="Nom-{{i+1}}...">
+                                    <input type="text" class="prod" id="ip_d{{i+1}}" placeholder="Description-{{i+1}}...">
+                                    <input type="number" min="1" class="prod" id="ip_q{{i+1}}" placeholder="Quantité-{{i+1}}...">
+                                    <input type="number" min="0" class="prod" id="ip_p{{i+1}}" placeholder="Prix-{{i+1}}...">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <label>Acomptes</label>
+                    <div class="col-deposit">
+                        {% for i in range(5) %}
+                            {% if i < DATA.list_deposits|length %}
+                                {% if "list_deposits" in ERROR_FLAGS %}
+                                <div class="row-deposit" id="error">
+                                {% else %}
+                                <div class="row-deposit">
+                                {% endif %}
+                                    <input type="date" class="prod" id="id_d{{i+1}}" placeholder="Date-{{i+1}}..." value="{{DATA.list_deposits[i].payment_date}}">
+                                    <input type="number" min="0" class="prod" id="id_s{{i+1}}" placeholder="Somme-{{i+1}}..." value="{{DATA.list_deposits[i].amount}}">
+                                </div>
+                            {% else %}
+                                {% if "list_deposits" in ERROR_FLAGS %}
+                                <div class="row-deposit" id="error">
+                                {% else %}
+                                <div class="row-deposit">
+                                {% endif %}
+                                    <input type="date" class="prod" id="id_d{{i+1}}" placeholder="Date-{{i+1}}...">
+                                    <input type="number" min="0" class="prod" id="id_s{{i+1}}" placeholder="Somme-{{i+1}}...">
+                                </div>
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -62,17 +117,39 @@
                         {% endfor %}
                     </select>
 
-                    <div class="row">
-                        <input type="text" id="i_desc" placeholder="Description..." value="{{DATA.comment}}">
+                    <label>Date de Création</label>
+                    {% if "creation_date" in ERROR_FLAGS %}
+                        <input type="date" class="error" id="i_creation" placeholder="Date de Création..." value="{{DATA.creation_date}}">
+                    {% else %}
                         <input type="date" id="i_creation" placeholder="Date de Création..." value="{{DATA.creation_date}}">
-                    </div>
+                    {% endif %}
+                    <input type="text" id="i_desc" placeholder="Description..." value="{{DATA.comment}}">
 
+                    <label>Produits</label>
                     <div class="row">
                         {% for i in range(10) %}
                             {% if i < DATA.list_items|length %}
-                                <input type="text" class="prod" id="i_prod{{i+1}}" placeholder="Produits-{{i+1}}..." value="{{DATA.list_items[i]}}">
+                                {% if "list_items" in ERROR_FLAGS %}
+                                <div class="col" id="error">
+                                {% else %}
+                                <div class="col">
+                                {% endif %}
+                                    <input type="text" class="prod" id="ip_n{{i+1}}" placeholder="Nom-{{i+1}}..." value="{{DATA.list_items[i].name}}">
+                                    <input type="text" class="prod" id="ip_d{{i+1}}" placeholder="Description-{{i+1}}..." value="{{DATA.list_items[i].description}}">
+                                    <input type="number" min="1" class="prod" id="ip_q{{i+1}}" placeholder="Quantité-{{i+1}}..." value="{{DATA.list_items[i].quantity}}">
+                                    <input type="number" min="0" class="prod" id="ip_p{{i+1}}" placeholder="Prix-{{i+1}}..." value="{{DATA.list_items[i].price}}">
+                                </div>
                             {% else %}
-                                <input type="text" class="prod" id="i_prod{{i+1}}" placeholder="Produits-{{i+1}}..." value="">
+                                {% if "list_items" in ERROR_FLAGS %}
+                                <div class="col" id="error">
+                                {% else %}
+                                <div class="col">
+                                {% endif %}
+                                    <input type="text" class="prod" id="ip_n{{i+1}}" placeholder="Nom-{{i+1}}..." >
+                                    <input type="text" class="prod" id="ip_d{{i+1}}" placeholder="Description-{{i+1}}..." >
+                                    <input type="number" min="1" class="prod" id="ip_q{{i+1}}" placeholder="Quantité-{{i+1}}..." >
+                                    <input type="number" min="0" class="prod" id="ip_p{{i+1}}" placeholder="Prix-{{i+1}}..." >
+                                </div>
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -85,13 +162,26 @@
                 onclick="save_btn_client.value = 'MODIFY_SAVE¤'+i_nom.value+'¤'+i_prenom.value+'¤'+i_ad.value+'¤'+i_post.value+'¤'+i_mail.value+'¤'+i_tel.value+'¤'+i_desc.value;" 
                 value="SAVE" role="button" >Sauvegarder</button>
             {% elif "/modify_facture" in PATH %}
-                <button class="button" id="save_btn_facture" name="save_card" 
-                onclick="save_btn_facture.value = 'MODIFY_SAVE¤'+s_client.value+'¤'+i_creation.value+'¤'+i_due.value+'¤'+i_desc.value+'¤'+i_acqu.value+'¤'+i_prod1.value+'¤'+i_prod2.value+'¤'+i_prod3.value+'¤'+i_prod4.value+'¤'+i_prod5.value+'¤'+i_prod6.value+'¤'+i_prod7.value+'¤'+i_prod8.value+'¤'+i_prod9.value+'¤'+i_prod10.value; submit();"
+                <button class="button" id="save_btn" name="save_card" 
+                onclick="save_btn.value = 'MODIFY_SAVE¤'+s_client.value+'¤'+i_creation.value+'¤'+i_due.value+'¤'+i_desc.value+'¤'
+                +id_d1.value+'¤'+id_s1.value+'¤'+id_d2.value+'¤'+id_s2.value+'¤'+id_d3.value+'¤'+id_s3.value+'¤'+id_d4.value+'¤'+id_s4.value+'¤'+id_d5.value+'¤'+id_s5.value+'¤'
+                +ip_n1.value+'¤'+ip_d1.value+'¤'+ip_q1.value+'¤'+ip_p1.value+'¤'+ip_n2.value+'¤'+ip_d2.value+'¤'+ip_q2.value+'¤'+ip_p2.value+'¤'
+                +ip_n3.value+'¤'+ip_d3.value+'¤'+ip_q3.value+'¤'+ip_p3.value+'¤'+ip_n4.value+'¤'+ip_d4.value+'¤'+ip_q4.value+'¤'+ip_p4.value+'¤'
+                +ip_n5.value+'¤'+ip_d5.value+'¤'+ip_q5.value+'¤'+ip_p5.value+'¤'+ip_n6.value+'¤'+ip_d6.value+'¤'+ip_q6.value+'¤'+ip_p6.value+'¤'
+                +ip_n7.value+'¤'+ip_d7.value+'¤'+ip_q7.value+'¤'+ip_p7.value+'¤'+ip_n8.value+'¤'+ip_d8.value+'¤'+ip_q8.value+'¤'+ip_p8.value+'¤'
+                +ip_n9.value+'¤'+ip_d9.value+'¤'+ip_q9.value+'¤'+ip_p9.value+'¤'+ip_n10.value+'¤'+ip_d10.value+'¤'+ip_q10.value+'¤'+ip_p10.value;
+                onsubmit();"
                 value="SAVE" role="button">Sauvegarder</button>
             {% elif "/modify_devis" in PATH %}
-                <button class="button" id="save_btn_devis" name="save_card" 
-                onclick="save_btn_devis.value = 'MODIFY_SAVE¤'+s_client.value+'¤'+i_creation.value+'¤'+i_desc.value+'¤'+i_prod1.value+'¤'+i_prod2.value+'¤'+i_prod3.value+'¤'+i_prod4.value+'¤'+i_prod5.value+'¤'+i_prod6.value+'¤'+i_prod7.value+'¤'+i_prod8.value+'¤'+i_prod9.value+'¤'+i_prod10.value; submit();"
-                value="SAVE" role="button">Sauvegarder</button>
+                <button class="button" id="save_btn" name="save_card" 
+                onclick="save_btn.value = 'MODIFY_SAVE¤'+s_client.value+'¤'+i_creation.value+'¤'+i_desc.value+'¤'
+                +ip_n1.value+'¤'+ip_d1.value+'¤'+ip_q1.value+'¤'+ip_p1.value+'¤'+ip_n2.value+'¤'+ip_d2.value+'¤'+ip_q2.value+'¤'+ip_p2.value+'¤'
+                +ip_n3.value+'¤'+ip_d3.value+'¤'+ip_q3.value+'¤'+ip_p3.value+'¤'+ip_n4.value+'¤'+ip_d4.value+'¤'+ip_q4.value+'¤'+ip_p4.value+'¤'
+                +ip_n5.value+'¤'+ip_d5.value+'¤'+ip_q5.value+'¤'+ip_p5.value+'¤'+ip_n6.value+'¤'+ip_d6.value+'¤'+ip_q6.value+'¤'+ip_p6.value+'¤'
+                +ip_n7.value+'¤'+ip_d7.value+'¤'+ip_q7.value+'¤'+ip_p7.value+'¤'+ip_n8.value+'¤'+ip_d8.value+'¤'+ip_q8.value+'¤'+ip_p8.value+'¤'
+                +ip_n9.value+'¤'+ip_d9.value+'¤'+ip_q9.value+'¤'+ip_p9.value+'¤'+ip_n10.value+'¤'+ip_d10.value+'¤'+ip_q10.value+'¤'+ip_p10.value;
+                onsubmit();"
+                value="SAVE" role="button" >Sauvegarder</button>
             {% endif %}
         </div>
     </div>

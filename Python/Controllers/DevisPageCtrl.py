@@ -30,12 +30,11 @@ def devis_page_ctrl():
                 devis_all = estimate_mng.search_client(search_value[1])
         elif "ConvertToFormulaire" in r:
             id = r.split('¤')[1]
-            #redirect to formulaire avec id devis en parametre
-            pass
+            return redirect(url_for("formulaire_fromDevis_route", devId=id))
         elif "Voir Client" in r:
             id = r.split('¤')[1]
-            #redirect à page client avec recherche sur id si possible?
-            pass
+            dev = estimate_mng.read_estimate(int(id))
+            return redirect(url_for("client_searched_route", id=dev["client_id"]))
         elif "Modifier" in r:
             id = r.split('¤')[1]
             #modifier client avec les infos du client à cette id

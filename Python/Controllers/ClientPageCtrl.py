@@ -7,10 +7,14 @@ from Python.Utils.GetFilterIndex import get_new_search_filter_index
 
 filter_btn_toggle = False
 
-def client_page_ctrl():
+def client_page_ctrl(searchedId = None):
     global filter_btn_toggle
 
     client_data = client_mng.dict_clients
+
+    if searchedId != None:
+        client_data = {}
+        client_data[searchedId] = client_mng.read_client(searchedId)
 
     if request.method == 'POST':
         r = getclientForm(request.form)
@@ -31,9 +35,11 @@ def client_page_ctrl():
             if len(search_value) >= 2:
                 client_data = client_mng.search_client(search_value[1])
         elif "Gen_Facture" in r:
-            return redirect(url_for("add_facture_route"))
+            id = r.split('¤')[1]
+            return redirect(url_for("add_facture_fromClient_route", id=id))
         elif "Gen_Devis" in r:
-            return redirect(url_for("add_devis_route"))
+            id = r.split('¤')[1]
+            return redirect(url_for("add_devis_fromClient_route", id=id))
         elif "Modifier" in r:
             id = r.split('¤')[1]
             #modifier client avec les infos du client à cette id
