@@ -121,7 +121,7 @@ label{
     margin-bottom: 60px;
 }
 
-.info .pdf-info.client{
+.info .pdf-info.droit{
     text-align:right;
 }
 /*
@@ -167,7 +167,7 @@ SECTION PRODUITS
 }
 
 .info-acompte .row *{
-    width: 10%;
+    width: 20%;
     margin-right: 10px;
 }
 

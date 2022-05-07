@@ -5,18 +5,37 @@
 <form action="{{PATH}}" method="post">
     <div class="formulaire">
         <div class="info">
-            <div class="inputs-client">
-                <input type="text" placeholder="Nom Entreprise..." value="{{ARTISAN.compagny_name}}">
-                <div class="row">
-                    <input type="text" placeholder="Nom..." value="{{ARTISAN.surname}}">
-                    <input type="text" placeholder="Prénom..." value="{{ARTISAN.firstname}}">
-                </div>
-                <input type="text" placeholder="Adresse Entreprise..." value="{{ARTISAN.adress}}">
-                <div class="row">
-                    <input type="email" placeholder="Mail..." value="{{ARTISAN.mail_compagny}}">
-                    <input type="tel" placeholder="Téléphone..." value="{{ARTISAN.phone}}">
-                </div>
-            </div>   
+            {% if NO_HEADER == None %}
+                <div class="inputs-client">
+                    <input type="text" placeholder="Nom Entreprise..." value="{{ARTISAN.compagny_name}}">
+                    <div class="row">
+                        <input type="text" placeholder="Nom..." value="{{ARTISAN.surname}}">
+                        <input type="text" placeholder="Prénom..." value="{{ARTISAN.firstname}}">
+                    </div>
+                    <input type="text" placeholder="Adresse Entreprise..." value="{{ARTISAN.adress}}">
+                    <div class="row">
+                        <input type="email" placeholder="Mail..." value="{{ARTISAN.mail_compagny}}">
+                        <input type="tel" placeholder="Téléphone..." value="{{ARTISAN.phone}}">
+                    </div>
+                </div>   
+            {% else %}
+            <div class="pdf-info">
+                <br>
+                    {% if FACTURE!=None %}
+                    <div class="label"><label> Facture n°{{FACTURE.id}} </label></div>
+                    {% endif %}
+                    {% if DEVIS!=None %}
+                    <div class="label"><label> Devis n°{{DEVIS.id}} </label></div>
+                    {% endif %}
+                <br>
+                    <div class="label"><label> {{ARTISAN.compagny_name}} </label></div>
+                    <div class="label"><label> {{ARTISAN.surname}} {{ARTISAN.firstname}}</label></div>
+                    <div class="label"><label> {{ARTISAN.adress}}</label></div>
+                    <div class="label"><label> {{ARTISAN.mail_compagny}}</label></div>
+                    <div class="label"><label> {{ARTISAN.phone}}</label></div>
+            </div>
+            {% endif %}  
+
             <div class="info-artisan">
                 {% if ARTISAN.logo == "" %}
                     <img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
@@ -27,8 +46,9 @@
         </div>
         
         <div class="info">
-            <div class="inputs-client">
-                {% if NO_HEADER == None %}
+            
+            {% if NO_HEADER == None %}
+                <div class="inputs-client">
                     <label>Choisir un Client</label>
                     <select name="s_client" id="s_client" onchange="submit();">
                         <option value="None">AUCUN</option>
@@ -40,7 +60,6 @@
                             {% endif %}
                         {% endfor %}
                     </select>
-                {% endif %}
 
                 {% if CLIENT != None %}
                     <div class="row-3">
@@ -63,7 +82,18 @@
                         <input type="email" placeholder="Mail Client...">
                     </div>
                 {% endif %}
-            </div>
+                </div>
+            {% else %}
+                    <div class="pdf-info">
+                        <br>
+                            <div class="label"><label> Pour : </label></div>
+                        <br>
+                            <div class="label"><label> {{CLIENT.surname}} {{CLIENT.firstname}} </label></div>
+                            <div class="label"><label> {{CLIENT.adress}}</label></div>
+                            <div class="label"><label>{{CLIENT.mail}}</label></div>
+                            <div class="label"><label> {{CLIENT.phone}}</label></div>
+                    </div>
+            {% endif %}
         </div>
 
         <div class="footer-formulaire">
