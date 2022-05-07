@@ -1,0 +1,86 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='card.css')}}">
+
+<!-- tests à faire pour changer le contenu d'une carte en fonction du path -->
+<form action="{{PATH}}" method="post">
+    <div class="client">
+        <h2>Ajouter {{CARD_TITLE}}</h2>
+        <div class="info-client">
+            <div class="inputs-client">
+
+                {% if PATH == "/add_client" %}
+                    <div class="row">
+                        <input type="text" id="i_nom" placeholder="Nom...">
+                        <input type="text" id="i_prenom" placeholder="Prénom..." >
+                    </div>
+                    <div class="row">
+                        <input type="text" id="i_ad" placeholder="Adresse..." >
+                        <input type="text" id="i_post" pattern="[0-9]{5}" placeholder="Code Postale..." >
+                    </div>
+                    
+                    <div class="row">
+                        <input type="email" id="i_mail" pattern="[A-Za-z0-9]+@[A-Za-z]+[.]{1}[a-z]+" placeholder="Mail..." >
+                        <input type="tel" id="i_tel" pattern="([0-9]{2} ){4}[0-9]{2}" placeholder="Téléphone..." >
+                    </div>
+                    <input type="text" id="i_desc" placeholder="Description..." >
+                
+                {% elif PATH == "/add_facture" %}
+                    <label>Choisir un Client</label>
+                    <select id="s_client">
+                        {% for c in CLIENTS.values() %}
+                            <option value="{{c.id}}">{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="row">
+                        <input type="date" id="i_creation" placeholder="Date de Création..." >
+                        <input type="date" id="i_due" placeholder="Date d'Échéance..." >
+                    </div>
+
+                    <input type="text" id="i_desc" placeholder="Description..." >
+                    <input type="text" id="i_acqu" placeholder="Acquitté ou non..." >
+
+                    <div class="row">
+                        {% for i in range(1,11) %}
+                            <input type="text" class="prod" id="i_prod{{i}}" placeholder="Produits-{{i}}..." >
+                        {% endfor %}
+                    </div>
+                {% elif PATH == "/add_devis" %}
+                    <label>Choisir un Client</label>
+                    <select id="s_client">
+                        {% for c in CLIENTS.values() %}
+                            <option value="{{c.id}}">{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="row">
+                        <input type="date" id="i_creation" placeholder="Date de Création..." >
+                        <input type="text" id="i_acqu" placeholder="Acquitté ou non..." >
+                    </div>
+
+                    <input type="text" id="i_desc" placeholder="Description..." >
+
+                    <div class="row">
+                        {% for i in range(1,11) %}
+                            <input type="text" class="prod" id="i_prod{{i}}" placeholder="Produits-{{i}}..." >
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="bouton">
+            {% if PATH == "/add_client" %}
+                <button class="button" id="save_btn" type="submit" name="save_card" 
+                onclick="save_btn.value = 'ADD_SAVE¤'+i_nom.value+'¤'+i_prenom.value+'¤'+i_ad.value+'¤'+i_post.value+'¤'+i_mail.value+'¤'+i_tel.value+'¤'+i_desc.value" 
+                value="SAVE" role="button" >Sauvegarder</button>
+            {% elif PATH == "/add_facture" %}
+                <button class="button" id="save_btn" type="submit" name="save_card" 
+                onclick="save_btn.value = 'ADD_SAVE¤'+s_client.value+'¤'+i_creation.value+'¤'+i_due.value+'¤'+i_desc.value+'¤'+i_acqu.value+'¤'+i_prod1.value+'¤'+i_prod2.value+'¤'+i_prod3.value+'¤'+i_prod4.value+'¤'+i_prod5.value+'¤'+i_prod6.value+'¤'+i_prod7.value+'¤'+i_prod8.value+'¤'+i_prod9.value+'¤'+i_prod10.value"
+                value="SAVE" role="button" >Sauvegarder</button>
+            {% elif PATH == "/add_devis" %}
+                <button class="button" id="save_btn" type="submit" name="save_card" 
+                onclick="save_btn.value = 'ADD_SAVE¤'+s_client.value+'¤'+i_creation.value+'¤'+i_desc.value+'¤'+i_acqu.value+'¤'+i_prod1.value+'¤'+i_prod2.value+'¤'+i_prod3.value+'¤'+i_prod4.value+'¤'+i_prod5.value+'¤'+i_prod6.value+'¤'+i_prod7.value+'¤'+i_prod8.value+'¤'+i_prod9.value+'¤'+i_prod10.value"
+                value="SAVE" role="button" >Sauvegarder</button>
+            {% endif %}
+        </div>
+    </div>
+</form>

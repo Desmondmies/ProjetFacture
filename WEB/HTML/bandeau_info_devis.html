@@ -1,0 +1,57 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bandeau_info_devis.css')}}">
+
+<form action="/devis" method="post">
+    <div class="bandeau">
+        <div class="left_infos">
+            <div class="row_infos">
+                <div>
+                    <label>Prénom Client</label>
+                    <input type="text" value="{{client.firstname}}" disabled>
+                </div>
+                <div>
+                    <label>Nom Client</label>
+                    <input type="text" value="{{client.surname}}" disabled>
+                </div>
+                <div>
+                    <label>Téléphone</label>
+                    <input type="text" value="{{client.phone}}" disabled>
+                </div>
+            </div>
+
+            <div class="row_infos">
+                <div>
+                    <label>Mail</label>
+                    <input type="text" value="{{client.mail}}" disabled>
+                </div>
+                <div>
+                    <label>Date de Création</label>
+                    <input type="date" value="{{devis.creation_date}}" disabled>
+                </div>
+            </div>
+            <div>
+                <label>Description</label>
+                <input type="text" value="{{devis.comment}}" disabled>
+            </div>
+
+            <div>
+                <label>Produits</label>
+            </div>
+            <div class="row_infos_wrap">
+                {% for item in devis.list_items %}
+                    {% if item != '' %}
+                        <div>
+                            <input type="text" value="{{item}}" disabled>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="right_buttons">
+            <button type="submit" name="bandeau_btn" value="ConvertToFormulaire¤{{devis.id}}">Convertir en Formulaire</button>
+            <button type="submit" name="bandeau_btn" value="Voir Client¤{{devis.id}}">Voir Page Client</button>
+            <button type="submit" name="bandeau_btn" value="Modifier¤{{devis.id}}">Modifier</button>
+            <button type="submit" name="bandeau_btn" value="Supprimer¤{{devis.id}}">Supprimer</button>
+        </div>
+    </div>
+</form>

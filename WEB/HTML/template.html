@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang = "fr">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <!-- Commentaire -->
+    <head>
+        <title> Système de facturation </title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='template.css')}}">
+    </head>
+    <body>
+        <!-- ID => nom de variable utilisé ensuite dans le include header navbar, on lui attribue la valeur reçu de Template ID-->
+        {% with ID=TEMPLATE_ID %}
+            {% include "header-navbar.html" %}
+        {% endwith %}
+
+        {% if SEARCH_BAR == True %}
+            {% with (path, FILTER_ENABLE, FILTER_IDX) = (PATH, FILTER_TOGGLE, SEARCH_IDX)  %}
+                {% include "search_bar.html" %}
+            {% endwith %}
+        {% endif %}
+
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

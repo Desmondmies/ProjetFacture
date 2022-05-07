@@ -1,0 +1,64 @@
+body{
+    background-color: var(--bg);
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.content {
+  /*width: 100%;
+  height: 100%;*/
+  margin-top: 0px; /*Pour se placer sous le header de taille 55px */
+  margin-left: px;
+  margin-right: px;
+  margin-bottom: px;
+      color: 	#18191A;
+
+}
+.info-artisan{
+	margin-left: auto;
+    margin-right: auto;
+	width : 75%;
+    padding: 15px;
+    border-radius: 15px;
+    color: 	#18191A;
+	border: 1px solid black;
+}
+.info-client{
+	margin-left: auto;
+    margin-right: auto;
+	width : 75%;
+    padding: 15px;
+    border-radius: 15px;
+    color: 	#18191A;
+	border: 1px solid black;
+	
+}
+
+.info-produit{
+	margin-left: auto;
+    margin-right: auto;
+	width : 75%;
+    padding: 15px;
+    border-radius: 15px;
+    color: 	#18191A;
+	border: 1px solid black;
+	
+}
+.info-acompte{
+	margin-left: auto;
+    margin-right: auto;
+	width : 75%;
+    padding: 15px;
+    border-radius: 15px;
+    color: 	#18191A;
+	border: 1px solid black;
+}
+
+

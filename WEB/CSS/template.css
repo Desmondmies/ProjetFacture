@@ -1,0 +1,21 @@
+body{
+    background-color: var(--bg);
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.content {
+  /*width: 100%;
+  height: 100%;*/
+  margin-top: 55px; /*Pour se placer sous le header de taille 55px */
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 55px;
+}

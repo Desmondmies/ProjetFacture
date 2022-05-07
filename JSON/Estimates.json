@@ -1,0 +1,15 @@
+{"0": {"client_id": 0, 
+    "creation_date": "2022-05-03",
+    "comment": "cooooooommmmm 222222222",
+    "list_items": ["item1", "item2"], 
+    "id": 0, 
+    "artisan": {"surname": "Matignofle", "firstname": "Robertine", "compagny_name": "salut la compagny", "phone": "00 00 00 00 00", "mail_compagny": "slt_la_comp@gmail.com", "adress": "", "logo": "path", "template_selected": 0}
+    }, 
+
+"1": {"client_id": 0, 
+    "creation_date": "2022-05-03", 
+    "comment": "sdfvsdfvldlkfcrm",
+    "list_items": ["item1", "item2"], 
+    "id": 1, 
+    "artisan": {"surname": "test nom", "firstname": "Robertine", "compagny_name": "salut la compagny", "phone": "00 00 00 00 00", "mail_compagny": "slt_la_comp@gmail.com", "adress": "", "logo": "path", "template_selected": 0}}
+}

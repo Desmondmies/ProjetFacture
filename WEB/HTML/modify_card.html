@@ -1,0 +1,98 @@
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='card.css')}}">
+
+<!-- tests à faire pour changer le contenu d'une carte en fonction du path -->
+<form action="{{PATH}}" method="post">
+    <div class="client">
+        <h2>Modifier {{CARD_TITLE}}</h2>
+        <div class="info-client">
+            <div class="inputs-client">
+                {% if "/modify_client" in PATH %}
+                    <div class="row">
+                        <input type="text" id="i_nom" placeholder="Nom..." value="{{DATA.surname}}">
+                        <input type="text" id="i_prenom" placeholder="Prénom..." value="{{DATA.firstname}}">
+                    </div>
+                    <div class="row">
+                        <input type="text" id="i_ad" placeholder="Adresse..." value="{{DATA.adress}}">
+                        <input type="text" id="i_post" pattern="[0-9]{5}" placeholder="Code Postale..." value="{{DATA.postcode}}">
+                    </div>
+                    
+                    <div class="row">
+                        <input type="email" id="i_mail" pattern="[A-Za-z0-9]+@[A-Za-z]+[.]{1}[a-z]+" placeholder="Mail..." value="{{DATA.mail}}">
+                        <input type="tel" id="i_tel" pattern="([0-9]{2} ){4}[0-9]{2}" placeholder="Téléphone..." value="{{DATA.phone}}">
+                    </div>
+                    <input type="text" id="i_desc" placeholder="Description..." value="{{DATA.description}}">
+                {% elif "/modify_facture" in PATH %}
+                    <label>Choisir un Client</label>
+                    <select id="s_client">
+                        {% for c in CLIENTS.values() %}
+                            {% if c.id == DATA.client_id %}
+                                <option value="{{c.id}}" selected>{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+                            {% else %}
+                                <option value="{{c.id}}">{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <div class="row">
+                        <input type="date" id="i_creation" placeholder="Date de Création..." value="{{DATA.creation_date}}">
+                        <input type="date" id="i_due" placeholder="Date d'Échéance..." value="{{DATA.due_date}}">
+                    </div>
+
+                    <input type="text" id="i_desc" placeholder="Description..." value="{{DATA.comment}}">
+                    <input type="text" id="i_acqu" placeholder="Acquitté ou non..." value="{{DATA.acquitted}}">
+
+                    <div class="row">
+                        {% for i in range(10) %}
+                            {% if i < DATA.list_items|length %}
+                                <input type="text" class="prod" id="i_prod{{i+1}}" placeholder="Produits-{{i+1}}..." value="{{DATA.list_items[i]}}">
+                            {% else %}
+                                <input type="text" class="prod" id="i_prod{{i+1}}" placeholder="Produits-{{i+1}}..." value="">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% elif "/modify_devis" in PATH %}
+                    <label>Choisir un Client</label>
+                    <select id="s_client">
+                        {% for c in CLIENTS.values() %}
+                            {% if c.id == DATA.client_id %}
+                                <option value="{{c.id}}" selected>{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+                            {% else %}
+                                <option value="{{c.id}}">{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <div class="row">
+                        <input type="text" id="i_desc" placeholder="Description..." value="{{DATA.comment}}">
+                        <input type="date" id="i_creation" placeholder="Date de Création..." value="{{DATA.creation_date}}">
+                    </div>
+
+                    <div class="row">
+                        {% for i in range(10) %}
+                            {% if i < DATA.list_items|length %}
+                                <input type="text" class="prod" id="i_prod{{i+1}}" placeholder="Produits-{{i+1}}..." value="{{DATA.list_items[i]}}">
+                            {% else %}
+                                <input type="text" class="prod" id="i_prod{{i+1}}" placeholder="Produits-{{i+1}}..." value="">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="bouton">
+            {% if "/modify_client" in PATH %}
+                <button class="button" id="save_btn_client" type="submit" name="save_card" 
+                onclick="save_btn_client.value = 'MODIFY_SAVE¤'+i_nom.value+'¤'+i_prenom.value+'¤'+i_ad.value+'¤'+i_post.value+'¤'+i_mail.value+'¤'+i_tel.value+'¤'+i_desc.value;" 
+                value="SAVE" role="button" >Sauvegarder</button>
+            {% elif "/modify_facture" in PATH %}
+                <button class="button" id="save_btn_facture" name="save_card" 
+                onclick="save_btn_facture.value = 'MODIFY_SAVE¤'+s_client.value+'¤'+i_creation.value+'¤'+i_due.value+'¤'+i_desc.value+'¤'+i_acqu.value+'¤'+i_prod1.value+'¤'+i_prod2.value+'¤'+i_prod3.value+'¤'+i_prod4.value+'¤'+i_prod5.value+'¤'+i_prod6.value+'¤'+i_prod7.value+'¤'+i_prod8.value+'¤'+i_prod9.value+'¤'+i_prod10.value; submit();"
+                value="SAVE" role="button">Sauvegarder</button>
+            {% elif "/modify_devis" in PATH %}
+                <button class="button" id="save_btn_devis" name="save_card" 
+                onclick="save_btn_devis.value = 'MODIFY_SAVE¤'+s_client.value+'¤'+i_creation.value+'¤'+i_desc.value+'¤'+i_prod1.value+'¤'+i_prod2.value+'¤'+i_prod3.value+'¤'+i_prod4.value+'¤'+i_prod5.value+'¤'+i_prod6.value+'¤'+i_prod7.value+'¤'+i_prod8.value+'¤'+i_prod9.value+'¤'+i_prod10.value; submit();"
+                value="SAVE" role="button">Sauvegarder</button>
+            {% endif %}
+        </div>
+    </div>
+</form>

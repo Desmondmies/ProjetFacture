@@ -1,0 +1,52 @@
+{% extends "template.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='artisan.css')}}">
+
+<div class="artisan">
+	<div class="info-artisan">
+		{% if ARTISAN.logo == "" %}
+			<img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
+		{% else %}
+			<img class="logo-artisan" id="hasPath" src="{{ARTISAN.logo}}" alt="LOGO ENTREPRISE">
+		{% endif %}
+		<div class="inputs-artisan">
+			<input type="text" id="i_compagny_name" placeholder="Nom Entreprise..." value = "{{ARTISAN.compagny_name}}">
+			<div class="row">
+				<input type="text" id="i_surname" placeholder="Nom..." value = "{{ARTISAN.surname}}">
+				<input type="text" id="i_firstname" placeholder="Prénom..." value = "{{ARTISAN.firstname}}">
+			</div>
+			<input type="text" id="i_adress" placeholder="Adresse Entreprise..." value = "{{ARTISAN.adress}}">
+			<div class="row">
+				<input type="email" id="i_mail" pattern="[A-Za-z0-9]+@[A-Za-z]+[.]{1}[a-z]+" placeholder="Mail..." value = "{{ARTISAN.mail_compagny}}">
+				<input type="tel" id="i_phone" pattern="([0-9]{2} ){4}[0-9]{2}" placeholder="Téléphone..." value = "{{ARTISAN.phone}}">
+			</div>
+		</div>
+	</div>
+
+	<h2>Style de formulaire</h2>
+	<div class ="carousel">
+		<ul>
+			{% for _style in ["STYLE1","STYLE2","STYLE3"] %}
+				{% if _style == ARTISAN.template_selected %}
+					<li>
+						<button class="template" id="i_template_selected" onclick="document.getElementById('i_template_selected').id = ''; this.id = 'i_template_selected'; i_template_selected.value = '{{_style}}' " type="submit" name="choice_style" value="{{_style}}">
+						<span class="textlogo">{{_style}}</span>
+						</button>
+					</li>
+				{% else %}
+					<li>
+						<button class="template" type="submit" name="choice_style" onclick="document.getElementById('i_template_selected').id = ''; this.id = 'i_template_selected'; i_template_selected.value = '{{_style}}';" value="{{_style}}">
+						<span class="textlogo">{{_style}}</span>
+						</button>
+					</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<form action="{{PATH}}" method="post">
+		<div class="bouton">
+			<button class="button" id="save_btn" type="submit" name="save_artisan" onclick="save_btn.value = 'SAVE¤'+i_compagny_name.value+'¤'+i_surname.value+'¤'+i_firstname.value+'¤'+i_adress.value+'¤'+i_mail.value+'¤'+i_phone.value+'¤'+i_template_selected.value" value="VOID" role="button" >Sauvegarder</button>
+		</div>
+	</form>
+</div>
+{% endblock %}

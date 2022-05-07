@@ -1,0 +1,53 @@
+{% extends "template2.html" %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='formulaire.css')}}">
+<div class="formulaire">
+<!-- recupere les dernieres donnees de l artisan -->
+	<div class="info-artisan">
+	    <img class="logo-artisan" src="" alt="LOGO ENTREPRISE">
+		<div class="inputs-artisan">
+			<input type="text" id="i_compagny_name" placeholder="Nom Entreprise..." value = "{{ARTISAN.compagny_name}}">
+			<div class="row">
+				<input type="text" id="i_surname" placeholder="Nom..." value = "{{ARTISAN.surname}}">
+				<input type="text" id="i_firstname" placeholder="Prénom..." value = "{{ARTISAN.firstname}}">
+			</div>
+			<input type="text" id="i_adress" placeholder="Adresse Entreprise..." value = "{{ARTISAN.adress}}">
+			<div class="row">
+				<input type="email" id="i_mail" pattern="[A-Za-z0-9]+@[A-Za-z]+[.]{1}[a-z]+" placeholder="Mail..." value = "{{ARTISAN.mail_compagny}}">
+				<input type="tel" id="i_phone" pattern="([0-9]{2} ){4}[0-9]{2}" placeholder="Téléphone..." value = "{{ARTISAN.phone}}">
+			</div>
+		</div>
+	</div>
+	<div class="info-client">
+	    <div class="inputs-client">
+	        <div class="row-3">
+	            <input type="text" placeholder="Nom Client...">
+	            <input type="text" placeholder="Prénom...">
+	            <input type="text" placeholder="Adresse Client...">
+	        </div>
+	        <div class="row">
+	            <input type="tel" placeholder="Téléphone Client...">
+	            <input type="email" placeholder="Mail Client...">
+	        </div>
+	        <input class="description" type="text" placeholder="Description Client...">
+	    </div>
+	</div>
+<br><br>
+	<div class="info-produit">
+	    <h3>Produits</h3>
+	    <hr>
+	    <input type="text" placeholder="Nom du Produit...">
+	    <input type="number" placeholder="Quantité...">
+	    <input type="number" placeholder="Prix...">
+	</div>
+<br><br>
+	<div class="info-acompte">
+	    <h3>Acomptes</h3>
+	    <hr>
+	    <input type="date" placeholder="Date Versement...">
+	    <input type="number" placeholder="Montant...">
+	</div>
+
+
+</div>
+{% endblock %}

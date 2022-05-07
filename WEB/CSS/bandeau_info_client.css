@@ -1,0 +1,107 @@
+@import "color_ref.css";
+
+.bandeau {
+	display : flex;
+	justify-content: space-between;
+	background-color: var(--area_bg);
+	border-style: solid;
+	border-radius: 10px;
+	border-width: 5px;
+	border-color: var(--area_border);
+
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	position: relative;
+	z-index: 2;
+}
+
+.bandeau .left_infos {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+    flex-direction: column;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.bandeau .left_infos .row_infos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.bandeau .left_infos .row_infos div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    padding-right: 5px;
+}
+.bandeau .left_infos div{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.bandeau .right_buttons{
+	display: flex;
+	width: 50%;
+	justify-content: flex-end;
+	padding-left: 15px;
+	padding-right: 15px;
+    align-items: center;
+}
+
+.bandeau .right_buttons button{
+	margin-right: 20px;
+	width: 100px;
+	height: 100px;
+	background-color: transparent;
+	color: var(--button_text);
+	border: 3px solid var(--button_bg);
+	border-radius: 7px;
+	cursor: pointer;
+	text-transform: uppercase;
+	position: relative;
+	display: block;
+	overflow: hidden;
+	font-weight: 600;
+	font-size: 13px;
+}
+
+.bandeau .right_buttons button:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: -50px;
+	bottom: 0;
+	left: 0;
+	border-right: 50px solid transparent;
+	border-bottom: 100px solid #18191A;
+	transform: translateX(-100%);
+	transition: 0.2s ease-in-out;
+	z-index: -1;
+}
+
+.bandeau .right_buttons button:hover:before {
+	transform: translateX(0);
+}
+
+
+input {
+	outline: 0;
+	border: 1px solid;
+	background-color: var(--area_input_bg);
+	color : var(--area_text);
+	font-size: 15px;
+}
+
+label{
+    font-size: 17px;
+    font-weight: 750;
+    color: var(--area_input_bg);
+}
