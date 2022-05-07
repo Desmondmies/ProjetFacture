@@ -15,7 +15,7 @@ def check_invoice(dict_data_invoice:dict) -> list:
         errors.append("due_date")
 
     #Au moins un produit inscrit sur la facture
-    if dict_data_invoice["list_items"].count("") != len(dict_data_invoice["list_items"]):
+    if dict_data_invoice["list_items"].count("") == len(dict_data_invoice["list_items"]):
         errors.append("list_items")
     
     #Contrôle des dates des acomptes
