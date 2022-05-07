@@ -71,6 +71,10 @@
                 <div class="info-acompte">
                     <h3>Acomptes</h3>
                     <hr>
+                    <div class="row">
+                        <div class="label"><label> Date </label></div>
+                        <div class="label"><label> Montant </label></div>
+                    </div>
                     {% for depo in FACTURE.list_deposits %}
                         {% if depo.payment_date != '' %}
                             <div class="row">
@@ -84,6 +88,10 @@
                 <div class="info-acompte">
                     <h3>Acomptes</h3>
                     <hr>
+                    <div class="row">
+                        <div class="label"><label> Date </label></div>
+                        <div class="label"><label> Montant </label></div>
+                    </div>
                     {% if NO_HEADER == None %}
                         {% for i in range(5) %}
                             <div class="row">
@@ -100,6 +108,11 @@
             <div class="info-produit">
                 <h3>Produits</h3>
                 <hr>
+                <div class="row">
+                    <div class="label"><label> Désignation </label></div>
+                    <div class="label"><label> Quantité </label></div>
+                    <div class="label"><label> Prix (unitaire) </label></div>
+                </div>
                 {% for item in DEVIS.list_items %}
                     {% if item and item.name != '' %}
                         <div class="row">
@@ -114,6 +127,11 @@
             <div class="info-produit">
                 <h3>Produits</h3>
                 <hr>
+                <div class="row">
+                    <div class="label"><label> Désignation </label></div>
+                    <div class="label"><label> Quantité </label></div>
+                    <div class="label"><label> Prix (unitaire) </label></div>
+                </div>
                 {% for item in FACTURE.list_items %}
                     {% if item and item.name != '' %}
                         <div class="row">
@@ -128,6 +146,11 @@
             <div class="info-produit">
                 <h3>Produits</h3>
                 <hr>
+                <div class="row">
+                    <div class="label"><label> Désignation </label></div>
+                    <div class="label"><label> Quantité </label></div>
+                    <div class="label"><label> Prix (unitaire) </label></div>
+                </div>
                 {% if NO_HEADER == None %}
                     {% for i in range(10) %}
                         <div class="row">
@@ -170,8 +193,11 @@
         </div>
 
         {% if NO_HEADER == None %}
-            <div class="btn_pdf">
-                <button class="enregistrer-formulaire" type="submit" name="btn_rendupdf" value="btn_rendupdf">Rendu PDF</button>
+            <div class="btn">
+                <button class="enregistrer-formulaire" type="submit" name="btn_rendupdf" value="pdf">Rendu PDF</button>
+                {% if DEVIS != None and FACTURE == None %}
+                    <button class="convert-devis" type="submit" name="btn_convert" value="convert">Convertir en facture</button>
+                {% endif %}
             </div>
         {% endif %}
     </div>
