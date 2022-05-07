@@ -22,10 +22,10 @@
             <div class="pdf-info">
                 <br>
                     {% if FACTURE!=None %}
-                    <div class="label"><label> Facture n°{{FACTURE.id}} </label></div>
+                        <div class="label"><label> Facture n°{{FACTURE.id}} </label></div>
                     {% endif %}
                     {% if DEVIS!=None %}
-                    <div class="label"><label> Devis n°{{DEVIS.id}} </label></div>
+                        <div class="label"><label> Devis n°{{DEVIS.id}} </label></div>
                     {% endif %}
                 <br>
                     <div class="label"><label> {{ARTISAN.compagny_name}} </label></div>
@@ -124,16 +124,16 @@
                 </div>
             </div>	    
         </div>
-
-        {% if DEVIS != None %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                <div class="row">
-                    <div class="label"><label> Désignation </label></div>
-                    <div class="label"><label> Quantité </label></div>
-                    <div class="label"><label> Prix (unitaire) </label></div>
-                </div>
+        <div class="info-produit">
+            <h3>Produits</h3>
+            <hr>
+            <div class="row">
+                <div class="label"><label> Désignation </label></div>
+                <div class="label"><label> Quantité </label></div>
+                <div class="label"><label> Prix (unitaire) </label></div>
+            </div>
+            {% if DEVIS != None %}
+                
                 {% for item in DEVIS.list_items %}
                     {% if item and item.name != '' %}
                         <div class="row">
@@ -143,16 +143,8 @@
                         </div>	
                     {% endif %}
                 {% endfor %}		
-            </div>
-        {% elif FACTURE != None %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                <div class="row">
-                    <div class="label"><label> Désignation </label></div>
-                    <div class="label"><label> Quantité </label></div>
-                    <div class="label"><label> Prix (unitaire) </label></div>
-                </div>
+                
+            {% elif FACTURE != None %}
                 {% for item in FACTURE.list_items %}
                     {% if item and item.name != '' %}
                         <div class="row">
@@ -162,16 +154,8 @@
                         </div>	
                     {% endif %}
                 {% endfor %}		
-            </div>
-        {% else %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                <div class="row">
-                    <div class="label"><label> Désignation </label></div>
-                    <div class="label"><label> Quantité </label></div>
-                    <div class="label"><label> Prix (unitaire) </label></div>
-                </div>
+                
+            {% else %}
                 {% if NO_HEADER == None %}
                     {% for i in range(10) %}
                         <div class="row">
@@ -181,9 +165,9 @@
                         </div>	
                     {% endfor %}		
                 {% endif %}
-            </div>
-        {% endif %}
-
+                
+            {% endif %}
+        </div>
         {% if DEVIS == None %}
             {% if FACTURE != None %}
                 <div class="info-acompte">

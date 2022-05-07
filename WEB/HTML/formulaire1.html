@@ -29,10 +29,10 @@
             <div class="pdf-info droit">
                 <br>
                     {% if FACTURE!=None %}
-                    <div class="label"><label> Facture n°{{FACTURE.id}} </label></div>
+                        <div class="label"><label> Facture n°{{FACTURE.id}} </label></div>
                     {% endif %}
                     {% if DEVIS!=None %}
-                    <div class="label"><label> Devis n°{{DEVIS.id}} </label></div>
+                        <div class="label"><label> Devis n°{{DEVIS.id}} </label></div>
                     {% endif %}
                 <br>
                     <div class="label"><label> {{ARTISAN.compagny_name}} </label></div>
@@ -96,102 +96,89 @@
             
         </div>
 
+        
         {% if DEVIS == None %}
-            {% if FACTURE != None %}
-                <div class="info-acompte">
-                    <h3>Acomptes</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="label"><label> Date </label></div>
-                        <div class="label"><label> Montant </label></div>
-                    </div>
-                    {% for depo in FACTURE.list_deposits %}
-                        {% if depo.payment_date != '' %}
-                            <div class="row">
-                                <input type="date" placeholder="Date Versement..." value="{{depo.payment_date}}">
-                                <input type="number" placeholder="Montant..." value="{{depo.amount}}">
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+            <div class="info-acompte">
+                <h3>Acomptes</h3>
+                <hr>
+                <div class="row">
+                    <div class="label"><label> Date </label></div>
+                    <div class="label"><label> Montant </label></div>
                 </div>
-            {% else %}
-                <div class="info-acompte">
-                    <h3>Acomptes</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="label"><label> Date </label></div>
-                        <div class="label"><label> Montant </label></div>
-                    </div>
-                    {% if NO_HEADER == None %}
-                        {% for i in range(5) %}
-                            <div class="row">
-                                <input type="date" placeholder="Date Versement...">
-                                <input type="number" placeholder="Montant...">
-                            </div>
+                {% if FACTURE != None %}
+                    
+                        {% for depo in FACTURE.list_deposits %}
+                            {% if depo.payment_date != '' %}
+                                <div class="row">
+                                    <input type="date" placeholder="Date Versement..." value="{{depo.payment_date}}">
+                                    <input type="number" placeholder="Montant..." value="{{depo.amount}}">
+                                </div>
+                            {% endif %}
                         {% endfor %}
-                    {% endif %}
-                </div>
-            {% endif %}
-        {% endif %}
-
-        {% if DEVIS != None %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                <div class="row">
-                    <div class="label"><label> Désignation </label></div>
-                    <div class="label"><label> Quantité </label></div>
-                    <div class="label"><label> Prix (unitaire) </label></div>
-                </div>
-                {% for item in DEVIS.list_items %}
-                    {% if item and item.name != '' %}
+                    </div>
+                {% else %}
+                    <div class="info-acompte">
+                        <h3>Acomptes</h3>
+                        <hr>
                         <div class="row">
-                            <input type="text" placeholder="Nom du Produit..." value="{{item.name}}">
-                            <input type="number" placeholder="Quantité..." value="{{item.quantity}}">
-                            <input type="number" placeholder="Prix..." value="{{item.price}}">
-                        </div>	
-                    {% endif %}
-                {% endfor %}		
-            </div>
-        {% elif FACTURE != None %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                <div class="row">
-                    <div class="label"><label> Désignation </label></div>
-                    <div class="label"><label> Quantité </label></div>
-                    <div class="label"><label> Prix (unitaire) </label></div>
-                </div>
-                {% for item in FACTURE.list_items %}
-                    {% if item and item.name != '' %}
-                        <div class="row">
-                            <input type="text" placeholder="Nom du Produit..." value="{{item.name}}">
-                            <input type="number" placeholder="Quantité..." value="{{item.quantity}}">
-                            <input type="number" placeholder="Prix..." value="{{item.price}}">
-                        </div>
-                    {% endif %}
-                {% endfor %}		
-            </div>
-        {% else %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                <div class="row">
-                    <div class="label"><label> Désignation </label></div>
-                    <div class="label"><label> Quantité </label></div>
-                    <div class="label"><label> Prix (unitaire) </label></div>
-                </div>
-                {% if NO_HEADER == None %}
-                    {% for i in range(10) %}
-                        <div class="row">
-                            <input type="text" placeholder="Nom du Produit...">
-                            <input type="number" placeholder="Quantité...">
-                            <input type="number" placeholder="Prix...">
-                        </div>	
-                    {% endfor %}
+                            <div class="label"><label> Date </label></div>
+                            <div class="label"><label> Montant </label></div>
+                        
+                        {% if NO_HEADER == None %}
+                            {% for i in range(5) %}
+                                <div class="row">
+                                    <input type="date" placeholder="Date Versement...">
+                                    <input type="number" placeholder="Montant...">
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 {% endif %}
             </div>
         {% endif %}
+
+        <div class="info-produit">
+            <h3>Produits</h3>
+            <hr>
+            <div class="row">
+                <div class="label"><label> Désignation </label></div>
+                <div class="label"><label> Quantité </label></div>
+                <div class="label"><label> Prix (unitaire) </label></div>
+            </div>
+            {% if DEVIS != None %}
+                
+                    {% for item in DEVIS.list_items %}
+                        {% if item and item.name != '' %}
+                            <div class="row">
+                                <input type="text" placeholder="Nom du Produit..." value="{{item.name}}">
+                                <input type="number" placeholder="Quantité..." value="{{item.quantity}}">
+                                <input type="number" placeholder="Prix..." value="{{item.price}}">
+                            </div>	
+                        {% endif %}
+                    {% endfor %}		
+            {% elif FACTURE != None %}
+                    {% for item in FACTURE.list_items %}
+                        {% if item and item.name != '' %}
+                            <div class="row">
+                                <input type="text" placeholder="Nom du Produit..." value="{{item.name}}">
+                                <input type="number" placeholder="Quantité..." value="{{item.quantity}}">
+                                <input type="number" placeholder="Prix..." value="{{item.price}}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}		
+            {% else %}
+
+                    {% if NO_HEADER == None %}
+                        {% for i in range(10) %}
+                            <div class="row">
+                                <input type="text" placeholder="Nom du Produit...">
+                                <input type="number" placeholder="Quantité...">
+                                <input type="number" placeholder="Prix...">
+                            </div>	
+                        {% endfor %}
+                    {% endif %}
+            {% endif %}
+        </div>
         <hr>
         <div class="footer-formulaire">
             {% if DEVIS == None and FACTURE != None %}
