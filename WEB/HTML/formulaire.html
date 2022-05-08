@@ -128,9 +128,9 @@
 				{% if NO_HEADER == None %}
 					{% for i in range(10) %}
 						<div class="row">
-							<input type="text" placeholder="Nom du Produit...">
-							<input type="number" placeholder="Quantité...">
-							<input type="number" placeholder="Prix...">
+							<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit...">
+							<input type="number" id="ip_q{{i+1}}" placeholder="Quantité...">
+							<input type="number" id="ip_p{{i+1}}" placeholder="Prix...">
 						</div>	
 					{% endfor %}	
 				{% endif %}	
@@ -205,9 +205,11 @@
 		</div>
 		{% if NO_HEADER == None %}
 			<div class="btn">
-				<button class="enregistrer-formulaire" type="submit" name="btn_rendupdf" value="pdf">Rendu PDF</button>
+				<button class="enregistrer-formulaire" id="rendu_btn" type="submit" name="btn_rendupdf" 
+				onclick="rendu_btn.value= 'RENDU¤'+'test'+'¤'+'test'" 
+				value="pdf">Rendu PDF</button>
 				{% if DEVIS != None and FACTURE == None %}
-					<button class="convert-devis" type="submit" name="btn_convert" value="convert">Convertir en facture</button>
+					<button class="convert-devis" type="submit" name="btn_convert" ovalue="convert">Convertir en facture</button>
 				{% endif %}
 			</div>
 		{% endif %}

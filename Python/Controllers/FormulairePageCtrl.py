@@ -35,6 +35,7 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
     #if request, post, contient import client, then import client
     if request.method == 'POST':
         r = getformulaireForm(request.form)
+        print(r)
         if "pdf" in r:
             no_header = 1
         else:
