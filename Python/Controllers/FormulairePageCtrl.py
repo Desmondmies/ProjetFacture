@@ -1,4 +1,5 @@
 from flask import render_template, request
+from datetime import date
 
 from Python.FormRequestHandlers.FormulaireFormRequest import getformulaireForm
 
@@ -41,16 +42,22 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
             info = r.split('¤')
             rendu = {}
             rendu["client"] = get_client_for_rendu(info)
+            if len(client_mng.search_client(rendu["client"]["phone"])) == 0:
+                client_mng.create_client(rendu["client"])
+
             if factureId != None:
+                rendu["creation_date"] = get_creation_date_for_rendu(info)
                 rendu["due_date"] = get_due_date_for_rendu(info)
                 rendu["list_items"] = get_prod_for_rendu_f(info)
                 rendu["list_deposits"] = get_deposits_for_rendu(info)
                 total = get_total_price(rendu)
                 restant = get_remaining_amount(rendu)
             elif devisId != None:
+                rendu["creation_date"] = get_creation_date_for_rendu(info)
                 rendu["list_items"] = get_prod_for_rendu_d(info)
                 total = get_total_price(rendu)
             else:
+                rendu["creation_date"] = get_creation_date_for_rendu(info)
                 rendu["due_date"] = get_due_date_for_rendu(info)
                 rendu["list_items"] = get_prod_for_rendu_f(info)
                 rendu["list_deposits"] = get_deposits_for_rendu(info)
@@ -109,17 +116,26 @@ def get_client_for_rendu(info):
 
     if len(res) == 0:
         return None
+
+    res["description"] = ""
+    res["postcode"] = "00000"
     return res
 
+def get_creation_date_for_rendu(info):
+    da = info[6]
+    if len(da) == 0 or da == '':
+        return str(date.today())
+    return da
+
 def get_due_date_for_rendu(info):
-    date = info[6]
-    if len(date) == 0 or date == '':
-        return None
-    return date
+    da = info[7]
+    if len(da) == 0 or da == '':
+        return str(date.today())
+    return da
 
 def get_deposits_for_rendu(info):
     res = []
-    idx = 7
+    idx = 8
     for i in range(5):
         date = info[idx]
         somme = info[idx+1]
@@ -136,7 +152,7 @@ def get_deposits_for_rendu(info):
 
 def get_prod_for_rendu_f(info):
     res = []
-    idx = 17
+    idx = 18
     for i in range(10):
         n = info[idx]
         q = info[idx+1]
@@ -156,7 +172,7 @@ def get_prod_for_rendu_f(info):
 
 def get_prod_for_rendu_d(info):
     res = []
-    idx = 6
+    idx = 7
     for i in range(10):
         n = info[idx]
         q = info[idx+1]
