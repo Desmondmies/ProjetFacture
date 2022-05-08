@@ -30,12 +30,40 @@
 
 .searchbar button{
     height: 30px;
+	border-radius: 6px;
+	background-color: var(--searchbar_bg);
+}
+.searchbar button:hover{
+	background-color: var(--button_text);
+}
+
+.filter_btn{
+	background-color: var(--button_bg);
+	color: var(--button_text);
+	border: 0;
+	border-radius: 6px;
+	width: 60px;
+	height: 20px;
+}
+
+.filter_btn:hover{
+	background-color: var(--button_text);
+	color: var(--text);
 }
 
 .bandeau_add_btn {
     width: 50px;
     height: 50px;
     font-size: 35px;
+	background-color: var(--button_bg);
+	color: var(--button_text);
+	border: 0;
+	border-radius: 30px;
+}
+
+.bandeau_add_btn:hover{
+	background-color: var(--button_text);
+	color: var(--text);
 }
 
 .search_bandeau_more{

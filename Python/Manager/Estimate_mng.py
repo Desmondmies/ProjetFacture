@@ -4,7 +4,7 @@ import json
 from Python.Manager.Artisan import artisan
 
 from Python.Estimate import Estimate
-from Python.Utils.SearchData import search_by_name, search_by_address, search_by_tel
+from Python.Utils.SearchData import search, search_by_name, search_by_address, search_by_tel
 
 
 estimate_path = os.path.abspath("./JSON/Estimates.json")
@@ -16,7 +16,7 @@ class Estimate_mng:
 
         self.update_newEstimate_id()
 
-        self.search_filter_index = 0
+        self.search_filter_index = -1
         return
 
     """
@@ -110,14 +110,7 @@ class Estimate_mng:
 
     def search_client(self, search_value:str) -> dict:
         res = {}
-
-        if self.search_filter_index == 0:
-            res = search_by_name(self.dict_estimates, search_value)
-        elif self.search_filter_index == 1:
-            res = search_by_address(self.dict_estimates, search_value)
-        elif self.search_filter_index == 2:
-            res = search_by_tel(self.dict_estimates, search_value)
-
+        res = search(self.dict_estimates, self.search_filter_index, search_value)
         return res
 
     def change_search_filter(self, new_search_filter_index:int) -> None:
