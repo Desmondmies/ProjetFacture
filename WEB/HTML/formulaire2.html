@@ -97,9 +97,9 @@
         </div>
 
         <div class="footer-formulaire">
-            {% if DEVIS == None and FACTURE != None %}
+            {% if DEVIS == None %}
                 <h4 class="date-echeance">Date Échéance</h4>
-                <input type="date" placeholder="Date d'Échéance" value="{{FACTURE.due_date}}">
+                <input type="date" id="i_due" placeholder="Date d'Échéance" value="{{FACTURE.due_date}}">
             {% endif %}
 
             <div class="montants">
@@ -159,10 +159,10 @@
                 {% if NO_HEADER == None %}
                     {% for i in range(10) %}
                         <div class="row">
-                            <input type="text" placeholder="Nom du Produit...">
-                            <input type="number" placeholder="Quantité...">
-                            <input type="number" placeholder="Prix...">
-                        </div>	
+                            <input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit...">
+                            <input type="number" id="ip_q{{i+1}}" placeholder="Quantité...">
+                            <input type="number" id="ip_p{{i+1}}" placeholder="Prix...">
+                        </div>  
                     {% endfor %}		
                 {% endif %}
                 
@@ -197,8 +197,8 @@
                     {% if NO_HEADER == None %}
                         {% for i in range(5) %}
                             <div class="row">
-                                <input type="date" placeholder="Date Versement...">
-                                <input type="number" placeholder="Montant...">
+                                <input type="date" id="id_d{{i+1}}" placeholder="Date Versement...">
+                                <input type="number" id="id_s{{i+1}}" placeholder="Montant...">
                             </div>
                         {% endfor %}
                     {% endif %}
@@ -208,7 +208,16 @@
 
         {% if NO_HEADER == None %}
             <div class="btn">
-                <button class="enregistrer-formulaire" type="submit" name="btn_rendupdf" value="pdf">Rendu PDF</button>
+                <button class="enregistrer-formulaire" id="rendu_btn" type="submit" name="btn_rendupdf" 
+                onclick="rendu_btn.value= 'RENDU¤'+s_client.value+'¤'+i_due.value+'¤'
+                +id_d1.value+'¤'+id_s1.value+'¤'+id_d2.value+'¤'+id_s2.value+'¤'+id_d3.value+'¤'+id_s3.value+'¤'+id_d4.value+'¤'+id_s4.value+'¤'+id_d5.value+'¤'+id_s5.value+'¤'
+                +ip_n1.value+'¤'+ip_q1.value+'¤'+ip_p1.value+'¤'+ip_n2.value+'¤'+ip_q2.value+'¤'+ip_p2.value+'¤'
+                +ip_n3.value+'¤'+ip_q3.value+'¤'+ip_p3.value+'¤'+ip_n4.value+'¤'+ip_q4.value+'¤'+ip_p4.value+'¤'
+                +ip_n5.value+'¤'+ip_q5.value+'¤'+ip_p5.value+'¤'+ip_n6.value+'¤'+ip_q6.value+'¤'+ip_p6.value+'¤'
+                +ip_n7.value+'¤'+ip_q7.value+'¤'+ip_p7.value+'¤'+ip_n8.value+'¤'+ip_q8.value+'¤'+ip_p8.value+'¤'
+                +ip_n9.value+'¤'+ip_q9.value+'¤'+ip_p9.value+'¤'+ip_n10.value+'¤'+ip_q10.value+'¤'+ip_p10.value;
+                onsubmit();"
+                value="pdf">Rendu PDF</button>
                 {% if DEVIS != None and FACTURE == None %}
                     <button class="convert-devis" type="submit" name="btn_convert" value="convert">Convertir en facture</button>
                 {% endif %}
