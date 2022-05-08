@@ -15,6 +15,7 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
     total = None
     restant = None
     no_header = None
+    rendu = None
 
     path = "/formulaire"
 
@@ -35,8 +36,21 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
     #if request, post, contient import client, then import client
     if request.method == 'POST':
         r = getformulaireForm(request.form)
-        if "pdf" in r:
+        if "RENDU¤" in r:
             no_header = 1
+            info = r.split('¤')
+            rendu = {}
+            rendu["client"] = get_client_for_rendu(info)
+            if factureId != None:
+                rendu["due_date"] = get_due_date_for_rendu(info)
+                rendu["list_items"] = get_prod_for_rendu_f(info)
+                rendu["list_deposits"] = get_deposits_for_rendu(info)
+                total = get_total_price(facture)
+                restant = get_remaining_amount(facture)
+            elif devisId != None:
+                rendu["list_items"] = get_prod_for_rendu_d(info)
+                total = get_total_price(devis)            
+            
         else:
             if r == 'None':
                 client = None
@@ -53,7 +67,8 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
                                 DEVIS = devis,
                                 TOTAL = total,
                                 RESTANT = restant,
-                                NO_HEADER = no_header)
+                                NO_HEADER = no_header,
+                                RENDU = rendu)
 
     elif artisan["template_selected"] == "STYLE3":
         return render_template("formulaire2.html",
@@ -65,7 +80,8 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
                                 DEVIS = devis,
                                 TOTAL = total,
                                 RESTANT = restant,
-                                NO_HEADER = no_header)
+                                NO_HEADER = no_header,
+                                RENDU = rendu)
     else:
         return render_template("formulaire.html",
                                 PATH = path,
@@ -76,4 +92,68 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
                                 DEVIS = devis,
                                 TOTAL = total,
                                 RESTANT = restant,
-                                NO_HEADER = no_header)
+                                NO_HEADER = no_header,
+                                RENDU = rendu)
+
+def get_client_for_rendu(info):
+    res = {}
+    keys = ['surname', 'firstname', 'phone', 'adress', 'mail']
+    for i in range(5):
+        res[keys[i]] = info[i+1]
+
+    if len(res) == 0:
+        return None
+    return res
+
+def get_due_date_for_rendu(info):
+    date = info[6]
+    if len(date) == 0 or date == '':
+        return None
+    return date
+
+def get_deposits_for_rendu(info):
+    res = []
+    idx = 7
+    for i in range(5):
+        d = {}
+        date = info[idx]
+        somme = info[idx+1]
+        idx += 2
+        d[i] = {"payment_date": date, "amount": somme}
+        res.append(d)
+    
+    if len(res) == 0:
+        return None
+    return res
+
+def get_prod_for_rendu_f(info):
+    res = []
+    idx = 17
+    for i in range(10):
+        d = {}
+        name = info[idx]
+        quant = info[idx+1]
+        price = info[idx+2]
+        idx += 3
+        d[i] = {"name": name,"quantity": quant, "price":price}
+        res.append(d)
+    
+    if len(res) == 0:
+        return None
+    return res
+
+def get_prod_for_rendu_d(info):
+    res = []
+    idx = 6
+    for i in range(10):
+        d = {}
+        name = info[idx]
+        quant = info[idx+1]
+        price = info[idx+2]
+        idx += 3
+        d[i] = {"name": name,"quantity": quant, "price":price}
+        res.append(d)
+    
+    if len(res) == 0:
+        return None
+    return res
