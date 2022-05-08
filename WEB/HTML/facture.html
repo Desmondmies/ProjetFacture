@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 {% block content %}
 
-{% for (facture, client) in DATA %}
+{% for (facture, client, RESTANT) in DATA %}
   {% include "bandeau_info_facture.html" %}
 {% endfor %}
 

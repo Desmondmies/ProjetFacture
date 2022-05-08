@@ -12,139 +12,293 @@
                     <img class="logo-artisan" id="hasPath" src="{{ARTISAN.logo}}" alt="LOGO ENTREPRISE">
                 {% endif %}
             </div>
-            <div class="inputs-client">
-                <input type="text" placeholder="Nom Entreprise..." value="{{ARTISAN.compagny_name}}">
-                <div class="row">
-                    <input type="text" placeholder="Nom..." value="{{ARTISAN.surname}}">
-                    <input type="text" placeholder="Prénom..." value="{{ARTISAN.firstname}}">
+
+            {% if NO_HEADER == None %}
+                <div class="inputs-client">
+                    <input type="text" placeholder="Nom Entreprise..." value="{{ARTISAN.compagny_name}}">
+                    <div class="row">
+                        <input type="text" placeholder="Nom..." value="{{ARTISAN.surname}}">
+                        <input type="text" placeholder="Prénom..." value="{{ARTISAN.firstname}}">
+                    </div>
+                    <input type="text" placeholder="Adresse Entreprise..." value="{{ARTISAN.adress}}">
+                    <div class="row">
+                        <input type="email" placeholder="Mail..." value="{{ARTISAN.mail_compagny}}">
+                        <input type="tel" placeholder="Téléphone..." value="{{ARTISAN.phone}}">
+                    </div>
                 </div>
-                <input type="text" placeholder="Adresse Entreprise..." value="{{ARTISAN.adress}}">
-                <div class="row">
-                    <input type="email" placeholder="Mail..." value="{{ARTISAN.mail_compagny}}">
-                    <input type="tel" placeholder="Téléphone..." value="{{ARTISAN.phone}}">
-                </div>
-            </div>        
+            {% else %}
+            <div class="pdf-info droit">
+                <br>
+                    {% if FACTURE!=None %}
+                    <div class="label"><label> Facture n°{{FACTURE.id}} </label></div>
+                    {% elif DEVIS!=None %}
+                    <div class="label"><label> Devis n°{{DEVIS.id}} </label></div>
+                    {% endif %}
+                <br>
+                    <div class="label"><label> {{ARTISAN.compagny_name}} </label></div>
+                    <div class="label"><label> {{ARTISAN.surname}} {{ARTISAN.firstname}}</label></div>
+                    <div class="label"><label> {{ARTISAN.adress}}</label></div>
+                    <div class="label"><label> {{ARTISAN.mail_compagny}}</label></div>
+                    <div class="label"><label> {{ARTISAN.phone}}</label></div>
+            </div>
+            {% endif %}
         </div>
         
         <div class="info">
+            {% if NO_HEADER == None %}
             <div class="inputs-client">
-                {% if NO_HEADER == None %}
-                    <label>Choisir un Client</label>
-                    <select name="s_client" id="s_client" onchange="submit();">
-                        <option value="None">AUCUN</option>
-                        {% for c in CLIENTS.values() %}
-                            {% if CLIENT != None and c.id == CLIENT.id %}
-                                <option value="{{c.id}}" selected>{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
-                            {% else %}
-                                <option value="{{c.id}}">{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                {% endif %}
+				<label>Choisir un Client</label>
+				<select name="s_client" id="s_client" onchange="submit();">
+					<option value="None">AUCUN</option>
+					{% for c in CLIENTS.values() %}
+						{% if CLIENT != None and c.id == CLIENT.id %}
+							<option value="{{c.id}}" selected>{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+						{% else %}
+							<option value="{{c.id}}">{{c.surname}}  -  {{c.firstname}}  -  {{c.mail}}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
 
-                {% if CLIENT != None %}
-                    <div class="row-3">
-                        <input type="text" placeholder="Nom Client..." value="{{CLIENT.surname}}">
-                        <input type="text" placeholder="Prénom..." value="{{CLIENT.firstname}}">
-                        <input type="tel" placeholder="Téléphone Client..." value="{{CLIENT.phone}}">
-                    </div>
-                    <div class="row">
-                        <input type="text" placeholder="Adresse Client..." value="{{CLIENT.adress}}">
-                        <input type="email" placeholder="Mail Client..." value="{{CLIENT.mail}}">
-                    </div>
-                {% else %}
-                    <div class="row-3">
-                        <input type="text" placeholder="Nom Client...">
-                        <input type="text" placeholder="Prénom...">
-                        <input type="tel" placeholder="Téléphone Client...">
-                    </div>
-                    <div class="row">
-                        <input type="text" placeholder="Adresse Client...">
-                        <input type="email" placeholder="Mail Client...">
-                    </div>
-                {% endif %}
-            </div>
+				{% if CLIENT != None %}
+					<div class="row-3">
+						<input type="text" id="ic_n" placeholder="Nom Client..." value="{{CLIENT.surname}}">
+						<input type="text" id="ic_p" placeholder="Prénom..." value="{{CLIENT.firstname}}">
+						<input type="tel" id="ic_tel" placeholder="Téléphone Client..." value="{{CLIENT.phone}}">
+					</div>
+					<div class="row">
+						<input type="text" id="ic_ad" placeholder="Adresse Client..." value="{{CLIENT.adress}}">
+						<input type="email" id="ic_mail" placeholder="Mail Client..." value="{{CLIENT.mail}}">
+					</div>
+				{% else %}
+					<div class="row-3">
+						<input type="text" id="ic_n" placeholder="Nom Client...">
+						<input type="text" id="ic_p" placeholder="Prénom...">
+						<input type="tel" id="ic_tel" placeholder="Téléphone Client...">
+					</div>
+					<div class="row">
+						<input type="text" id="ic_ad" placeholder="Adresse Client...">
+						<input type="email" id="ic_mail" placeholder="Mail Client...">
+					</div>
+				{% endif %}
+			</div>
+            {% else %}
+                <div class="pdf-info">
+                    <br>
+                    <div class="label"><label> Pour : </label></div>
+                    <br>
+
+                    <div class="label"><label> {{RENDU.client.surname}} {{RENDU.client.firstname}} </label></div>
+                    <div class="label"><label> {{RENDU.client.adress}}</label></div>
+                    <div class="label"><label>{{RENDU.client.mail}}</label></div>
+                    <div class="label"><label> {{RENDU.client.phone}}</label></div>
+                </div>
+			{% endif %}
         </div>
 
         {% if DEVIS == None %}
-            {% if FACTURE != None %}
-                <div class="info-acompte">
-                    <h3>Acomptes</h3>
-                    <hr>
-                    {% for depo in FACTURE.list_deposits %}
-                        {% if depo.payment_date != '' %}
-                            <div class="row">
-                                <input type="date" placeholder="Date Versement..." value="{{depo.payment_date}}">
-                                <input type="number" placeholder="Montant..." value="{{depo.amount}}">
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            {% else %}
-                <div class="info-acompte">
-                    <h3>Acomptes</h3>
-                    <hr>
-                    {% if NO_HEADER == None %}
-                        {% for i in range(5) %}
-                            <div class="row">
-                                <input type="date" placeholder="Date Versement...">
-                                <input type="number" placeholder="Montant...">
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            {% endif %}
-        {% endif %}
+			{% if FACTURE != None %}
+				<div class="info-acompte">
+					<h3>Acomptes</h3>
+					<hr>
+					<div class="row">
+						<div class="label"><label> Date </label></div>
+						<div class="label"><label> Montant </label></div>
+					</div>
+					{% for i in range(5) %}
+						{% if NO_HEADER == None %}
+							{% set depo = FACTURE.list_deposits[i] %}
+						{% else %}
+							{% set depo = RENDU.list_deposits[i] %}
+						{% endif %}
+						{% if depo and depo.payment_date != '' %}
+							<div class="row">
+								{% if NO_HEADER == None %}
+									<input type="date" id="id_d{{i+1}}" placeholder="Date Versement..." value="{{depo.payment_date}}">
+									<input type="number" id="id_s{{i+1}}" placeholder="Montant..." value="{{depo.amount}}">
+								{% else %}
+									<input type="date" id="id_d{{i+1}}" placeholder="Date Versement..." value="{{depo.payment_date}}" disabled>
+									<input type="number" id="id_s{{i+1}}" placeholder="Montant..." value="{{depo.amount}}" disabled>
+								{% endif %}
+							</div>
+						{% else %}
+							{% if NO_HEADER == None %}
+							<div class="row">
+								<input type="date" id="id_d{{i+1}}" placeholder="Date Versement...">
+								<input type="number" id="id_s{{i+1}}" placeholder="Montant...">
+							</div>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% else %}
+				<div class="info-acompte">
+					<h3>Acomptes</h3>
+					<hr>
+					<div class="row">
+						<div class="label"><label> Date </label></div>
+						<div class="label"><label> Montant </label></div>
+					</div>
+					{% if NO_HEADER == None %}
+						{% for i in range(5) %}
+							<div class="row">
+								<input type="date"  id="id_d{{i+1}}" placeholder="Date Versement...">
+								<input type="number"  id="id_s{{i+1}}" placeholder="Montant...">
+							</div>
+						{% endfor %}
+					{% else %}
+						{% for i in range(5) %}
+							{% set item = RENDU.list_deposits[i] %}
+							{% if item and item.payment_date != '' %}
+							<div class="row">
+								{% if NO_HEADER == None %}
+									<input type="date"  id="id_d{{i+1}}" placeholder="Date Versement..." value="{{item.payment_date}}">
+									<input type="number"  id="id_s{{i+1}}" placeholder="Montant..." value="{{item.amount}}">
+								{% else %}
+									<input type="date"  id="id_d{{i+1}}" placeholder="Date Versement..." value="{{item.payment_date}}" disabled>
+									<input type="number"  id="id_s{{i+1}}" placeholder="Montant..." value="{{item.amount}}" disabled>
+								{% endif %}
+							</div>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				</div>
+			{% endif %}
+		{% endif %}
 
-        {% if DEVIS != None %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                {% for item in DEVIS.list_items %}
-                    {% if item and item.name != '' %}
-                        <div class="row">
-                            <input type="text" placeholder="Nom du Produit..." value="{{item.name}}">
-                            <input type="number" placeholder="Quantité..." value="{{item.quantity}}">
-                            <input type="number" placeholder="Prix..." value="{{item.price}}">
-                        </div>	
-                    {% endif %}
-                {% endfor %}		
+        <div class="info-produit">
+            <h3>Produits</h3>
+            <hr>
+            <div class="row">
+                <div class="label"><label> Désignation </label></div>
+                <div class="label"><label> Quantité </label></div>
+                <div class="label"><label> Prix (unitaire) </label></div>
             </div>
-        {% elif FACTURE != None %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                {% for item in FACTURE.list_items %}
-                    {% if item and item.name != '' %}
-                        <div class="row">
-                            <input type="text" placeholder="Nom du Produit..." value="{{item.name}}">
-                            <input type="number" placeholder="Quantité..." value="{{item.quantity}}">
-                            <input type="number" placeholder="Prix..." value="{{item.price}}">
-                        </div>
-                    {% endif %}
-                {% endfor %}		
-            </div>
-        {% else %}
-            <div class="info-produit">
-                <h3>Produits</h3>
-                <hr>
-                {% if NO_HEADER == None %}
-                    {% for i in range(10) %}
-                        <div class="row">
-                            <input type="text" placeholder="Nom du Produit...">
-                            <input type="number" placeholder="Quantité...">
-                            <input type="number" placeholder="Prix...">
-                        </div>	
-                    {% endfor %}
-                {% endif %}
-            </div>
-        {% endif %}
-
+            {% if DEVIS != None %}
+				{% for i in range(10) %}
+					{% if NO_HEADER == None %}
+						{% set item = DEVIS.list_items[i] %}
+					{% else %}
+						{% set item = RENDU.list_items[i] %}
+					{% endif %}
+					
+					{% if item and item.name != '' %}
+						<div class="row">
+							{% if NO_HEADER == None %}
+								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}">
+								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}">
+								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}">
+							{% else %}
+								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}" disabled>
+								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}" disabled>
+								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}" disabled>
+							{% endif %}
+						</div>
+					{% else %}
+						{% if NO_HEADER == None %}
+						<div class="row">
+							<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit...">
+							<input type="number" id="ip_q{{i+1}}" placeholder="Quantité...">
+							<input type="number" id="ip_p{{i+1}}" placeholder="Prix...">
+						</div>
+						{% endif %}
+					{% endif %}
+				{% endfor %}		
+		    {% elif FACTURE != None %}
+				{% for i in range(10) %}
+					{% if NO_HEADER == None %}
+						{% set item = FACTURE.list_items[i] %}
+					{% else %}
+						{% set item = RENDU.list_items[i] %}
+					{% endif %}
+					{% if item and item.name != '' %}
+						<div class="row">
+							{% if NO_HEADER == None %}
+								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}">
+								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}">
+								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}">
+							{% else %}
+								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}" disabled>
+								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}" disabled>
+								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}" disabled>
+							{% endif %}
+						</div>
+					{% else %}
+						{% if NO_HEADER == None %}
+						<div class="row">
+							<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit...">
+							<input type="number" id="ip_q{{i+1}}" placeholder="Quantité...">
+							<input type="number" id="ip_p{{i+1}}" placeholder="Prix...">
+						</div>
+						{% endif %}
+					{% endif %}
+				{% endfor %}		
+		    {% else %}
+				{% if NO_HEADER == None %}
+					{% for i in range(10) %}
+						<div class="row">
+							<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit...">
+							<input type="number" id="ip_q{{i+1}}" placeholder="Quantité...">
+							<input type="number" id="ip_p{{i+1}}" placeholder="Prix...">
+						</div>	
+					{% endfor %}	
+				{% else %}
+					{% for i in range(10) %}
+						{% set item = RENDU.list_items[i] %}
+						{% if item and item.name != '' %}
+						<div class="row">
+							{% if NO_HEADER == None %}
+								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}">
+								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}">
+								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}">
+							{% else %}
+								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}" disabled>
+								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}" disabled>
+								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}" disabled>
+							{% endif %}
+						</div>	
+						{% endif %}
+					{% endfor %}	
+				{% endif %}	
+		    {% endif %}
+        </div>
+        <hr>
         <div class="footer-formulaire">
-            {% if DEVIS == None and FACTURE != None %}
-                <h4 class="date-echeance">Date Échéance</h4>
-                <input type="date" placeholder="Date d'Échéance" value="{{FACTURE.due_date}}">
-            {% endif %}
+            <div class="montants">
+				<div>
+					{% if NO_HEADER == None %}
+						{% if FACTURE != None %}
+							<h4 class="date-echeance">Date Création</h4>
+							<input type="date" id="i_crea" placeholder="Date de Création" value="{{FACTURE.creation_date}}">
+						{% elif DEVIS != None %}
+							<h4 class="date-echeance">Date Création</h4>
+							<input type="date" id="i_crea" placeholder="Date de Création" value="{{DEVIS.creation_date}}">
+						{% else %}
+							<h4 class="date-echeance">Date Création</h4>
+							<input type="date" id="i_crea" placeholder="Date de Création">
+						{% endif %}
+					{% else %}
+						<h4 class="date-echeance">Date Création</h4>
+						<input type="date" id="i_crea" placeholder="Date de Création" value="{{RENDU.creation_date}}" disabled>
+					{% endif %}
+				</div>
+				<div>
+					{% if DEVIS == None %}
+						{% if FACTURE != None %}
+							<h4 class="date-echeance">Date Échéance</h4>
+							{% if NO_HEADER == None %}
+								<input type="date" id="i_due" placeholder="Date d'Échéance" value="{{FACTURE.due_date}}">
+							{% else %}
+								<input type="date" id="i_due" placeholder="Date d'Échéance" value="{{RENDU.due_date}}" disabled>
+							{% endif %}
+						{% else %}
+							{% if NO_HEADER == None %}
+							<h4 class="date-echeance">Date Échéance</h4>
+							<input type="date" id="i_due" placeholder="Date d'Échéance">
+							{% endif %}
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
 
             <div class="montants">
                 <div>
@@ -170,10 +324,36 @@
         </div>
 
         {% if NO_HEADER == None %}
-            <div class="btn_pdf">
-                <button class="enregistrer-formulaire" type="submit" name="btn_rendupdf" value="btn_rendupdf">Rendu PDF</button>
-            </div>
-        {% endif %}
+			{% if (DEVIS == None and FACTURE != None) or (DEVIS == None and FACTURE == None) %}
+				<div class="btn">
+					<button class="enregistrer-formulaire" id="rendu_btn" name="btn_rendupdf"
+					onclick="rendu_btn.value = 'RENDU¤'+ ic_n.value+'¤'+ic_p.value+'¤'+ic_tel.value+'¤'+ic_ad.value+'¤'+ic_mail.value+'¤'
+					+i_crea.value+'¤'+i_due.value+'¤'
+					+id_d1.value+'¤'+id_s1.value+'¤'+id_d2.value+'¤'+id_s2.value+'¤'+id_d3.value+'¤'+id_s3.value+'¤'
+					+id_d4.value+'¤'+id_s4.value+'¤'+id_d5.value+'¤'+id_s5.value+'¤'
+					+ip_n1.value+'¤'+ip_q1.value+'¤'+ip_p1.value+'¤'+ip_n2.value+'¤'+ip_q2.value+'¤'+ip_p2.value+'¤'
+					+ip_n3.value+'¤'+ip_q3.value+'¤'+ip_p3.value+'¤'+ip_n4.value+'¤'+ip_q4.value+'¤'+ip_p4.value+'¤'
+					+ip_n5.value+'¤'+ip_q5.value+'¤'+ip_p5.value+'¤'+ip_n6.value+'¤'+ip_q6.value+'¤'+ip_p6.value+'¤'
+					+ip_n7.value+'¤'+ip_q7.value+'¤'+ip_p7.value+'¤'+ip_n8.value+'¤'+ip_q8.value+'¤'+ip_p8.value+'¤'
+					+ip_n9.value+'¤'+ip_q9.value+'¤'+ip_p9.value+'¤'+ip_n10.value+'¤'+ip_q10.value+'¤'+ip_p10.value;
+					onsubmit();"
+					value="RENDU¤">Rendu PDF</button>
+				</div>
+			{% elif DEVIS != None and FACTURE == None %}
+				<div class="btn">
+					<button class="enregistrer-formulaire" id="rendu_btn" name="btn_rendupdf"
+					onclick="rendu_btn.value = 'RENDU¤'+ ic_n.value+'¤'+ic_p.value+'¤'+ic_tel.value+'¤'+ic_ad.value+'¤'+ic_mail.value+'¤'
+					+i_crea.value+'¤'
+					+ip_n1.value+'¤'+ip_q1.value+'¤'+ip_p1.value+'¤'+ip_n2.value+'¤'+ip_q2.value+'¤'+ip_p2.value+'¤'
+					+ip_n3.value+'¤'+ip_q3.value+'¤'+ip_p3.value+'¤'+ip_n4.value+'¤'+ip_q4.value+'¤'+ip_p4.value+'¤'
+					+ip_n5.value+'¤'+ip_q5.value+'¤'+ip_p5.value+'¤'+ip_n6.value+'¤'+ip_q6.value+'¤'+ip_p6.value+'¤'
+					+ip_n7.value+'¤'+ip_q7.value+'¤'+ip_p7.value+'¤'+ip_n8.value+'¤'+ip_q8.value+'¤'+ip_p8.value+'¤'
+					+ip_n9.value+'¤'+ip_q9.value+'¤'+ip_p9.value+'¤'+ip_n10.value+'¤'+ip_q10.value+'¤'+ip_p10.value;
+					onsubmit();"
+					value="RENDU¤">Rendu PDF</button>
+				</div>
+			{% endif %}
+		{% endif %}
     </div>
 </form>
 {% endblock %}

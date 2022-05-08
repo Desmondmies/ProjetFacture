@@ -5,6 +5,7 @@ from Python.Manager.Client_mng import client_mng
 
 from Python.FormRequestHandlers.FactureFormRequest import getfactureForm
 from Python.Utils.GetFilterIndex import get_new_search_filter_index
+from Python.Utils.SumItemsDeposits import get_remaining_amount
 
 filter_btn_toggle = False
 
@@ -65,5 +66,5 @@ def get_all_clients_from_facture(facture_dict):
 def get_factureclient_list(facture, client):
     all = []
     for d, c in zip(facture.values(), client):
-        all.append((d, c))
+        all.append((d, c, get_remaining_amount(d) ))
     return all

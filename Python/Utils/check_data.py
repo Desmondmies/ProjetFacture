@@ -18,14 +18,14 @@ def check_invoice(dict_data_invoice:dict) -> list:
     if dict_data_invoice["list_items"].count("") == len(dict_data_invoice["list_items"]):
         errors.append("list_items")
     
-    #Contrôle des dates des acomptes
-    for deposit_id in range(len(dict_data_invoice["list_deposits"])):
-        if dict_data_invoice["list_deposits"][deposit_id]["payment_date"] == '':
-            continue
-        payment_date = datetime.strptime(dict_data_invoice["list_deposits"][deposit_id]["payment_date"], '%Y-%m-%d').date() 
-        if payment_date < creation_date:
-            errors.append("list_deposits")
-            break
+    # #Contrôle des dates des acomptes
+    # for deposit_id in range(len(dict_data_invoice["list_deposits"])):
+    #     if dict_data_invoice["list_deposits"][deposit_id]["payment_date"] == '':
+    #         continue
+    #     payment_date = datetime.strptime(dict_data_invoice["list_deposits"][deposit_id]["payment_date"], '%Y-%m-%d').date() 
+    #     if payment_date < creation_date:
+    #         errors.append("list_deposits")
+    #         break
     
     return errors
 

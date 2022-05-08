@@ -31,6 +31,14 @@
 		<p>Filtre de Recherche</p>
 		<div class="search_filter_radio">
 			<div>
+				{% if FILTER_IDX == -1 %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_all" name="search_filter" value="Filter_All" checked>
+				{% else %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_all" name="search_filter" value="Filter_All">
+				{% endif %}
+				<label for="filter_all">Aucun Filtre</label>
+			</div>
+			<div>
 				{% if FILTER_IDX == 0 %}
 					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_name" name="search_filter" value="Filter_Name" checked>
 				{% else %}
@@ -53,6 +61,14 @@
 					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_tel" name="search_filter" value="Filter_Tel">
 				{% endif %}
 				<label for="filter_tel">Recherche par Téléphone</label>
+			</div>
+			<div>
+				{% if FILTER_IDX == 3 %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_mail" name="search_filter" value="Filter_Mail" checked>
+				{% else %}
+					<input form="form_searchfilter" onchange="submit()" type="radio" id="filter_mail" name="search_filter" value="Filter_Mail">
+				{% endif %}
+				<label for="filter_mail">Recherche par Mail</label>
 			</div>
 		</div>
 	</div>

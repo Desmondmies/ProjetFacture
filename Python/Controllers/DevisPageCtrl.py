@@ -31,6 +31,9 @@ def devis_page_ctrl():
         elif "ConvertToFormulaire" in r:
             id = r.split('¤')[1]
             return redirect(url_for("formulaire_fromDevis_route", devId=id))
+        elif "ConvertToFacture" in r:
+            id = r.split('¤')[1]
+            return redirect(url_for("add_facture_fromDevis_route", id = id))
         elif "Voir Client" in r:
             id = r.split('¤')[1]
             dev = estimate_mng.read_estimate(int(id))

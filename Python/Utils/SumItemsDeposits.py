@@ -15,3 +15,14 @@ def get_total_price(dico) -> int:
 
 def IsTotalPaid(dico) -> bool:
     return get_total_deposits(dico) >= get_total_price(dico)
+
+def get_remaining_amount(dico) -> int:
+    #renvoi le montant restants à payer
+    total = get_total_price(dico)
+    depo = get_total_deposits(dico)
+    
+    remaining = total - depo
+    if remaining < 0:
+        remaining = 0
+    
+    return remaining

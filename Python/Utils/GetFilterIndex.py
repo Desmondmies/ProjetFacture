@@ -7,4 +7,6 @@ def get_new_search_filter_index(r):
         search_filter_index = 1
     elif r == "Filter_Tel":
         search_filter_index = 2
+    elif r == "Filter_Mail":
+        search_filter_index = 3
     return search_filter_index

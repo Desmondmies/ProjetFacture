@@ -1,20 +1,25 @@
 from flask import render_template, request, redirect, url_for
 
 from Python.Manager.Invoice_mng import invoice_mng
+from Python.Manager.Estimate_mng import estimate_mng
 from Python.Manager.Client_mng import client_mng
 
 from Python.FormRequestHandlers.CardFormRequest import getcardForm
 from Python.Utils.check_data import check_invoice
 from Python.Utils.SumItemsDeposits import IsTotalPaid
 
-def add_facture_page_ctrl(clientId = None):
+def add_facture_page_ctrl(clientId = None, devisId = None):
     error_flags = []
 
     client_selected = None
+    devis = None
 
     #add id client de base, if coming from générer facture, ajout variable CLIENT_SELECTED = None dans render template
     if clientId != None:
         client_selected = clientId
+    elif devisId != None:
+        devis = estimate_mng.read_estimate(devisId)
+        client_selected = devis["client_id"]
 
     if request.method == 'POST':
         r = getcardForm(request.form)
@@ -32,7 +37,8 @@ def add_facture_page_ctrl(clientId = None):
                             PATH = "/add_facture",
                             CLIENTS = client_all,
                             ERROR_FLAGS = error_flags,
-                            CLIENT_SELECTED = client_selected)
+                            CLIENT_SELECTED = client_selected,
+                            DEVIS = devis)
 
 def add_facture(info):
     tmp = ("client_id","creation_date","due_date", "comment","list_deposits", "list_items")

@@ -2,7 +2,7 @@ import os
 import json
 
 from Python.Client import Client
-from Python.Utils.SearchData import search_by_name, search_by_address, search_by_tel, set_client_manager
+from Python.Utils.SearchData import search, search_by_name, search_by_address, search_by_tel, set_client_manager
 
 clients_path = os.path.abspath("./JSON/Clients.json")
 
@@ -13,7 +13,7 @@ class Client_mng:
 
 		self.update_newClient_id()
 
-		self.search_filter_index = 0
+		self.search_filter_index = -1
 		set_client_manager(self)
 		return
 
@@ -64,6 +64,7 @@ class Client_mng:
 	Renvoie toutes les données concernant un client
 	"""
 	def read_client(self, client_id) -> Client:
+		if client_id not in self.dict_clients: return None
 		return self.dict_clients[client_id]["all"] #"all" est un mot clé créé pour récupérer les données d'un client
 
 	"""
@@ -106,14 +107,7 @@ class Client_mng:
 
 	def search_client(self, search_value:str) -> dict:
 		res = {}
-
-		if self.search_filter_index == 0:
-			res = search_by_name(self.dict_clients, search_value)
-		elif self.search_filter_index == 1:
-			res = search_by_address(self.dict_clients, search_value)
-		elif self.search_filter_index == 2:
-			res = search_by_tel(self.dict_clients, search_value)
-
+		res = search(self.dict_clients, self.search_filter_index, search_value)
 		return res
 
 	def change_search_filter(self, new_search_filter_index:int) -> None:

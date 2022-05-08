@@ -78,10 +78,13 @@ def add_client_route():
 def add_facture_route():
     return add_facture_page_ctrl()
 
-@app.route("/add_facture/<id>", methods=["POST", "GET"])
+@app.route("/add_facture/fc/<id>", methods=["POST", "GET"])
 def add_facture_fromClient_route(id):
-    return add_facture_page_ctrl(int(id))
+    return add_facture_page_ctrl(clientId=int(id))
 
+@app.route("/add_facture/fd/<id>", methods=["POST", "GET"])
+def add_facture_fromDevis_route(id):
+    return add_facture_page_ctrl(devisId=int(id))
 
 @app.route("/add_devis", methods=["POST", "GET"])
 def add_devis_route():
