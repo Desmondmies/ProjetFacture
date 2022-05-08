@@ -78,13 +78,14 @@
 						<div class="label"><label> {{ARTISAN.phone}}</label></div>
 				</div>
 				<div class="pdf-info droit">
-					<br>
+						<br>
 						<div class="label"><label> Pour : </label></div>
-					<br>
-						<div class="label"><label> {{CLIENT.surname}} {{CLIENT.firstname}} </label></div>
-						<div class="label"><label> {{CLIENT.adress}}</label></div>
-						<div class="label"><label>{{CLIENT.mail}}</label></div>
-						<div class="label"><label> {{CLIENT.phone}}</label></div>
+						<br>
+
+						<div class="label"><label> {{RENDU.client.surname}} {{RENDU.client.firstname}} </label></div>
+						<div class="label"><label> {{RENDU.client.adress}}</label></div>
+						<div class="label"><label>{{RENDU.client.mail}}</label></div>
+						<div class="label"><label> {{RENDU.client.phone}}</label></div>
 				</div>
 			{% endif %}
 		</div>
@@ -105,7 +106,7 @@
 						{% set item = RENDU.list_items[i] %}
 					{% endif %}
 					
-					{% if item.name != '' %}
+					{% if item and item.name != '' %}
 						<div class="row">
 							<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}">
 							<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}">
@@ -128,7 +129,7 @@
 					{% else %}
 						{% set item = RENDU.list_items[i] %}
 					{% endif %}
-					{% if item.name != '' %}
+					{% if item and item.name != '' %}
 						<div class="row">
 							<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}">
 							<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}">
@@ -153,6 +154,17 @@
 							<input type="number" id="ip_p{{i+1}}" placeholder="Prix...">
 						</div>	
 					{% endfor %}	
+				{% else %}
+					{% for i in range(10) %}
+						{% set item = RENDU.list_items[i] %}
+						{% if item and item.name != '' %}
+						<div class="row">
+							<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}">
+							<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}">
+							<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}">
+						</div>	
+						{% endif %}
+					{% endfor %}	
 				{% endif %}	
 		{% endif %}
 		</div>
@@ -167,8 +179,12 @@
 						<div class="label"><label> Montant </label></div>
 					</div>
 					{% for i in range(5) %}
-						{% set depo = FACTURE.list_deposits[i] %}
-						{% if depo.payment_date != '' %}
+						{% if NO_HEADER == None %}
+							{% set depo = FACTURE.list_deposits[i] %}
+						{% else %}
+							{% set depo = RENDU.list_deposits[i] %}
+						{% endif %}
+						{% if depo and depo.payment_date != '' %}
 							<div class="row">
 								<input type="date" id="id_d{{i+1}}" placeholder="Date Versement..." value="{{depo.payment_date}}">
 								<input type="number" id="id_s{{i+1}}" placeholder="Montant..." value="{{depo.amount}}">
@@ -198,6 +214,16 @@
 								<input type="number"  id="id_s{{i+1}}" placeholder="Montant...">
 							</div>
 						{% endfor %}
+					{% else %}
+						{% for i in range(5) %}
+							{% set item = RENDU.list_deposits[i] %}
+							{% if item and item.payment_date != '' %}
+							<div class="row">
+								<input type="date"  id="id_d{{i+1}}" placeholder="Date Versement..." value="{{item.payment_date}}">
+								<input type="number"  id="id_s{{i+1}}" placeholder="Montant..." value="{{item.amount}}">
+							</div>
+							{% endif %}
+						{% endfor %}
 					{% endif %}
 				</div>
 			{% endif %}
@@ -210,8 +236,10 @@
 					<h4 class="date-echeance">Date Échéance</h4>
 					<input type="date" id="i_due" placeholder="Date d'Échéance" value="{{FACTURE.due_date}}">
 				{% else %}
+					{% if NO_HEADER == None %}
 					<h4 class="date-echeance">Date Échéance</h4>
 					<input type="date" id="i_due" placeholder="Date d'Échéance">
+					{% endif %}
 				{% endif %}
 			{% endif %}
 

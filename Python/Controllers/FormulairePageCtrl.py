@@ -45,11 +45,17 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
                 rendu["due_date"] = get_due_date_for_rendu(info)
                 rendu["list_items"] = get_prod_for_rendu_f(info)
                 rendu["list_deposits"] = get_deposits_for_rendu(info)
-                total = get_total_price(facture)
-                restant = get_remaining_amount(facture)
+                total = get_total_price(rendu)
+                restant = get_remaining_amount(rendu)
             elif devisId != None:
                 rendu["list_items"] = get_prod_for_rendu_d(info)
-                total = get_total_price(devis)            
+                total = get_total_price(rendu)
+            else:
+                rendu["due_date"] = get_due_date_for_rendu(info)
+                rendu["list_items"] = get_prod_for_rendu_f(info)
+                rendu["list_deposits"] = get_deposits_for_rendu(info)
+                total = get_total_price(rendu)
+                restant = get_remaining_amount(rendu)
             
         else:
             if r == 'None':
@@ -115,11 +121,13 @@ def get_deposits_for_rendu(info):
     res = []
     idx = 7
     for i in range(5):
-        d = {}
         date = info[idx]
         somme = info[idx+1]
         idx += 2
-        d[i] = {"payment_date": date, "amount": somme}
+
+        d = {"payment_date": date}
+        if somme != '':
+            d["amount"] = int(somme)
         res.append(d)
     
     if len(res) == 0:
@@ -130,12 +138,16 @@ def get_prod_for_rendu_f(info):
     res = []
     idx = 17
     for i in range(10):
-        d = {}
-        name = info[idx]
-        quant = info[idx+1]
-        price = info[idx+2]
+        n = info[idx]
+        q = info[idx+1]
+        p = info[idx+2]
         idx += 3
-        d[i] = {"name": name,"quantity": quant, "price":price}
+        d = {"name": n}
+        if q != '':
+           d["quantity"] = int(q)
+        if p != '':
+            d["price"] = int(p)
+       
         res.append(d)
     
     if len(res) == 0:
@@ -146,12 +158,15 @@ def get_prod_for_rendu_d(info):
     res = []
     idx = 6
     for i in range(10):
-        d = {}
-        name = info[idx]
-        quant = info[idx+1]
-        price = info[idx+2]
+        n = info[idx]
+        q = info[idx+1]
+        p = info[idx+2]
         idx += 3
-        d[i] = {"name": name,"quantity": quant, "price":price}
+        d = {"name": n}
+        if q != '':
+           d["quantity"] = int(q)
+        if p != '':
+            d["price"] = int(p)
         res.append(d)
     
     if len(res) == 0:
