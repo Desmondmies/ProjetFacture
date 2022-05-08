@@ -4,24 +4,43 @@
     <div class="bandeau">
         <div class="left_infos">
             <div class="row_infos">
-                <div>
-                    <label>Prénom Client</label>
-                    <input type="text" value="{{client.firstname}}" disabled>
-                </div>
-                <div>
-                    <label>Nom Client</label>
-                    <input type="text" value="{{client.surname}}" disabled>
-                </div>
-                <div>
-                    <label>Téléphone</label>
-                    <input type="text" value="{{client.phone}}" disabled>
-                </div>
+                {% if client != None %}
+                    <div>
+                        <label>Prénom Client</label>
+                        <input type="text" value="{{client.firstname}}" disabled>
+                    </div>
+                    <div>
+                        <label>Nom Client</label>
+                        <input type="text" value="{{client.surname}}" disabled>
+                    </div>
+                    <div>
+                        <label>Téléphone</label>
+                        <input type="text" value="{{client.phone}}" disabled>
+                    </div>
+                {% else %}
+                    <div>
+                        <label>Prénom Client</label>
+                        <input type="text" value="CLIENT_INEXISTANT" disabled>
+                    </div>
+                    <div>
+                        <label>Nom Client</label>
+                        <input type="text" value="CLIENT_INEXISTANT" disabled>
+                    </div>
+                    <div>
+                        <label>Téléphone</label>
+                        <input type="text" value="CLIENT_INEXISTANT" disabled>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="row_infos">
                 <div>
                     <label>Mail</label>
-                    <input type="text" value="{{client.mail}}" disabled>
+                    {% if client != None %}
+                        <input type="text" value="{{client.mail}}" disabled>
+                    {% else %}
+                        <input type="text" value="CLIENT_INEXISTANT" disabled>
+                    {% endif %}
                 </div>
                 <div>
                     <label>Date de Création</label>

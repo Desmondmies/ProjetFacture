@@ -7,7 +7,7 @@ from Python.Manager.Invoice_mng import invoice_mng
 from Python.Manager.Estimate_mng import estimate_mng
 from Python.Manager.Client_mng import client_mng
 
-from Python.Utils.SumItemsDeposits import get_total_price, get_total_deposits
+from Python.Utils.SumItemsDeposits import get_total_price, get_total_deposits, get_remaining_amount
 
 def formulaire_page_ctrl(factureId = None, devisId = None):
 
@@ -24,7 +24,7 @@ def formulaire_page_ctrl(factureId = None, devisId = None):
         facture = invoice_mng.read_invoice(factureId)
         client = client_mng.read_client(facture["client_id"])
         total = get_total_price(facture)
-        restant = total - get_total_deposits(facture)
+        restant = get_remaining_amount(facture)
         path = "/formulaire/gff/" + str(factureId)
     elif devisId != None:
         devis = estimate_mng.read_estimate(devisId)

@@ -64,6 +64,7 @@ class Client_mng:
 	Renvoie toutes les données concernant un client
 	"""
 	def read_client(self, client_id) -> Client:
+		if client_id not in self.dict_clients: return None
 		return self.dict_clients[client_id]["all"] #"all" est un mot clé créé pour récupérer les données d'un client
 
 	"""
