@@ -43,7 +43,7 @@
             </div>
             {% endif %}
         </div>
-        
+
         <div class="info">
             {% if NO_HEADER == None %}
             <div class="inputs-client">
@@ -84,7 +84,7 @@
             {% else %}
                 <div class="pdf-info">
                     <br>
-                    <div class="label"><label> Pour : </label></div>
+                    <div class="label"><label> Adresse de facturation : </label></div>
                     <br>
 
                     <div class="label"><label> {{RENDU.client.surname}} {{RENDU.client.firstname}} </label></div>
@@ -172,6 +172,9 @@
                 <div class="label"><label> Désignation </label></div>
                 <div class="label"><label> Quantité </label></div>
                 <div class="label"><label> Prix (unitaire) </label></div>
+								{% if NO_HEADER != None %}
+								<div class="label"><label> Prix (total) </label></div>
+								{% endif %}
             </div>
             {% if DEVIS != None %}
 				{% for i in range(10) %}
@@ -180,7 +183,7 @@
 					{% else %}
 						{% set item = RENDU.list_items[i] %}
 					{% endif %}
-					
+
 					{% if item and item.name != '' %}
 						<div class="row">
 							{% if NO_HEADER == None %}
@@ -191,6 +194,7 @@
 								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}" disabled>
 								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}" disabled>
 								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}" disabled>
+								<input type="number" value="{{item.price * item.quantity}}" disabled>
 							{% endif %}
 						</div>
 					{% else %}
@@ -202,7 +206,7 @@
 						</div>
 						{% endif %}
 					{% endif %}
-				{% endfor %}		
+				{% endfor %}
 		    {% elif FACTURE != None %}
 				{% for i in range(10) %}
 					{% if NO_HEADER == None %}
@@ -220,6 +224,7 @@
 								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}" disabled>
 								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}" disabled>
 								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}" disabled>
+								<input type="number" value="{{item.price * item.quantity}}" disabled>
 							{% endif %}
 						</div>
 					{% else %}
@@ -231,7 +236,7 @@
 						</div>
 						{% endif %}
 					{% endif %}
-				{% endfor %}		
+				{% endfor %}
 		    {% else %}
 				{% if NO_HEADER == None %}
 					{% for i in range(10) %}
@@ -239,8 +244,8 @@
 							<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit...">
 							<input type="number" id="ip_q{{i+1}}" placeholder="Quantité...">
 							<input type="number" id="ip_p{{i+1}}" placeholder="Prix...">
-						</div>	
-					{% endfor %}	
+						</div>
+					{% endfor %}
 				{% else %}
 					{% for i in range(10) %}
 						{% set item = RENDU.list_items[i] %}
@@ -254,11 +259,12 @@
 								<input type="text" id="ip_n{{i+1}}" placeholder="Nom du Produit..." value="{{item.name}}" disabled>
 								<input type="number" id="ip_q{{i+1}}" placeholder="Quantité..." value="{{item.quantity}}" disabled>
 								<input type="number" id="ip_p{{i+1}}" placeholder="Prix..." value="{{item.price}}" disabled>
+								<input type="number" value="{{item.price * item.quantity}}" disabled>
 							{% endif %}
-						</div>	
+						</div>
 						{% endif %}
-					{% endfor %}	
-				{% endif %}	
+					{% endfor %}
+				{% endif %}
 		    {% endif %}
         </div>
         <hr>
@@ -284,7 +290,7 @@
 				<div>
 					{% if DEVIS == None %}
 						{% if FACTURE != None %}
-							<h4 class="date-echeance">Date Échéance</h4>
+							<h4 class="date-echeance">Date d'Échéance</h4>
 							{% if NO_HEADER == None %}
 								<input type="date" id="i_due" placeholder="Date d'Échéance" value="{{FACTURE.due_date}}">
 							{% else %}
@@ -292,8 +298,11 @@
 							{% endif %}
 						{% else %}
 							{% if NO_HEADER == None %}
-							<h4 class="date-echeance">Date Échéance</h4>
+							<h4 class="date-echeance">Date d'Échéance</h4>
 							<input type="date" id="i_due" placeholder="Date d'Échéance">
+							{% else %}
+							<h4 class="date-echeance">Date d'Échéance</h4>
+							<input type="date" id="i_due" placeholder="Date d'Échéance" value="{{RENDU.due_date}}" disabled>
 							{% endif %}
 						{% endif %}
 					{% endif %}
@@ -308,10 +317,10 @@
                     {% else %}
                         <h2>{{TOTAL}},00 €</h2>
                     {% endif %}
-                </div>			
-        
+                </div>
+
                 <div>
-                    {% if DEVIS == None and FACTURE != None %}
+                    {% if (DEVIS == None and FACTURE != None) or (DEVIS == None and FACTURE == None) %}
                         <h4 class="montant-total">Montant Restant à payer</h4>
                         {% if RESTANT == None %}
                             <h2>---</h2>
@@ -320,7 +329,7 @@
                         {% endif %}
                     {% endif %}
                 </div>
-            </div>	    
+            </div>
         </div>
 
         {% if NO_HEADER == None %}

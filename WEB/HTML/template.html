@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='template.css')}}">
     </head>
     <body>
+				</form>
         <!-- ID => nom de variable utilisé ensuite dans le include header navbar, on lui attribue la valeur reçu de Template ID-->
         {% if NO_HEADER == None or NO_HEADER is not defined%}
             {% with ID=TEMPLATE_ID %}

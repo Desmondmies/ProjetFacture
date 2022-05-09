@@ -1,4 +1,5 @@
 import os
+import webbrowser
 from flask import Flask, send_from_directory
 
 from Python.Manager.Artisan import artisan as instance_artisan
@@ -25,6 +26,8 @@ HTML_DIR = os.path.abspath('./WEB/HTML')
 STATIC_DIR = os.path.abspath('./WEB/CSS')
 
 app = Flask(__name__, template_folder=HTML_DIR, static_folder=STATIC_DIR)
+
+url = "http://127.0.0.1:5000/"
 
 # ---------------------------------------------------------------------------------------------
 
@@ -124,7 +127,7 @@ def scenario():
     instance_artisan["surname"] = "test nom"
     print(instance_artisan.read_artisan())
     """
-    
+
     #TEST CLIENT
     """
     print("\n\n#### CLIENT #####")
@@ -171,8 +174,9 @@ def scenario():
 # ---------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    #scenario()
-    try:
-        app.run(debug = True)
-    except KeyboardInterrupt:
-        print("Application terminé.")
+	#scenario()
+	try:
+		webbrowser.open(url)
+		app.run(debug = False)
+	except KeyboardInterrupt:
+		print("Application terminé.")

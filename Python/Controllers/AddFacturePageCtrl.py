@@ -32,7 +32,7 @@ def add_facture_page_ctrl(clientId = None, devisId = None):
                 error_flags = success
 
     client_all = client_mng.dict_clients
-    
+
     return render_template("add_facture.html",
                             PATH = "/add_facture",
                             CLIENTS = client_all,
@@ -44,15 +44,15 @@ def add_facture(info):
     tmp = ("client_id","creation_date","due_date", "comment","list_deposits", "list_items")
     dico = {}
     for i in range(0,len(tmp)):
-        if tmp[i] == "list_items": 
-            dico[tmp[i]] = get_list_item(i, info)
+        if tmp[i] == "list_items":
+            dico[tmp[i]] = get_list_item(info)
         elif tmp[i] == "list_deposits":
-            dico[tmp[i]] = get_list_deposit(i, info)
+            dico[tmp[i]] = get_list_deposit(info)
         else:
             tmp_info = info[i+1]
             if i == 0: tmp_info = int(tmp_info)
-            dico[tmp[i]] = tmp_info  
-    
+            dico[tmp[i]] = tmp_info
+
     dico["acquitted"] = int( IsTotalPaid(dico) )
 
     e = check_invoice(dico)
@@ -61,9 +61,9 @@ def add_facture(info):
     invoice_mng.create_invoice(dico)
     return 1
 
-def get_list_deposit(idx, info) -> list:
+def get_list_deposit(info) -> list:
     l_dep = []
-    new_idx = idx + 1
+    new_idx = 5
     for j in range(0, 5):
         d = {}
         i_date = info[new_idx]
@@ -75,23 +75,23 @@ def get_list_deposit(idx, info) -> list:
         l_dep.append(d)
     return l_dep
 
-def get_list_item(idx, info) -> list:
-    l_item = []
-    new_idx = idx+10
-    for j in range(0, 10):
-        d = {}
-        i_nom = info[new_idx]
-        i_desc = info[new_idx+1]
-        i_quant = info[new_idx+2]
-        i_price = info[new_idx+3]
-        if i_nom != '':
-            d["name"] = i_nom
-        if i_desc != '':
-            d["description"] = i_desc
-        if i_quant != '':
-            d["quantity"] = int(i_quant)
-        if i_price != '':
-            d["price"] = int(i_price)
-        l_item.append(d)
-        new_idx += 4
-    return l_item
+def get_list_item(info) -> list:
+	l_item = []
+	new_idx = 15
+	for j in range(0, 10):
+	    d = {}
+	    i_nom = info[new_idx]
+	    i_desc = info[new_idx+1]
+	    i_quant = info[new_idx+2]
+	    i_price = info[new_idx+3]
+	    if i_nom != '':
+	        d["name"] = i_nom
+	    if i_desc != '':
+	        d["description"] = i_desc
+	    if i_quant != '':
+	        d["quantity"] = int(i_quant)
+	    if i_price != '':
+	        d["price"] = int(i_price)
+	    l_item.append(d)
+	    new_idx += 4
+	return l_item
